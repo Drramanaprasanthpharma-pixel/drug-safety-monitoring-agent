@@ -1,235 +1,193 @@
-# Drug Safety & Monitoring AI Agent
+# Drug Safety Monitoring AI Agent
 
-A clinical pharmacy decision-support application that helps analyze drug safety profiles, adverse effects, and monitoring requirements.
+A clinical decision-support dashboard for pharmacist medication safety review. A
+pharmacist enters one or more medications (and, optionally, patient context) and
+receives a structured safety assessment: organ toxicity prioritization,
+drug–drug and drug–disease interactions, monitoring parameters, red flags,
+adverse effects, and recommended pharmacist actions — each with an evidence
+source and confidence label.
 
-## ⚠️ Important Disclaimer
+> **This is a clinical decision-support tool, not a replacement for a
+> physician/pharmacist or official prescribing information.** Every
+> clinically important recommendation displays its evidence source and
+> distinguishes established information from AI-generated interpretation.
 
-**This is a clinical pharmacy decision-support prototype, NOT a replacement for a physician or pharmacist.** All information should be verified against current authoritative references before clinical use.
+## What this is — and isn't
 
-## Purpose
+This repository is a **working prototype**, not a production clinical system:
 
-This application helps:
-- Identify major clinically relevant adverse effects for any drug
-- Map adverse effects to affected organ systems
-- Recommend appropriate monitoring parameters
-- Prioritize risks as High/Moderate/Low
-- Provide evidence-based warning signs
-- Reference authoritative sources
-
-## Features
-
-- **Drug Lookup**: Enter any drug name
-- **Adverse Effect Analysis**: Identifies clinically important adverse effects
-- **Monitoring Recommendations**: Suggests baseline and ongoing monitoring parameters
-- **Risk Prioritization**: Classifies risks by severity
-- **Evidence-Based**: References authoritative sources (FDA, DailyMed, EMA, WHO)
-- **Clean Output**: Organized tables and structured information
-
-## Quick Start
-
-### Prerequisites
-
-- Python 3.8+
-- pip (Python package manager)
-- Internet connection (for API calls and reference retrieval)
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Drramanaprasanthpharma-pixel/drug-safety-monitoring-agent.git
-   cd drug-safety-monitoring-agent
-   ```
-
-2. **Create a virtual environment** (recommended)
-   ```bash
-   python -m venv venv
-   
-   # On Windows:
-   venv\Scripts\activate
-   
-   # On macOS/Linux:
-   source venv/bin/activate
-   ```
-
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Set up environment variables**
-   ```bash
-   # Create a .env file in the project root
-   # (Already included in .gitignore for security)
-   
-   # Add your OpenAI API key (if using OpenAI):
-   OPENAI_API_KEY=your_api_key_here
-   
-   # Or other API keys as configured
-   ```
-
-5. **Run the application**
-   ```bash
-   streamlit run app.py
-   ```
-
-   The application will open in your browser at `http://localhost:8501`
-
-## Usage
-
-1. **Enter a drug name** in the search box
-2. **Click "Analyze Drug"** to generate the safety profile
-3. **Review the output**, which includes:
-   - Drug classification
-   - Major adverse effects with risk prioritization
-   - Organ/system mapping
-   - Monitoring parameters (baseline and ongoing)
-   - Warning signs requiring clinical attention
-   - Key considerations
-   - References and sources
-
-### Example Drugs
-
-Test the application with these examples:
-- Vancomycin
-- Amphotericin B
-- Methotrexate
-- Amiodarone
-
-## Project Structure
-
-```
-drug-safety-monitoring-agent/
-├── app.py                    # Main Streamlit application
-├── agent/
-│   ├── __init__.py
-│   ├── drug_agent.py         # Core agent logic
-│   └── tools.py              # Tool definitions (drug search, adverse effects, etc.)
-├── data/
-│   ├── __init__.py
-│   ├── drug_database.py      # Local drug information cache
-│   └── monitoring_guidelines.py  # Monitoring parameters and baselines
-├── utils/
-│   ├── __init__.py
-│   ├── reference_manager.py  # Reference retrieval and validation
-│   └── formatters.py         # Output formatting utilities
-├── config.py                 # Configuration and environment variables
-├── requirements.txt          # Python dependencies
-├── .gitignore               # Git ignore file
-└── README.md                # This file
-```
-
-## File Descriptions
-
-- **app.py**: Main Streamlit interface. Users interact with this file.
-- **agent/drug_agent.py**: Core logic orchestrating tool calls and generating analysis
-- **agent/tools.py**: Tool interfaces for drug search, adverse effect analysis, monitoring recommendations, reference retrieval
-- **data/drug_database.py**: Local clinical database of drugs and their profiles
-- **data/monitoring_guidelines.py**: Standard monitoring parameters for different drug classes
-- **utils/reference_manager.py**: Manages authoritative source integration
-- **utils/formatters.py**: Formats output for display (tables, markdown, etc.)
-- **config.py**: Loads environment variables and configuration
+- It ships with a **curated demo dataset of 10 medications**
+  (warfarin, amiodarone, digoxin, metformin, vancomycin, lithium,
+  methotrexate, carbamazepine, phenytoin, apixaban), built from established,
+  well-known prescribing information. It is **not connected to a live
+  FDA/EMA feed or a licensed drug database** (DrugBank, First Databank,
+  Multum, Micromedex, etc.).
+- All clinical facts come from a **deterministic rules engine** reading that
+  curated data — nothing is generated by a language model. Risk scores and
+  percentages are explicitly labeled as *AI-assisted prioritization*, not
+  validated clinical probabilities.
+- To use this for real patients, you would need to replace
+  `backend/app/data/*.json` with a licensed, regularly-updated drug and
+  interaction database (see `backend/app/db/schema.sql` for the reference
+  relational schema that models that data).
 
 ## Architecture
 
-The application uses an **agent-based architecture** with tool interfaces:
+```
+User Input
+   ↓
+Drug normalization        (engine/data_loader.py — name → canonical id)
+   ↓
+Drug database              (data/drugs.json — replace with licensed DB in prod)
+   ↓
+Interaction database       (data/interactions.json)
+   ↓
+Clinical guidelines /
+Regulatory labeling        (encoded per-drug: organ toxicity, monitoring, ADRs)
+   ↓
+Patient-specific analysis  (engine/patient_risk_engine.py, disease_interactions_engine.py)
+   ↓
+Safety rules engine        (engine/organ_priority_engine.py, red_flag_engine.py — deterministic, takes precedence)
+   ↓
+AI explanation             (engine/scoring_engine.py — template-generated from structured facts only)
+   ↓
+Risk prioritization        (0–100 relative score, explicitly non-validated)
+   ↓
+Dashboard                  (React/TypeScript frontend)
+```
+
+**Why there's no live LLM call in the pipeline:** the spec requires that the
+rules engine "take precedence over free-form AI output for critical safety
+alerts" and that the system "never fabricate drug information." The safest
+way to guarantee that is to make every clinical fact and every "why was this
+flagged" explanation a deterministic function of the curated data — so there
+is nothing to fabricate. `.env.example` reserves an `ANTHROPIC_API_KEY` slot
+if you want to add a narrative-polish layer on top of the structured output
+later; it should only ever rephrase facts the rules engine already produced,
+never originate new ones.
+
+## Project layout
 
 ```
-User Input (Drug Name)
-    ↓
-Drug Agent (orchestrator)
-    ├→ drug_information_search()
-    │   └ Searches drug name in database and external sources
-    ├→ adverse_effect_analysis()
-    │   └ Extracts clinically relevant adverse effects
-    ├→ monitoring_recommendation()
-    │   └ Suggests baseline and ongoing monitoring
-    └→ reference_retrieval()
-        └ Gathers authoritative source citations
-    ↓
-Output (Structured Drug Safety Profile)
+backend/
+  app/
+    main.py                 FastAPI app + endpoints
+    models.py                Pydantic request/response schemas (the JSON contract)
+    data/                    Curated demo dataset (drugs, interactions, disease rules)
+    engine/                  Deterministic rules engine (one module per concern)
+    db/schema.sql             Reference relational schema for a production deployment
+    tests/test_engine.py      Unit tests (engine logic + API endpoints)
+  requirements.txt
+  .env.example
+frontend/
+  src/
+    App.tsx                  Main dashboard shell
+    components/               One component per dashboard section
+    api.ts                    Backend API client
+    types.ts                  TypeScript types mirroring the backend schemas
+  package.json
 ```
 
-## Safety & Compliance
+## Running it locally
 
-- ✅ **No patient data**: Application accepts only drug names
-- ✅ **No hard-coded secrets**: Uses environment variables for API keys
-- ✅ **Source verification**: Distinguishes sourced information from AI interpretation
-- ✅ **Uncertainty flagging**: Clearly marks when evidence is insufficient
-- ✅ **No fabricated citations**: References are validated before inclusion
-- ✅ **Disclaimer-first**: Users see clinical limitation notices prominently
+### Backend
 
-## Integration with Authoritative Sources
+```bash
+cd backend
+python3 -m venv .venv && source .venv/bin/activate   # optional but recommended
+pip install -r requirements.txt
+cp .env.example .env
+uvicorn app.main:app --reload --port 8000
+```
 
-The application is designed to integrate with:
-- **FDA Orange Book & prescribing information**
-- **DailyMed** (National Library of Medicine)
-- **EMA** (European Medicines Agency)
-- **WHO** guidelines
-- **Micromedex** and similar databases (future integrations)
+Verify it's up: `curl http://localhost:8000/api/health` → `{"status":"ok"}`
 
-Currently, it uses a local knowledge base and OpenAI's API with structured prompting.
-
-## API Configuration
-
-The application can use:
-- **OpenAI API** (for advanced adverse effect analysis)
-- **Local knowledge base** (fallback, no API key needed)
-
-Set `OPENAI_API_KEY` in `.env` to enable LLM-powered analysis.
-
-## Testing
+Interactive API docs: `http://localhost:8000/docs`
 
 Run the test suite:
+
 ```bash
-pytest tests/
+python3 -m pytest app/tests/ -v
 ```
 
-Test coverage includes:
-- Drug lookup accuracy
-- Adverse effect extraction
-- Monitoring parameter recommendations
-- Reference validation
+### Frontend
 
-## Limitations & Future Work
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-### Current Limitations
-- Limited to English language
-- Knowledge base updates require manual refresh
-- Real-time FDA alerts not yet integrated
+Open `http://localhost:5173`. The Vite dev server proxies `/api/*` to
+`http://localhost:8000` (configured in `vite.config.ts`), so both servers
+need to be running.
 
-### Future Enhancements
-- Integration with FDA adverse event reporting database (FAERS)
-- Drug interaction checking
-- Pregnancy/lactation considerations
-- Contraindication screening
-- Multi-drug monitoring coordination
-- PDF export for clinical records
+Try it: click **Load demo patient** to populate two interacting demo drugs
+(warfarin + amiodarone) and an illustrative patient, then **Analyze safety**.
+Or search for any of the 10 demo drugs by generic or brand name.
 
-## Contributing
+### Production build
 
-This is a prototype for demonstration purposes. For production use:
-1. Validate against current drug references
-2. Implement proper audit logging
-3. Add role-based access control
-4. Integrate with EHR systems where applicable
+```bash
+cd frontend
+npm run build      # outputs static assets to frontend/dist/
+npm run preview    # serve the production build locally to sanity-check it
+```
 
-## License
+Serve `frontend/dist/` from any static host (or from FastAPI itself via
+`StaticFiles`) and set `CORS_ALLOWED_ORIGINS` in the backend's `.env` to that
+origin.
 
-[Specify your license here]
+## Deployment notes
 
-## Support & Disclaimer
+- **Backend**: any ASGI host works (Uvicorn/Gunicorn behind a reverse proxy,
+  a container platform, or a serverless ASGI adapter). Set
+  `CORS_ALLOWED_ORIGINS` to your frontend's real origin(s) before deploying.
+- **Frontend**: static hosting (the build output is a plain SPA).
+- **Data**: swap `backend/app/data/*.json` for real queries against a
+  licensed drug/interaction database using the schema in
+  `backend/app/db/schema.sql` as the target shape. Keep the engine modules'
+  function signatures the same and only the `data_loader` module needs to
+  change.
+- **Auth**: this prototype has no authentication. Add it (OAuth2/OIDC via
+  FastAPI's security utilities, or your institution's SSO) before deploying
+  anywhere with real patient data, and put the `/api/audit` endpoint behind
+  it specifically.
+- **PHI**: the audit log (`engine/audit.py`) intentionally never stores
+  identifying patient details — only which drugs were analyzed, whether
+  patient context was supplied (boolean), and which evidence sources were
+  cited. If you connect this to an EHR, keep it that way and store only a
+  pseudonymous patient reference, never name/MRN/DOB, per the schema's
+  `patient_ref` column.
+- **Encryption**: terminate TLS at your reverse proxy/load balancer; if you
+  add a real database per the schema above, enable encryption at rest per
+  your platform's standard practice.
 
-For questions or issues:
-1. Check this README
-2. Review example test cases
-3. Verify drug information against authoritative sources
+## Extending the demo dataset
 
-**Always verify information against current authoritative clinical references before clinical use.**
+Each drug in `backend/app/data/drugs.json` follows a consistent shape
+(pharmacology, contraindications, adverse effects, organ toxicity, monitoring
+parameters, dosing considerations, evidence). To add a new drug:
 
-## References
+1. Add an entry to `drugs.json` following the existing structure.
+2. Add any relevant pairs to `interactions.json` and
+   `disease_interactions.json`.
+3. Run `python3 -m json.tool backend/app/data/drugs.json > /dev/null` to
+   confirm valid JSON, then `pytest` to confirm nothing broke.
 
-- FDA Orange Book: https://www.accessdata.fda.gov/scripts/cder/ob/default.cfm
-- DailyMed: https://dailymed.nlm.nih.gov/
-- EMA: https://www.ema.europa.eu/
-- WHO: https://www.who.int/
+The engine code needs no changes — it reads the dataset generically.
+
+## Known limitations (read before treating this as more than a prototype)
+
+- Only the 10 demo drugs and the interaction pairs explicitly listed in
+  `interactions.json` are recognized — the system does **not** guess at
+  interactions it has no rule for.
+- Organ-priority percentages and the overall risk score are a transparent,
+  weighted heuristic (see `engine/scoring_engine.py` and
+  `engine/organ_priority_engine.py`), not a validated clinical calculator
+  (e.g., not HAS-BLED, not CHA₂DS₂-VASc).
+- Disease-interaction matching uses simple keyword matching against
+  free-text diagnoses — it is a demo mechanism, not an ICD-10-aware clinical
+  engine.
+- No authentication, rate limiting, or persistent database is included; see
+  "Deployment notes" above.
