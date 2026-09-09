@@ -10,11 +10,21 @@ should write to an encrypted, access-controlled audit store.
 """
 from __future__ import annotations
 import json
+import os
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
-AUDIT_LOG_PATH = Path(__file__).resolve().parent.parent / "data" / "audit_log.jsonl"
+# Vercel Functions have a read-only filesystem except for /tmp (which is
+# writable but ephemeral per instance). Vercel sets the VERCEL env var
+# automatically at runtime, so detect that and switch paths accordingly —
+# this keeps the demo audit trail actually working on Vercel instead of
+# silently no-op'ing on every write, while local dev keeps using the
+# repo-local file as before.
+if os.environ.get("VERCEL"):
+    AUDIT_LOG_PATH = Path("/tmp") / "audit_log.jsonl"
+else:
+    AUDIT_LOG_PATH = Path(__file__).resolve().parent.parent / "data" / "audit_log.jsonl"
 
 
 def record_analysis(drug_ids: list[str], patient_provided: bool, evidence_sources: list[str], demo_mode: bool) -> str:

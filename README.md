@@ -69,22 +69,29 @@ never originate new ones.
 ## Project layout
 
 ```
+vercel.json                 Vercel Services config — routes /api/* to the backend,
+                             everything else to the frontend, on one domain
 backend/
   app/
     main.py                 FastAPI app + endpoints
     models.py                Pydantic request/response schemas (the JSON contract)
     data/                    Curated demo dataset (drugs, interactions, disease rules)
     engine/                  Deterministic rules engine (one module per concern)
+      audit.py                Demo audit log — writes to /tmp on Vercel (read-only FS),
+                               to backend/app/data/ locally
     db/schema.sql             Reference relational schema for a production deployment
     tests/test_engine.py      Unit tests (engine logic + API endpoints)
-  requirements.txt
+  requirements.txt           Runtime deps only — this is what Vercel deploys
+  requirements-dev.txt       + local dev/test deps (uvicorn, pytest, httpx)
+  .python-version            Pins the Python runtime version on Vercel
   .env.example
 frontend/
   src/
     App.tsx                  Main dashboard shell
     components/               One component per dashboard section
-    api.ts                    Backend API client
+    api.ts                    Backend API client — always calls relative `/api/...`
     types.ts                  TypeScript types mirroring the backend schemas
+  vite.config.ts             Dev-only proxy: forwards /api → localhost:8000
   package.json
 ```
 
@@ -95,7 +102,7 @@ frontend/
 ```bash
 cd backend
 python3 -m venv .venv && source .venv/bin/activate   # optional but recommended
-pip install -r requirements.txt
+pip install -r requirements.txt -r requirements-dev.txt
 cp .env.example .env
 uvicorn app.main:app --reload --port 8000
 ```
@@ -138,12 +145,88 @@ Serve `frontend/dist/` from any static host (or from FastAPI itself via
 `StaticFiles`) and set `CORS_ALLOWED_ORIGINS` in the backend's `.env` to that
 origin.
 
-## Deployment notes
+## Deploying to Vercel
 
-- **Backend**: any ASGI host works (Uvicorn/Gunicorn behind a reverse proxy,
-  a container platform, or a serverless ASGI adapter). Set
-  `CORS_ALLOWED_ORIGINS` to your frontend's real origin(s) before deploying.
-- **Frontend**: static hosting (the build output is a plain SPA).
+This repo deploys as **one Vercel project** using [Vercel
+Services](https://vercel.com/docs/services): the React/TypeScript frontend
+and the FastAPI backend build independently and are served from the same
+domain, so the frontend's `/api/...` calls stay same-origin in production —
+no CORS, no hardcoded backend URL.
+
+### How it's wired
+
+`vercel.json` (repo root) defines two services and two rewrites:
+
+```json
+{
+  "services": {
+    "frontend": { "root": "frontend/", "framework": "vite" },
+    "backend": { "root": "backend/", "entrypoint": "app.main:app" }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": { "service": "backend" } },
+    { "source": "/(.*)", "destination": { "service": "frontend" } }
+  ]
+}
+```
+
+- Requests to `/api/*` (matching the app's existing `@app.get("/api/...")`
+  routes) go to the FastAPI service.
+- Everything else goes to the built Vite static site.
+- Each service builds like a standalone Vercel project from its own `root`:
+  the frontend via its `package.json`/`vite.config.ts`, the backend via
+  `requirements.txt` + the `app.main:app` entrypoint
+  (`backend/app/main.py`, top-level `app = FastAPI()`).
+
+### Exact Vercel project settings
+
+Import the repo at [vercel.com/new](https://vercel.com/new) and deploy with:
+
+| Setting | Value |
+|---|---|
+| Root Directory | **leave blank / repo root** (do not point it at `backend/` or `frontend/` — `vercel.json` itself defines both service roots) |
+| Framework Preset | Other / ignored — `vercel.json`'s `services` block takes over |
+| Build Command | leave default (blank) — do not set one at the project level; `services` mode requires build settings to live per-service, and both services here build with zero extra config |
+| Install Command | leave default (blank), same reason |
+| Output Directory | leave default (blank), same reason |
+| Node.js Version | 20.x (or your team default) — used for the frontend service |
+| Python Version | 3.12 — pinned via `backend/.python-version` |
+
+If this project previously deployed the old Streamlit prototype, also check
+**Project Settings → General** for a leftover custom Build/Install/Output
+Directory from that setup and clear it back to blank — those legacy
+single-framework overrides can conflict with `services` mode.
+
+### Required environment variables
+
+None are required for the demo to work — `CORS_ALLOWED_ORIGINS` has a
+built-in localhost default and isn't consulted in production, since the
+frontend and backend share one origin through the rewrites above.
+
+Optional, if you extend the project later (all set in **Project Settings →
+Environment Variables**, never hardcoded, never given a `VITE_` prefix since
+that would ship them to the browser):
+
+| Variable | Used for |
+|---|---|
+| `CORS_ALLOWED_ORIGINS` | Only needed if you ever split the backend out to its own domain/project instead of using Services — comma-separated allowed origins |
+| `ANTHROPIC_API_KEY` | Reserved, unused by the current rules engine (see `.env.example`) |
+| `DRUG_DB_PROVIDER` / `DRUG_DB_API_KEY` | Reserved for connecting a licensed drug database |
+
+### Local dev vs. production API URLs
+
+- **Dev**: `frontend/src/api.ts` calls relative `/api/...`; `vite.config.ts`
+  proxies `/api` to `http://localhost:8000` so `npm run dev` + a locally
+  running backend just works.
+- **Production (Vercel)**: the same relative `/api/...` calls are resolved
+  by the `services` rewrite above, on the same domain — no localhost, no
+  separate backend URL, nothing to configure.
+- Run everything together locally the same way Vercel runs it in production
+  with `vercel dev` (requires the [Vercel
+  CLI](https://vercel.com/docs/cli), `npm i -g vercel`).
+
+### Other deployment notes
+
 - **Data**: swap `backend/app/data/*.json` for real queries against a
   licensed drug/interaction database using the schema in
   `backend/app/db/schema.sql` as the target shape. Keep the engine modules'
@@ -156,12 +239,16 @@ origin.
 - **PHI**: the audit log (`engine/audit.py`) intentionally never stores
   identifying patient details — only which drugs were analyzed, whether
   patient context was supplied (boolean), and which evidence sources were
-  cited. If you connect this to an EHR, keep it that way and store only a
-  pseudonymous patient reference, never name/MRN/DOB, per the schema's
-  `patient_ref` column.
-- **Encryption**: terminate TLS at your reverse proxy/load balancer; if you
-  add a real database per the schema above, enable encryption at rest per
-  your platform's standard practice.
+  cited. On Vercel it writes to `/tmp` (the only writable path in a
+  serverless function), which is ephemeral per instance — treat `/api/audit`
+  as a demo/debug view, not a durable log; wire a real database via the
+  schema above before relying on it. If you connect this to an EHR, keep the
+  same never-store-identifiers approach and store only a pseudonymous
+  patient reference, never name/MRN/DOB, per the schema's `patient_ref`
+  column.
+- **Encryption**: Vercel terminates TLS automatically; if you add a real
+  database per the schema above, enable encryption at rest per your
+  platform's standard practice.
 
 ## Extending the demo dataset
 
