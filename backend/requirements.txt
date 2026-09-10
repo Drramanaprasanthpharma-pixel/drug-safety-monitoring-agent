@@ -1,0 +1,5 @@
+# Runtime dependencies only — this is what Vercel bundles into the deployed
+# function. Keep this list minimal; anything dev/test-only goes in
+# requirements-dev.txt instead (see "Running it locally" in the README).
+fastapi==0.115.0
+pydantic==2.9.2

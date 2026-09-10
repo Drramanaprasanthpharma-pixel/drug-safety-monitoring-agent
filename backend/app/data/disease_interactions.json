@@ -1,0 +1,44 @@
+{
+  "metformin": [
+    {"keywords": ["heart failure", "chf"], "risk": "Acute or unstable heart failure increases lactic acidosis risk with metformin.", "recommendation": "Avoid in acute/unstable heart failure; reassess if hemodynamically stable.", "confidence": "Moderate"},
+    {"keywords": ["renal", "kidney", "ckd"], "risk": "Reduced renal clearance raises metformin accumulation and lactic acidosis risk.", "recommendation": "Confirm eGFR before continuing; contraindicated below eGFR 30.", "confidence": "High"},
+    {"keywords": ["liver", "hepatic"], "risk": "Hepatic impairment reduces lactate clearance, compounding lactic acidosis risk.", "recommendation": "Avoid in significant hepatic impairment.", "confidence": "Moderate"}
+  ],
+  "warfarin": [
+    {"keywords": ["bleeding", "hemorrhage", "coagulopathy"], "risk": "Underlying bleeding disorder compounds anticoagulant bleeding risk.", "recommendation": "Reassess anticoagulation risk/benefit; consider hematology input.", "confidence": "High"},
+    {"keywords": ["liver", "hepatic"], "risk": "Hepatic disease impairs clotting factor synthesis, increasing sensitivity to warfarin and bleeding risk.", "recommendation": "Use lower doses and monitor INR more closely.", "confidence": "Moderate"},
+    {"keywords": ["hypertension", "uncontrolled"], "risk": "Uncontrolled hypertension increases intracranial hemorrhage risk on anticoagulation.", "recommendation": "Optimize blood pressure control before/during therapy.", "confidence": "Moderate"}
+  ],
+  "amiodarone": [
+    {"keywords": ["thyroid", "hyperthyroid", "hypothyroid"], "risk": "Amiodarone can worsen or unmask thyroid dysfunction due to its iodine content and direct thyroid effects.", "recommendation": "Check thyroid function before starting and monitor periodically; involve endocrinology if abnormal.", "confidence": "High"},
+    {"keywords": ["copd", "pulmonary", "lung disease", "asthma"], "risk": "Pre-existing lung disease increases susceptibility to amiodarone pulmonary toxicity.", "recommendation": "Obtain baseline pulmonary assessment; monitor closely for new respiratory symptoms.", "confidence": "Moderate"},
+    {"keywords": ["bradycardia", "av block", "sinus node"], "risk": "Amiodarone's conduction effects can worsen bradyarrhythmia.", "recommendation": "Confirm pacemaker status/conduction system function before use.", "confidence": "High"}
+  ],
+  "digoxin": [
+    {"keywords": ["renal", "kidney", "ckd"], "risk": "Reduced renal clearance raises digoxin levels and toxicity risk.", "recommendation": "Adjust dose to renal function; monitor levels more closely.", "confidence": "High"},
+    {"keywords": ["arrhythmia", "av block", "bradycardia"], "risk": "Digoxin's vagotonic/conduction effects can worsen bradyarrhythmia or heart block.", "recommendation": "Use with caution; ECG monitoring recommended.", "confidence": "High"}
+  ],
+  "lithium": [
+    {"keywords": ["renal", "kidney", "ckd"], "risk": "Reduced renal clearance raises lithium levels and toxicity risk.", "recommendation": "Use lower doses with closer level monitoring; consider alternative if severe impairment.", "confidence": "High"},
+    {"keywords": ["thyroid", "hypothyroid"], "risk": "Lithium can worsen hypothyroidism.", "recommendation": "Monitor TSH regularly; consider endocrinology involvement.", "confidence": "Moderate"},
+    {"keywords": ["dehydration", "sodium", "hyponatremia"], "risk": "Volume/sodium depletion increases lithium reabsorption and toxicity risk.", "recommendation": "Correct volume/electrolyte status before and during therapy.", "confidence": "High"}
+  ],
+  "carbamazepine": [
+    {"keywords": ["bone marrow", "cytopenia", "aplastic"], "risk": "History of bone marrow suppression increases risk of carbamazepine-induced blood dyscrasia.", "recommendation": "Consider alternative agent; if used, monitor CBC closely.", "confidence": "High"},
+    {"keywords": ["liver", "hepatic"], "risk": "Hepatic impairment may increase carbamazepine exposure and hepatotoxicity risk.", "recommendation": "Use with caution and closer LFT monitoring; consider dose reduction.", "confidence": "Moderate"}
+  ],
+  "phenytoin": [
+    {"keywords": ["liver", "hepatic"], "risk": "Hepatic impairment can alter phenytoin metabolism, raising levels unpredictably.", "recommendation": "Monitor levels closely; consider free (unbound) level.", "confidence": "Moderate"}
+  ],
+  "vancomycin": [
+    {"keywords": ["renal", "kidney", "ckd"], "risk": "Pre-existing renal impairment increases nephrotoxicity risk and complicates dosing.", "recommendation": "Use pharmacokinetic (trough/AUC)-guided dosing with close renal function monitoring.", "confidence": "High"}
+  ],
+  "methotrexate": [
+    {"keywords": ["renal", "kidney", "ckd"], "risk": "Reduced renal clearance increases methotrexate accumulation and toxicity risk.", "recommendation": "Adjust dose to renal function or avoid; monitor closely.", "confidence": "High"},
+    {"keywords": ["liver", "hepatic"], "risk": "Hepatic impairment increases hepatotoxicity risk.", "recommendation": "Avoid or use with extreme caution and close LFT monitoring.", "confidence": "High"}
+  ],
+  "apixaban": [
+    {"keywords": ["bleeding", "hemorrhage", "coagulopathy"], "risk": "Underlying bleeding disorder compounds anticoagulant bleeding risk.", "recommendation": "Reassess anticoagulation risk/benefit.", "confidence": "High"},
+    {"keywords": ["liver", "hepatic"], "risk": "Severe hepatic impairment increases bleeding risk and is a contraindication.", "recommendation": "Avoid in severe hepatic impairment.", "confidence": "High"}
+  ]
+}
