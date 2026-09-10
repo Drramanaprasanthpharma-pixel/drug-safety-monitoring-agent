@@ -1,18 +1,19 @@
 """
 Reference management for drug information sources.
-Handles retrieval and validation of authoritative sources.
+This prototype intentionally uses a demonstration reference catalog rather than
+live retrieval from FDA, DailyMed, EMA, WHO, or other external databases.
 """
 
-from typing import List, Optional
+from typing import List
 from datetime import datetime
 from agent.tools import Reference
 
 
 class ReferenceManager:
     """
-    Manages references and authoritative sources for drug information.
-    Currently uses demonstration references.
-    Future: integrate with FDA, DailyMed, EMA APIs.
+    Manages references and source labels for the demo prototype.
+    Future versions can add authenticated retrieval interfaces for authoritative
+    sources, but the current implementation does not claim live API access.
     """
 
     def __init__(self):
@@ -24,94 +25,42 @@ class ReferenceManager:
         return {
             "vancomycin": [
                 Reference(
-                    title="Vancomycin Prescribing Information - FDA",
-                    source="FDA Orange Book",
-                    url="https://www.fda.gov/drugs/drug-safety-and-availability/fda-approved-drugs",
+                    title="Demonstration reference summary: Vancomycin safety considerations",
+                    source="Demonstration reference set (prototype only; no live FDA/DailyMed retrieval)",
+                    url=None,
                     date_accessed=datetime.now().isoformat(),
-                    reliability_score=0.95
-                ),
-                Reference(
-                    title="Vancomycin - DailyMed",
-                    source="DailyMed (NLM)",
-                    url="https://dailymed.nlm.nih.gov/",
-                    date_accessed=datetime.now().isoformat(),
-                    reliability_score=0.95
-                ),
-                Reference(
-                    title="ASHP Therapeutic Guidelines: Vancomycin Dosing & Monitoring",
-                    source="ASHP (American Society of Health-System Pharmacists)",
-                    url="https://www.ashp.org/",
-                    date_accessed=datetime.now().isoformat(),
-                    reliability_score=0.90
+                    reliability_score=0.0,
+                    evidence_type="DEMONSTRATION"
                 ),
             ],
             "amphotericin b": [
                 Reference(
-                    title="Amphotericin B Prescribing Information - FDA",
-                    source="FDA Orange Book",
-                    url="https://www.fda.gov/drugs/drug-safety-and-availability/fda-approved-drugs",
+                    title="Demonstration reference summary: Amphotericin B safety considerations",
+                    source="Demonstration reference set (prototype only; no live FDA/DailyMed retrieval)",
+                    url=None,
                     date_accessed=datetime.now().isoformat(),
-                    reliability_score=0.95
-                ),
-                Reference(
-                    title="Amphotericin B - DailyMed",
-                    source="DailyMed (NLM)",
-                    url="https://dailymed.nlm.nih.gov/",
-                    date_accessed=datetime.now().isoformat(),
-                    reliability_score=0.95
-                ),
-                Reference(
-                    title="IDSA Guidelines for Amphotericin B Use",
-                    source="IDSA (Infectious Diseases Society of America)",
-                    url="https://www.idsociety.org/",
-                    date_accessed=datetime.now().isoformat(),
-                    reliability_score=0.92
+                    reliability_score=0.0,
+                    evidence_type="DEMONSTRATION"
                 ),
             ],
             "methotrexate": [
                 Reference(
-                    title="Methotrexate Prescribing Information - FDA",
-                    source="FDA Orange Book",
-                    url="https://www.fda.gov/drugs/drug-safety-and-availability/fda-approved-drugs",
+                    title="Demonstration reference summary: Methotrexate safety considerations",
+                    source="Demonstration reference set (prototype only; no live FDA/DailyMed retrieval)",
+                    url=None,
                     date_accessed=datetime.now().isoformat(),
-                    reliability_score=0.95
-                ),
-                Reference(
-                    title="Methotrexate - DailyMed",
-                    source="DailyMed (NLM)",
-                    url="https://dailymed.nlm.nih.gov/",
-                    date_accessed=datetime.now().isoformat(),
-                    reliability_score=0.95
-                ),
-                Reference(
-                    title="ACR Guidelines for Methotrexate Use in Rheumatoid Arthritis",
-                    source="ACR (American College of Rheumatology)",
-                    url="https://www.rheumatology.org/",
-                    date_accessed=datetime.now().isoformat(),
-                    reliability_score=0.90
+                    reliability_score=0.0,
+                    evidence_type="DEMONSTRATION"
                 ),
             ],
             "amiodarone": [
                 Reference(
-                    title="Amiodarone Prescribing Information - FDA",
-                    source="FDA Orange Book",
-                    url="https://www.fda.gov/drugs/drug-safety-and-availability/fda-approved-drugs",
+                    title="Demonstration reference summary: Amiodarone safety considerations",
+                    source="Demonstration reference set (prototype only; no live FDA/DailyMed retrieval)",
+                    url=None,
                     date_accessed=datetime.now().isoformat(),
-                    reliability_score=0.95
-                ),
-                Reference(
-                    title="Amiodarone - DailyMed",
-                    source="DailyMed (NLM)",
-                    url="https://dailymed.nlm.nih.gov/",
-                    date_accessed=datetime.now().isoformat(),
-                    reliability_score=0.95
-                ),
-                Reference(
-                    title="ACC/AHA Guidelines for Arrhythmia Management",
-                    source="ACC/AHA (American College of Cardiology/American Heart Association)",
-                    url="https://www.acc.org/",
-                    date_accessed=datetime.now().isoformat(),
-                    reliability_score=0.92
+                    reliability_score=0.0,
+                    evidence_type="DEMONSTRATION"
                 ),
             ],
         }
@@ -124,26 +73,22 @@ class ReferenceManager:
         return self._get_default_references()
 
     def _get_default_references(self) -> List[Reference]:
-        """Get default references when drug not found."""
+        """Get default reference set for unsupported drugs."""
         return [
             Reference(
-                title="DailyMed - National Library of Medicine",
-                source="DailyMed (NLM)",
-                url="https://dailymed.nlm.nih.gov/",
+                title="No live evidence retrieved for this drug",
+                source="Demonstration reference set (prototype only; no live FDA/DailyMed retrieval)",
+                url=None,
                 date_accessed=datetime.now().isoformat(),
-                reliability_score=0.95
-            ),
-            Reference(
-                title="FDA Orange Book",
-                source="FDA",
-                url="https://www.fda.gov/drugs/drug-safety-and-availability/fda-approved-drugs",
-                date_accessed=datetime.now().isoformat(),
-                reliability_score=0.95
-            ),
+                reliability_score=0.0,
+                evidence_type="DEMONSTRATION"
+            )
         ]
 
     def validate_reference(self, reference: Reference) -> bool:
-        """Validate that a reference is from an authoritative source."""
+        """Return True only for real authoritative sources when actually retrieved."""
+        if reference.evidence_type == "DEMONSTRATION":
+            return False
         authoritative_sources = {
             "FDA",
             "DailyMed",

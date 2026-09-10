@@ -27,6 +27,7 @@ st.set_page_config(
 
 st.markdown("# 💊 Drug Safety & Monitoring AI Agent")
 st.markdown("### Clinical Pharmacy Decision-Support Prototype")
+st.markdown("## DEMONSTRATION DATA — NOT FOR CLINICAL DECISION-MAKING")
 
 # Display critical disclaimer
 with st.container():
@@ -104,7 +105,8 @@ with col1:
     drug_name = st.text_input(
         "Enter a drug name:",
         placeholder="e.g., Vancomycin, Amphotericin B, Methotrexate, Amiodarone",
-        help="Enter the drug name (brand or generic)"
+        help="Enter the drug name (brand or generic)",
+        max_chars=config.MAX_DRUG_NAME_LENGTH,
     )
 
 with col2:
@@ -114,21 +116,26 @@ with col2:
 # Analysis Logic
 # ============================================================================
 
-if analyze_button and drug_name:
-    with st.spinner("Analyzing drug safety profile..."):
-        profile = st.session_state.agent.analyze_drug(drug_name)
-        st.session_state.drug_profile = profile
+if analyze_button:
+    st.session_state.drug_profile = None
+    normalized_drug_name = drug_name.strip()
 
-        if profile is None:
-            st.error(
-                f"❌ Drug not available in the demonstration database.\n\n"
-                f"**'{drug_name}'** was not found.\n\n"
-                f"Authoritative drug information retrieval (FDA, DailyMed, EMA, WHO) "
-                f"will be added in the next development stage.\n\n"
-                f"Currently available test drugs: Vancomycin, Amphotericin B, Methotrexate, Amiodarone"
-            )
-        else:
-            st.success(f"✅ Analysis complete for {profile.drug.name}")
+    if not normalized_drug_name:
+        st.warning("Enter a drug name to begin the analysis.")
+    elif len(normalized_drug_name) > config.MAX_DRUG_NAME_LENGTH:
+        st.error(f"Drug names must be {config.MAX_DRUG_NAME_LENGTH} characters or fewer.")
+    else:
+        with st.spinner("Analyzing drug safety profile..."):
+            profile = st.session_state.agent.analyze_drug(normalized_drug_name)
+            st.session_state.drug_profile = profile
+
+            if profile is None:
+                st.error(
+                    "This drug is not currently available in the demonstration database. "
+                    "Evidence retrieval for additional drugs will be implemented in the next phase."
+                )
+            else:
+                st.success(f"✅ Analysis complete for {profile.drug.name}")
 
 # ============================================================================
 # Results Display
@@ -185,6 +192,9 @@ if st.session_state.drug_profile:
         st.markdown(
             "Listed in order of risk severity (HIGH → MODERATE → LOW)"
         )
+
+        summary_df = DrugSafetyFormatter.format_summary_table(profile)
+        st.dataframe(summary_df, use_container_width=True, hide_index=True)
 
         if profile.adverse_effects:
             df = DrugSafetyFormatter.format_adverse_effects_table(
@@ -269,7 +279,7 @@ if st.session_state.drug_profile:
     with tab5:
         st.markdown("### References & Sources")
         st.markdown(
-            "Information sourced from authoritative clinical databases:"
+            "This prototype does not retrieve live authoritative data. Current output is derived from a demonstration dataset only."
         )
 
         if profile.references:

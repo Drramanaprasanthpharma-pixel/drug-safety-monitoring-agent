@@ -14,10 +14,30 @@ class RiskLevel(Enum):
     MODERATE = "MODERATE"
     LOW = "LOW"
 
+    @property
+    def sort_order(self):
+        return {"HIGH": 0, "MODERATE": 1, "LOW": 2}[self.value]
+
     def __lt__(self, other):
         """Allow sorting by risk level."""
-        order = {"HIGH": 0, "MODERATE": 1, "LOW": 2}
-        return order[self.value] < order[other.value]
+        if not isinstance(other, RiskLevel):
+            return NotImplemented
+        return self.sort_order < other.sort_order
+
+    def __le__(self, other):
+        if not isinstance(other, RiskLevel):
+            return NotImplemented
+        return self.sort_order <= other.sort_order
+
+    def __gt__(self, other):
+        if not isinstance(other, RiskLevel):
+            return NotImplemented
+        return self.sort_order > other.sort_order
+
+    def __ge__(self, other):
+        if not isinstance(other, RiskLevel):
+            return NotImplemented
+        return self.sort_order >= other.sort_order
 
 
 class MonitoringType(Enum):
@@ -74,6 +94,7 @@ class Reference:
     url: Optional[str] = None
     date_accessed: Optional[str] = None
     reliability_score: Optional[float] = None
+    evidence_type: str = "DEMONSTRATION"
 
 
 @dataclass

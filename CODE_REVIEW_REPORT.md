@@ -1,5 +1,11 @@
 # CODE REVIEW REPORT: Drug Safety & Monitoring AI Agent
 
+> Historical review note: this report predates the current repository state and
+> should not be treated as a deployment or clinical validation certification.
+> The application uses local demonstration data only; it does not retrieve live
+> authoritative references or provide a production clinical decision-support
+> service.
+
 Date: 2026-09-01
 Status: Ready for Testing
 

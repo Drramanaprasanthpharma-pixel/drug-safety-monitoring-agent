@@ -32,6 +32,9 @@ class DrugSafetyAgent:
         Returns:
             DrugSafetyProfile object if successful, None if drug not found.
         """
+        if drug_name is None or not str(drug_name).strip():
+            return None
+
         # Step 1: Search for drug information
         drug = self._search_drug(drug_name)
         if drug is None:
@@ -73,7 +76,7 @@ class DrugSafetyAgent:
     def _analyze_adverse_effects(self, drug: Drug) -> List[AdverseEffect]:
         """Tool Call 2: Analyze adverse effects."""
         adverse_effects = self.drug_database.get_adverse_effects(drug.name)
-        return sorted(adverse_effects, key=lambda x: x.risk_level)
+        return sorted(adverse_effects, key=lambda x: x.risk_level.sort_order)
 
     def _get_monitoring_recommendations(self, drug: Drug, adverse_effects: List[AdverseEffect]) -> List:
         """Tool Call 3: Get monitoring recommendations."""

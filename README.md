@@ -1,235 +1,159 @@
 # Drug Safety & Monitoring AI Agent
 
-A clinical pharmacy decision-support application that helps analyze drug safety profiles, adverse effects, and monitoring requirements.
+A research prototype for structured drug-safety monitoring analysis in a browser-based Streamlit interface.
 
-## ⚠️ Important Disclaimer
+## ⚠️ Clinical Disclaimer
 
-**This is a clinical pharmacy decision-support prototype, NOT a replacement for a physician or pharmacist.** All information should be verified against current authoritative references before clinical use.
+This project is a clinical pharmacy decision-support research prototype and is not a replacement for a pharmacist or physician.
 
-## Purpose
+- It does not use patient-identifiable information.
+- It does not provide patient-specific treatment decisions.
+- It does not provide dosing recommendations unless explicitly added in a future development phase.
+- It is intended for research and educational use only.
+- All output must be verified against current authoritative references before clinical use.
 
-This application helps:
-- Identify major clinically relevant adverse effects for any drug
-- Map adverse effects to affected organ systems
-- Recommend appropriate monitoring parameters
-- Prioritize risks as High/Moderate/Low
-- Provide evidence-based warning signs
-- Reference authoritative sources
+## What currently works
 
-## Features
+The current application supports a demonstration-only workflow for the following drugs:
 
-- **Drug Lookup**: Enter any drug name
-- **Adverse Effect Analysis**: Identifies clinically important adverse effects
-- **Monitoring Recommendations**: Suggests baseline and ongoing monitoring parameters
-- **Risk Prioritization**: Classifies risks by severity
-- **Evidence-Based**: References authoritative sources (FDA, DailyMed, EMA, WHO)
-- **Clean Output**: Organized tables and structured information
-
-## Quick Start
-
-### Prerequisites
-
-- Python 3.8+
-- pip (Python package manager)
-- Internet connection (for API calls and reference retrieval)
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Drramanaprasanthpharma-pixel/drug-safety-monitoring-agent.git
-   cd drug-safety-monitoring-agent
-   ```
-
-2. **Create a virtual environment** (recommended)
-   ```bash
-   python -m venv venv
-   
-   # On Windows:
-   venv\Scripts\activate
-   
-   # On macOS/Linux:
-   source venv/bin/activate
-   ```
-
-3. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Set up environment variables**
-   ```bash
-   # Create a .env file in the project root
-   # (Already included in .gitignore for security)
-   
-   # Add your OpenAI API key (if using OpenAI):
-   OPENAI_API_KEY=your_api_key_here
-   
-   # Or other API keys as configured
-   ```
-
-5. **Run the application**
-   ```bash
-   streamlit run app.py
-   ```
-
-   The application will open in your browser at `http://localhost:8501`
-
-## Usage
-
-1. **Enter a drug name** in the search box
-2. **Click "Analyze Drug"** to generate the safety profile
-3. **Review the output**, which includes:
-   - Drug classification
-   - Major adverse effects with risk prioritization
-   - Organ/system mapping
-   - Monitoring parameters (baseline and ongoing)
-   - Warning signs requiring clinical attention
-   - Key considerations
-   - References and sources
-
-### Example Drugs
-
-Test the application with these examples:
 - Vancomycin
 - Amphotericin B
 - Methotrexate
 - Amiodarone
 
-## Project Structure
+The application provides:
 
+- Drug name and class
+- Major clinically relevant adverse effects
+- Organ/system mapping
+- Monitoring parameters
+- Baseline and ongoing monitoring recommendations
+- Warning signs
+- Risk priority (HIGH, MODERATE, LOW)
+- Structured clinical summary output
+- Demonstration references clearly labelled as such
+
+## Demonstration data
+
+This project intentionally includes a local demonstration database only.
+
+The application displays the banner:
+
+DEMONSTRATION DATA — NOT FOR CLINICAL DECISION-MAKING
+
+For drugs not in the demonstration database, the app shows:
+
+This drug is not currently available in the demonstration database. Evidence retrieval for additional drugs will be implemented in the next phase.
+
+The prototype does not claim to retrieve live data from FDA, DailyMed, EMA, WHO, or other regulatory sources.
+
+## How to run the application
+
+### Prerequisites
+
+- Python 3.11+ recommended
+- pip
+
+### Install dependencies
+
+```bash
+python -m pip install -r requirements.txt
 ```
+
+### Start the app
+
+```bash
+streamlit run app.py
+```
+
+The app should launch in the browser on the default Streamlit port.
+
+## Deployment
+
+This repository is a single Streamlit application. It does not contain the
+`frontend/`, `backend/`, or serverless API layout described by older project
+plans, so it should not be deployed as a Vercel project. Vercel is designed for
+static frontends and request-scoped serverless functions, while Streamlit needs
+a persistent Python process and WebSocket connection.
+
+The included `Dockerfile` can be deployed to any container host that supports
+an HTTP port, such as Cloud Run, Render, Fly.io, or an internal platform:
+
+```bash
+docker build -t drug-safety-monitoring-agent .
+docker run --rm -p 8501:8501 drug-safety-monitoring-agent
+```
+
+Streamlit Community Cloud can also deploy this repository directly by selecting
+`app.py` as the application file. No frontend API URL, database, or external API
+key is required by the current implementation.
+
+### Environment variables
+
+No environment variables are required to run the current local demonstration
+workflow. `LOG_LEVEL` is accepted by `config.py` but is not currently used for
+logging. `OPENAI_API_KEY` and `OPENAI_MODEL` are retained as placeholders for a
+future integration; the current agent does not call OpenAI or any other external
+service, so do not add a key unless that integration is implemented.
+
+## How to run tests
+
+```bash
+pytest -q
+```
+
+The test suite covers known demonstration drugs, unknown-drug handling, empty-input validation, required output fields, adverse effect structure, monitoring structure, and reference structure.
+
+## Current limitations
+
+- Only four demonstration drugs are supported.
+- No live retrieval from authoritative drug databases is implemented.
+- All references are clearly labelled as demonstration data.
+- This is not a production clinical decision support tool.
+- No patient-specific dosing or treatment logic is included.
+
+## Planned future development
+
+Planned next steps include:
+
+- Authoritative source integration interfaces for FDA, DailyMed, EMA, and WHO data
+- Drug identification and evidence retrieval from validated sources
+- Structured ADR extraction and mapping
+- Risk prioritization using evidence-based logic
+- Citation tracking and source validation
+- Expanded drug coverage beyond the demonstration database
+
+## Project structure
+
+```text
 drug-safety-monitoring-agent/
-├── app.py                    # Main Streamlit application
+├── app.py
+├── config.py
+├── requirements.txt
+├── README.md
+├── Dockerfile
+├── .dockerignore
 ├── agent/
 │   ├── __init__.py
-│   ├── drug_agent.py         # Core agent logic
-│   └── tools.py              # Tool definitions (drug search, adverse effects, etc.)
+│   ├── drug_agent.py
+│   └── tools.py
 ├── data/
 │   ├── __init__.py
-│   ├── drug_database.py      # Local drug information cache
-│   └── monitoring_guidelines.py  # Monitoring parameters and baselines
+│   ├── drug_database.py
+│   └── monitoring_guidelines.py
+├── tests/
+│   ├── __init__.py
+│   └── test_drug_agent.py
 ├── utils/
 │   ├── __init__.py
-│   ├── reference_manager.py  # Reference retrieval and validation
-│   └── formatters.py         # Output formatting utilities
-├── config.py                 # Configuration and environment variables
-├── requirements.txt          # Python dependencies
-├── .gitignore               # Git ignore file
-└── README.md                # This file
+│   ├── formatters.py
+│   └── reference_manager.py
+└── CODE_REVIEW_REPORT.md
 ```
 
-## File Descriptions
+## Security and clinical safeguards
 
-- **app.py**: Main Streamlit interface. Users interact with this file.
-- **agent/drug_agent.py**: Core logic orchestrating tool calls and generating analysis
-- **agent/tools.py**: Tool interfaces for drug search, adverse effect analysis, monitoring recommendations, reference retrieval
-- **data/drug_database.py**: Local clinical database of drugs and their profiles
-- **data/monitoring_guidelines.py**: Standard monitoring parameters for different drug classes
-- **utils/reference_manager.py**: Manages authoritative source integration
-- **utils/formatters.py**: Formats output for display (tables, markdown, etc.)
-- **config.py**: Loads environment variables and configuration
-
-## Architecture
-
-The application uses an **agent-based architecture** with tool interfaces:
-
-```
-User Input (Drug Name)
-    ↓
-Drug Agent (orchestrator)
-    ├→ drug_information_search()
-    │   └ Searches drug name in database and external sources
-    ├→ adverse_effect_analysis()
-    │   └ Extracts clinically relevant adverse effects
-    ├→ monitoring_recommendation()
-    │   └ Suggests baseline and ongoing monitoring
-    └→ reference_retrieval()
-        └ Gathers authoritative source citations
-    ↓
-Output (Structured Drug Safety Profile)
-```
-
-## Safety & Compliance
-
-- ✅ **No patient data**: Application accepts only drug names
-- ✅ **No hard-coded secrets**: Uses environment variables for API keys
-- ✅ **Source verification**: Distinguishes sourced information from AI interpretation
-- ✅ **Uncertainty flagging**: Clearly marks when evidence is insufficient
-- ✅ **No fabricated citations**: References are validated before inclusion
-- ✅ **Disclaimer-first**: Users see clinical limitation notices prominently
-
-## Integration with Authoritative Sources
-
-The application is designed to integrate with:
-- **FDA Orange Book & prescribing information**
-- **DailyMed** (National Library of Medicine)
-- **EMA** (European Medicines Agency)
-- **WHO** guidelines
-- **Micromedex** and similar databases (future integrations)
-
-Currently, it uses a local knowledge base and OpenAI's API with structured prompting.
-
-## API Configuration
-
-The application can use:
-- **OpenAI API** (for advanced adverse effect analysis)
-- **Local knowledge base** (fallback, no API key needed)
-
-Set `OPENAI_API_KEY` in `.env` to enable LLM-powered analysis.
-
-## Testing
-
-Run the test suite:
-```bash
-pytest tests/
-```
-
-Test coverage includes:
-- Drug lookup accuracy
-- Adverse effect extraction
-- Monitoring parameter recommendations
-- Reference validation
-
-## Limitations & Future Work
-
-### Current Limitations
-- Limited to English language
-- Knowledge base updates require manual refresh
-- Real-time FDA alerts not yet integrated
-
-### Future Enhancements
-- Integration with FDA adverse event reporting database (FAERS)
-- Drug interaction checking
-- Pregnancy/lactation considerations
-- Contraindication screening
-- Multi-drug monitoring coordination
-- PDF export for clinical records
-
-## Contributing
-
-This is a prototype for demonstration purposes. For production use:
-1. Validate against current drug references
-2. Implement proper audit logging
-3. Add role-based access control
-4. Integrate with EHR systems where applicable
-
-## License
-
-[Specify your license here]
-
-## Support & Disclaimer
-
-For questions or issues:
-1. Check this README
-2. Review example test cases
-3. Verify drug information against authoritative sources
-
-**Always verify information against current authoritative clinical references before clinical use.**
-
-## References
-
-- FDA Orange Book: https://www.accessdata.fda.gov/scripts/cder/ob/default.cfm
-- DailyMed: https://dailymed.nlm.nih.gov/
-- EMA: https://www.ema.europa.eu/
-- WHO: https://www.who.int/
+- No hard-coded API keys are used.
+- No patient information is accepted or stored.
+- No hospital or confidential data is included.
+- All external integrations are intentionally stubbed until actual authoritative sources are available.
