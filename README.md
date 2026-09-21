@@ -87,10 +87,16 @@ backend/
   .env.example
 frontend/
   src/
-    App.tsx                  Main dashboard shell
-    components/               One component per dashboard section
+    App.tsx                  Route table (hash routing) inside the app shell
+    pages/                   One file per screen: Overview, Review, Drug library,
+                             Drug profile, Lab trends, Activity log, About
+    components/              AppShell (sidebar, top bar, search, alerts), review
+                             results sections, risk readout, organ bars, pipeline
+                             record, shared UI states (empty / loading / error)
+    lib/                     store (session-only state), hooks, route, format, csv
     api.ts                    Backend API client — always calls relative `/api/...`
     types.ts                  TypeScript types mirroring the backend schemas
+    index.css                 The design system (plain CSS, no CSS framework)
   vite.config.ts             Dev-only proxy: forwards /api → localhost:8000
   package.json
 ```
