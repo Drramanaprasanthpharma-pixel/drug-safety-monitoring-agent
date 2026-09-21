@@ -1,206 +1,126 @@
-import { useState } from 'react'
-import type { PatientInfo } from '../types'
+import { useId, useState, type KeyboardEvent } from "react";
+import { Icon } from "./icons";
+import type { PatientInfo } from "../types";
 
-const EMPTY: PatientInfo = {
-  diagnoses: [],
-  allergies: [],
-  current_medications: [],
-  lab_values: {},
+export interface PatientDraft {
+  age: string; sex: "" | NonNullable<PatientInfo["sex"]>; weight: string; egfr: string;
+  hepatic: "" | NonNullable<PatientInfo["hepatic_impairment"]>; pregnant: boolean;
+  diagnoses: string[]; allergies: string[]; meds: string[]; labs: { name: string; value: string }[];
 }
 
-function listField(value: string): string[] {
-  return value
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
+export const emptyPatient = (): PatientDraft => ({
+  age: "", sex: "", weight: "", egfr: "", hepatic: "", pregnant: false, diagnoses: [], allergies: [], meds: [], labs: [],
+});
+
+export function patientToDraft(p: PatientInfo): PatientDraft {
+  return {
+    age: p.age != null ? String(p.age) : "", sex: p.sex ?? "", weight: p.weight_kg != null ? String(p.weight_kg) : "",
+    egfr: p.egfr != null ? String(p.egfr) : "", hepatic: p.hepatic_impairment ?? "", pregnant: !!p.pregnant,
+    diagnoses: [...(p.diagnoses ?? [])], allergies: [...(p.allergies ?? [])], meds: [...(p.current_medications ?? [])],
+    labs: Object.entries(p.lab_values ?? {}).map(([name, value]) => ({ name, value: String(value) })),
+  };
 }
 
-export function PatientForm({
-  patient,
-  onChange,
-  enabled,
-  onToggle,
-}: {
-  patient: PatientInfo
-  onChange: (p: PatientInfo) => void
-  enabled: boolean
-  onToggle: (enabled: boolean) => void
+const num = (s: string) => (s.trim() === "" || !Number.isFinite(Number(s)) ? null : Number(s));
+
+/** Returns null when nothing was entered, so a drug-only review is sent without patient context. */
+export function draftToPatient(d: PatientDraft): PatientInfo | null {
+  const lab_values: Record<string, number> = {};
+  for (const l of d.labs) { const v = num(l.value); if (l.name.trim() && v !== null) lab_values[l.name.trim().toLowerCase()] = v; }
+  const p: PatientInfo = {
+    age: num(d.age), sex: d.sex || null, weight_kg: num(d.weight), egfr: num(d.egfr), hepatic_impairment: d.hepatic || null,
+    pregnant: d.pregnant ? true : null, diagnoses: d.diagnoses, allergies: d.allergies, current_medications: d.meds, lab_values,
+  };
+  const any = p.age !== null || p.sex || p.weight_kg !== null || p.egfr !== null || p.hepatic_impairment || p.pregnant ||
+    d.diagnoses.length || d.allergies.length || d.meds.length || Object.keys(lab_values).length;
+  return any ? p : null;
+}
+
+export function patientErrors(d: PatientDraft): string[] {
+  const out: string[] = [];
+  const chk = (label: string, s: string, lo: number, hi: number, loExclusive = false) => {
+    const v = num(s);
+    if (s.trim() !== "" && (v === null || (loExclusive ? v <= lo : v < lo) || v > hi)) out.push(`${label} must be between ${loExclusive ? "above " : ""}${lo} and ${hi}.`);
+  };
+  chk("Age", d.age, 0, 120); chk("Weight", d.weight, 0, 500, true); chk("eGFR", d.egfr, 0, 200);
+  return out;
+}
+
+function TagInput({ label, values, onChange, placeholder, hint }: {
+  label: string; values: string[]; onChange: (v: string[]) => void; placeholder: string; hint?: string;
 }) {
-  const [labKey, setLabKey] = useState('')
-  const [labValue, setLabValue] = useState('')
-
-  function addLab() {
-    if (!labKey.trim() || !labValue.trim()) return
-    onChange({ ...patient, lab_values: { ...patient.lab_values, [labKey.trim().toLowerCase()]: parseFloat(labValue) } })
-    setLabKey('')
-    setLabValue('')
-  }
-
+  const [text, setText] = useState("");
+  const id = useId();
+  const commit = () => {
+    const t = text.trim().replace(/,$/, "");
+    if (t && !values.some((v) => v.toLowerCase() === t.toLowerCase())) onChange([...values, t]);
+    setText("");
+  };
+  const onKey = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" || e.key === ",") { if (text.trim()) { e.preventDefault(); commit(); } }
+    else if (e.key === "Backspace" && !text && values.length) onChange(values.slice(0, -1));
+  };
   return (
-    <div>
-      <div className="flex items-center justify-between mb-3">
-        <p className="text-sm font-medium text-ink-700">Patient information (optional)</p>
-        <button
-          type="button"
-          onClick={() => onToggle(!enabled)}
-          className="text-sm text-teal-600 hover:text-teal-700 font-medium"
-        >
-          {enabled ? 'Remove patient context' : 'Add patient context'}
-        </button>
-      </div>
-
-      {!enabled && (
-        <p className="text-sm text-ink-500">
-          A drug-only analysis works without this. Add patient details to refine organ priority, red flags, and
-          risk scoring.
-        </p>
-      )}
-
-      {enabled && (
-        <div className="grid grid-cols-2 gap-3 border border-ink-100 rounded-sm p-4 bg-white">
-          <Field label="Age">
-            <input
-              type="number"
-              min={0}
-              max={120}
-              value={patient.age ?? ''}
-              onChange={(e) => onChange({ ...patient, age: e.target.value ? Number(e.target.value) : undefined })}
-              className="input"
-            />
-          </Field>
-          <Field label="Sex">
-            <select
-              value={patient.sex ?? ''}
-              onChange={(e) => onChange({ ...patient, sex: (e.target.value || undefined) as PatientInfo['sex'] })}
-              className="input"
-            >
-              <option value="">Not specified</option>
-              <option value="female">Female</option>
-              <option value="male">Male</option>
-              <option value="other">Other</option>
-            </select>
-          </Field>
-          <Field label="Weight (kg)">
-            <input
-              type="number"
-              value={patient.weight_kg ?? ''}
-              onChange={(e) => onChange({ ...patient, weight_kg: e.target.value ? Number(e.target.value) : undefined })}
-              className="input"
-            />
-          </Field>
-          <Field label="Pregnant">
-            <select
-              value={patient.pregnant === undefined ? '' : String(patient.pregnant)}
-              onChange={(e) => onChange({ ...patient, pregnant: e.target.value === '' ? undefined : e.target.value === 'true' })}
-              className="input"
-            >
-              <option value="">Not specified</option>
-              <option value="true">Yes</option>
-              <option value="false">No</option>
-            </select>
-          </Field>
-          <Field label="eGFR (mL/min/1.73m²)">
-            <input
-              type="number"
-              value={patient.egfr ?? ''}
-              onChange={(e) => onChange({ ...patient, egfr: e.target.value ? Number(e.target.value) : undefined })}
-              className="input"
-            />
-          </Field>
-          <Field label="Hepatic function">
-            <select
-              value={patient.hepatic_impairment ?? ''}
-              onChange={(e) =>
-                onChange({ ...patient, hepatic_impairment: (e.target.value || undefined) as PatientInfo['hepatic_impairment'] })
-              }
-              className="input"
-            >
-              <option value="">Not specified</option>
-              <option value="none">Normal</option>
-              <option value="mild">Mild impairment</option>
-              <option value="moderate">Moderate impairment</option>
-              <option value="severe">Severe impairment</option>
-            </select>
-          </Field>
-          <Field label="Diagnoses (comma-separated)" full>
-            <input
-              type="text"
-              placeholder="e.g. atrial fibrillation, chronic kidney disease"
-              value={patient.diagnoses.join(', ')}
-              onChange={(e) => onChange({ ...patient, diagnoses: listField(e.target.value) })}
-              className="input"
-            />
-          </Field>
-          <Field label="Allergies (comma-separated)" full>
-            <input
-              type="text"
-              value={patient.allergies.join(', ')}
-              onChange={(e) => onChange({ ...patient, allergies: listField(e.target.value) })}
-              className="input"
-            />
-          </Field>
-          <Field label="Current medications (comma-separated)" full>
-            <input
-              type="text"
-              value={patient.current_medications.join(', ')}
-              onChange={(e) => onChange({ ...patient, current_medications: listField(e.target.value) })}
-              className="input"
-            />
-          </Field>
-          <Field label="Relevant lab values" full>
-            <div className="flex gap-2 mb-2">
-              <input
-                type="text"
-                placeholder="parameter (e.g. potassium)"
-                value={labKey}
-                onChange={(e) => setLabKey(e.target.value)}
-                className="input flex-1"
-              />
-              <input
-                type="number"
-                placeholder="value"
-                value={labValue}
-                onChange={(e) => setLabValue(e.target.value)}
-                className="input w-28"
-              />
-              <button type="button" onClick={addLab} className="px-3 py-2 text-sm font-medium text-teal-700 border border-teal-600 rounded-sm hover:bg-teal-100">
-                Add
-              </button>
-            </div>
-            {Object.keys(patient.lab_values).length > 0 && (
-              <ul className="flex flex-wrap gap-2">
-                {Object.entries(patient.lab_values).map(([k, v]) => (
-                  <li key={k} className="font-data text-xs bg-ink-100 rounded-sm px-2 py-1">
-                    {k}: {v}
-                    <button
-                      type="button"
-                      className="ml-1.5 text-ink-500 hover:text-signal-high"
-                      onClick={() => {
-                        const rest = { ...patient.lab_values }
-                        delete rest[k]
-                        onChange({ ...patient, lab_values: rest })
-                      }}
-                    >
-                      ×
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            )}
-          </Field>
-        </div>
+    <div className="field">
+      <label htmlFor={id}>{label}</label>
+      <input id={id} className="input" value={text} placeholder={placeholder} onChange={(e) => setText(e.target.value)} onKeyDown={onKey} onBlur={commit} aria-describedby={hint ? `${id}-h` : undefined} />
+      {hint && <p className="hint" id={`${id}-h`}>{hint}</p>}
+      {values.length > 0 && (
+        <ul className="chips" aria-label={label}>
+          {values.map((v) => (
+            <li className="chip" key={v}>{v}<button type="button" aria-label={`Remove ${v}`} onClick={() => onChange(values.filter((x) => x !== v))}><Icon name="x" size={14} /></button></li>
+          ))}
+        </ul>
       )}
     </div>
-  )
+  );
 }
 
-function Field({ label, children, full }: { label: string; children: React.ReactNode; full?: boolean }) {
+const LAB_SUGGESTIONS = ["potassium", "creatinine", "inr", "alt", "ast", "bilirubin", "sodium", "hemoglobin", "platelets", "wbc"];
+
+export function PatientForm({ value, onChange }: { value: PatientDraft; onChange: (v: PatientDraft) => void }) {
+  const set = <K extends keyof PatientDraft>(k: K, v: PatientDraft[K]) => onChange({ ...value, [k]: v });
+  const uid = useId();
+  const dl = `${uid}-labs`;
   return (
-    <label className={`block text-sm ${full ? 'col-span-2' : ''}`}>
-      <span className="block text-ink-500 mb-1">{label}</span>
-      {children}
-    </label>
-  )
+    <div className="stack">
+      <div className="form-grid">
+        <div className="field"><label htmlFor={`${uid}-age`}>Age (years)</label>
+          <input id={`${uid}-age`} className="input" type="number" inputMode="numeric" min={0} max={120} value={value.age} onChange={(e) => set("age", e.target.value)} /></div>
+        <div className="field"><label htmlFor={`${uid}-sex`}>Sex</label>
+          <select id={`${uid}-sex`} className="select" value={value.sex} onChange={(e) => set("sex", e.target.value as PatientDraft["sex"])}>
+            <option value="">Not specified</option><option value="female">Female</option><option value="male">Male</option><option value="other">Other</option>
+          </select></div>
+        <div className="field"><label htmlFor={`${uid}-wt`}>Weight (kg)</label>
+          <input id={`${uid}-wt`} className="input" type="number" inputMode="decimal" min={0} max={500} step="0.1" value={value.weight} onChange={(e) => set("weight", e.target.value)} /></div>
+        <div className="field"><label htmlFor={`${uid}-egfr`}>eGFR (mL/min/1.73 m²)</label>
+          <input id={`${uid}-egfr`} className="input" type="number" inputMode="decimal" min={0} max={200} value={value.egfr} onChange={(e) => set("egfr", e.target.value)} /></div>
+        <div className="field span-2"><label htmlFor={`${uid}-hep`}>Hepatic impairment</label>
+          <select id={`${uid}-hep`} className="select" value={value.hepatic} onChange={(e) => set("hepatic", e.target.value as PatientDraft["hepatic"])}>
+            <option value="">Not specified</option><option value="none">None</option><option value="mild">Mild</option><option value="moderate">Moderate</option><option value="severe">Severe</option>
+          </select></div>
+        <div className="field span-2"><span className="label">Pregnancy</span>
+          <label className="check"><input type="checkbox" checked={value.pregnant} onChange={(e) => set("pregnant", e.target.checked)} />Patient is pregnant</label></div>
+        <div className="span-2"><TagInput label="Diagnoses" values={value.diagnoses} onChange={(v) => set("diagnoses", v)} placeholder="e.g. chronic kidney disease, then Enter" hint="Matched to drug–disease rules by keyword." /></div>
+        <div className="span-2"><TagInput label="Allergies" values={value.allergies} onChange={(v) => set("allergies", v)} placeholder="e.g. penicillin, then Enter" /></div>
+        <div className="span-4"><TagInput label="Other current medications (not being reviewed)" values={value.meds} onChange={(v) => set("meds", v)} placeholder="e.g. lisinopril, then Enter" hint="Counted toward polypharmacy only." /></div>
+      </div>
+      <div className="field">
+        <span className="label">Lab values</span>
+        <datalist id={dl}>{LAB_SUGGESTIONS.map((l) => <option key={l} value={l} />)}</datalist>
+        <div className="pts">
+          {value.labs.map((l, i) => (
+            <div className="pt-row" key={i}>
+              <div className="field"><label className="sr-only" htmlFor={`${uid}-ln${i}`}>Lab name</label>
+                <input id={`${uid}-ln${i}`} className="input" list={dl} placeholder="Lab name (e.g. potassium)" value={l.name} onChange={(e) => set("labs", value.labs.map((x, j) => (j === i ? { ...x, name: e.target.value } : x)))} /></div>
+              <div className="field"><label className="sr-only" htmlFor={`${uid}-lv${i}`}>Lab value</label>
+                <input id={`${uid}-lv${i}`} className="input" type="number" inputMode="decimal" step="any" placeholder="Value" value={l.value} onChange={(e) => set("labs", value.labs.map((x, j) => (j === i ? { ...x, value: e.target.value } : x)))} /></div>
+              <button type="button" className="icon-btn" aria-label={`Remove lab value ${i + 1}`} onClick={() => set("labs", value.labs.filter((_, j) => j !== i))}><Icon name="trash" size={18} /></button>
+            </div>
+          ))}
+        </div>
+        <div><button type="button" className="btn btn-sm" onClick={() => set("labs", [...value.labs, { name: "", value: "" }])}><Icon name="plus" size={16} />Add lab value</button></div>
+      </div>
+    </div>
+  );
 }
-
-export { EMPTY as emptyPatient }

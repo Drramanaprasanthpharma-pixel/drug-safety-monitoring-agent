@@ -10,12 +10,13 @@ export interface Evidence {
 }
 
 export interface PatientInfo {
-  age?: number
-  sex?: 'male' | 'female' | 'other' | 'unspecified'
-  weight_kg?: number
-  pregnant?: boolean
-  egfr?: number
-  hepatic_impairment?: 'none' | 'mild' | 'moderate' | 'severe'
+  // Optional fields accept null because the backend models them as Optional[...] = None.
+  age?: number | null
+  sex?: 'male' | 'female' | 'other' | 'unspecified' | null
+  weight_kg?: number | null
+  pregnant?: boolean | null
+  egfr?: number | null
+  hepatic_impairment?: 'none' | 'mild' | 'moderate' | 'severe' | null
   diagnoses: string[]
   allergies: string[]
   current_medications: string[]
@@ -168,4 +169,74 @@ export interface LabTrendAssessment {
   trend: 'Increasing' | 'Decreasing' | 'Stable' | 'Insufficient data'
   clinically_significant_change: boolean
   note: string
+}
+
+/* ------------------------------------------------------------------------
+ * Additions used by the PharmaSafe AI interface. Everything above mirrors
+ * backend/app/models.py and is unchanged.
+ * --------------------------------------------------------------------- */
+
+/** Short aliases used throughout the UI components. */
+export type Level = SeverityLevel
+export type Confidence = EvidenceConfidence
+
+export interface AnalysisRequest {
+  drugs: string[]
+  patient?: PatientInfo | null
+  demo_mode?: boolean
+}
+
+export interface LabTrendRequest {
+  parameter: string
+  unit?: string | null
+  points: LabTrendPoint[]
+}
+
+export interface DemoConfig {
+  demo_drugs: Array<{ id: string; generic_name: string }>
+  demo_patient: PatientInfo
+  label: string
+}
+
+/** GET /api/drugs/{id}: the full curated record. Known fields are typed; the rest is rendered generically. */
+export interface DrugDetail {
+  id: string
+  generic_name: string
+  brand_names?: string[]
+  drug_class?: string
+  boxed_warning?: string | null
+  contraindications?: string[]
+  renal_dosing?: string | null
+  adverse_effects?: { common: string[]; serious: string[]; life_threatening: string[] }
+  organ_toxicity?: Array<{
+    organ: string
+    risk_level: SeverityLevel
+    reason: string
+    toxicity: string
+    monitoring_parameters: string[]
+    frequency: string
+    thresholds: string
+    source: string
+  }>
+  monitoring_parameters?: Array<{
+    parameter: string
+    why: string
+    baseline: string
+    follow_up: string
+    alert_threshold: string
+    risk: SeverityLevel
+  }>
+  vital_signs?: Array<{ parameter: string; why: string }>
+  evidence?: Evidence[]
+  [key: string]: unknown
+}
+
+/** One row of GET /api/audit, normalised by api.ts from the raw JSONL record. */
+export interface AuditEntry {
+  id: string
+  timestamp: string
+  drugs: string[]
+  /** null when the raw record does not say. */
+  patientProvided: boolean | null
+  demo: boolean
 }
