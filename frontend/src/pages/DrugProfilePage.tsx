@@ -43,7 +43,7 @@ export function DrugProfilePage({ id, onLoaded }: { id: string; onLoaded: (name:
     return (
       <div className="panel">
         {notFound
-          ? <EmptyState icon="search" title="This drug is not in the library" action={<a className="btn" href={href("/drugs")}>Browse the drug library</a>}>“{id}” isn’t in the curated dataset. Only the listed medications can be reviewed.</EmptyState>
+          ? <EmptyState icon="search" title="This drug hasn't been looked up yet" action={<span className="row" style={{ gap: 8 }}><a className="btn" href={href("/review")}>Look it up on the Review page</a><a className="btn btn-ghost" href={href("/drugs")}>Browse the drug library</a></span>}>“{id}” isn’t in the curated library yet. Curated medications are listed below; anything else is resolved (via alias matching or AI-assisted retrieval, when configured) when you add it to a review.</EmptyState>
           : <ErrorState title="Unable to load this drug profile" message={error instanceof ApiError ? error.message : "The profile could not be loaded."} detail={error instanceof ApiError ? error.detail : undefined} onRetry={retry} />}
       </div>
     );

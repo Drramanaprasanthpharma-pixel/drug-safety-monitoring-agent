@@ -17,7 +17,7 @@ export function AboutPage() {
         </Panel>
         <Panel title="Known limits" id="limits">
           <ul className="bullets">
-            <li>Only the curated demo medications are recognized. It is not connected to a live FDA or EMA feed or a licensed drug database.</li>
+            <li>A curated set of medications carries hand-reviewed clinical data. Other medications can be resolved through AI-assisted retrieval when the service is configured with an AI provider — always labeled distinctly from curated data, with its evidence confidence capped accordingly. Neither is connected to a live FDA or EMA feed or a licensed drug database, so AI-assisted results should be checked against current prescribing information before acting on them.</li>
             <li>Only interaction pairs listed in the ruleset are reported. The service never guesses at a pair it has no rule for.</li>
             <li>Drug–disease matching uses keywords in free-text diagnoses, not ICD-10 codes.</li>
             <li>There is no sign-in and no durable database. Add both before using real patient data.</li>

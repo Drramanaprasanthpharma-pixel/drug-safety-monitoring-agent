@@ -169,3 +169,35 @@ CREATE TABLE analysis_pharmacist_actions (
     completed_at TIMESTAMPTZ,
     completed_by_ref TEXT   -- pseudonymous pharmacist/user reference
 );
+
+-- ---------------------------------------------------------------------------
+-- AI-assisted drug retrieval (backend/app/agent/) — optional persistent cache
+--
+-- Used only if DATABASE_URL is set (see backend/.env.example); otherwise the
+-- app caches the same data in a local JSON file (backend/app/agent/cache.py).
+-- Never a source of clinical truth by itself: drug_json.— meta.verified is
+-- always false for a row here, since it came from AI retrieval rather than
+-- a licensed database or a curated/human-reviewed monograph.
+-- ---------------------------------------------------------------------------
+CREATE TABLE drug_search_cache (
+    drug_id         TEXT PRIMARY KEY,          -- canonical id, e.g. 'atorvastatin'
+    input_aliases   TEXT[] NOT NULL DEFAULT '{}',  -- every name (typo'd, brand, etc.) that resolved here
+    drug_json       JSONB NOT NULL,            -- full record in the same shape as the drugs table above
+    source          TEXT NOT NULL DEFAULT 'ai_retrieval',
+    cached_at       TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX idx_drug_search_cache_aliases ON drug_search_cache USING GIN (input_aliases);
+
+-- Name-only alias/brand table backing offline normalization
+-- (backend/app/agent/normalizer.py, seeded from backend/app/data/common_aliases.json).
+-- Kept separate from drug_brand_names above because entries here may exist
+-- before any full clinical record does — normalization can recognize
+-- "Lipitor" -> "atorvastatin" long before atorvastatin has been retrieved.
+CREATE TABLE drug_aliases (
+    id          BIGSERIAL PRIMARY KEY,
+    drug_id     TEXT NOT NULL,   -- not a foreign key: may reference a drug not yet in `drugs`
+    alias       TEXT NOT NULL,
+    alias_type  TEXT NOT NULL CHECK (alias_type IN ('generic', 'brand', 'class_member')),
+    UNIQUE (drug_id, alias)
+);
+CREATE INDEX idx_drug_aliases_alias ON drug_aliases(lower(alias));

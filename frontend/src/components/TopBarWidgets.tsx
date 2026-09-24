@@ -42,7 +42,7 @@ export function GlobalSearch() {
           {!shown.length && (
             <div className="option" role="option" aria-selected="false" style={{ cursor: "default" }}>
               {loading ? "Searching…" : error ? "Search is unavailable right now" : "No matching drug in the library"}
-              {!loading && !error && <small>Only medications in the curated dataset can be found.</small>}
+              {!loading && !error && <small>This quick search only covers medications already known to the service. Add any drug name on the Review page to look it up.</small>}
             </div>
           )}
         </div>

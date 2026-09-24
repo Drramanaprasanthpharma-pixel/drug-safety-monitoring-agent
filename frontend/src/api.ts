@@ -72,8 +72,8 @@ function normalizeAudit(raw: unknown, i: number): AuditEntry {
 
 export const api = {
   health: () => request<{ status: string }>("/api/health"),
-  searchDrugs: (q: string, signal?: AbortSignal) =>
-    request<DrugSummary[]>(`/api/drugs?q=${encodeURIComponent(q)}`, { signal }),
+  searchDrugs: (q: string, signal?: AbortSignal, limit = 10) =>
+    request<DrugSummary[]>(`/api/drugs?q=${encodeURIComponent(q)}&limit=${limit}`, { signal }),
   drug: (id: string) => request<DrugDetail>(`/api/drugs/${encodeURIComponent(id)}`),
   demo: () => request<DemoConfig>("/api/demo"),
   analyze: (body: AnalysisRequest) =>

@@ -6,11 +6,13 @@ import os
 from .models import (
     AnalysisRequest, AnalysisResponse, DrugSummary,
     LabTrendRequest, LabTrendAssessment,
+    DrugResolveRequest, DrugResolveResponse, DrugRefreshRequest,
 )
 from .engine import data_loader as dl
-from .engine.orchestrator import run_analysis, UnknownDrugError
+from .engine.orchestrator import run_analysis, UnknownDrugError, AmbiguousDrugError
 from .engine.lab_trend_engine import analyze_lab_trend
 from .engine import audit
+from .agent import drug_agent
 
 app = FastAPI(
     title="Drug Safety Monitoring AI Agent",
@@ -62,8 +64,11 @@ def health():
 
 
 @app.get("/api/drugs", response_model=list[DrugSummary])
-def search_drugs(q: str = Query("", description="Search text for generic/brand name autocomplete")):
-    return dl.search_drugs(q)
+def search_drugs(
+    q: str = Query("", description="Search text for generic/brand name autocomplete"),
+    limit: int = Query(10, ge=1, le=200, description="Max results (autocomplete uses the default; library-count views may ask for more)"),
+):
+    return dl.search_drugs(q, limit=limit)
 
 
 @app.get("/api/drugs/{drug_id}")
@@ -72,6 +77,46 @@ def get_drug_detail(drug_id: str):
     if not drug:
         raise HTTPException(status_code=404, detail=f"Unknown drug id '{drug_id}'")
     return drug
+
+
+@app.post("/api/drugs/resolve", response_model=DrugResolveResponse)
+def resolve_drug(request: DrugResolveRequest):
+    """Name resolution only — no safety analysis. Lets the frontend show
+    'found locally' / 'needs AI lookup' / 'which one did you mean?' /
+    'not found' before committing to a full /api/analyze call (spec
+    section 14). Never raises: every outcome is a 200 with a status field,
+    since 'ambiguous' and 'unknown' are expected, ordinary results here,
+    not errors."""
+    drug_id = dl.resolve_drug_id(request.name)
+    if drug_id:
+        return DrugResolveResponse(status="found", drug_id=drug_id, drug=dl.get_drug(drug_id), source="database")
+    try:
+        drug_id = drug_agent.resolve_and_ensure(request.name)
+    except AmbiguousDrugError as e:
+        return DrugResolveResponse(status="ambiguous", possible_matches=e.possible_matches)
+    except UnknownDrugError as e:
+        return DrugResolveResponse(
+            status="unknown",
+            message={
+                "ai_unavailable": "AI-assisted retrieval is not configured, so this name could not be looked up beyond the curated dataset.",
+                "invalid_response": "The AI service returned data that failed validation, so nothing was added.",
+            }.get(e.reason, "Drug could not be confidently identified."),
+        )
+    return DrugResolveResponse(status="found", drug_id=drug_id, drug=dl.get_drug(drug_id), source="ai_retrieval")
+
+
+@app.post("/api/drugs/refresh")
+def refresh_drug(request: DrugRefreshRequest):
+    """Force re-retrieval of an AI-sourced drug, bypassing the cache
+    (spec section 14). Only meaningful for AI-retrieved records — the
+    curated dataset isn't something this endpoint touches."""
+    try:
+        drug_id = drug_agent.refresh(request.drug_id)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except (UnknownDrugError, AmbiguousDrugError):
+        raise HTTPException(status_code=422, detail=f"'{request.drug_id}' could not be re-retrieved.")
+    return {"status": "refreshed", "drug_id": drug_id, "drug": dl.get_drug(drug_id)}
 
 
 @app.get("/api/demo")
@@ -95,13 +140,24 @@ def analyze(request: AnalysisRequest):
     patient_dict = request.patient.model_dump() if request.patient else None
     try:
         result = run_analysis(request.drugs, patient_dict, demo_mode=request.demo_mode)
-    except UnknownDrugError as e:
+    except AmbiguousDrugError as e:
+        options = ", ".join(m["generic_name"] for m in e.possible_matches) or "multiple medications"
         raise HTTPException(
             status_code=422,
-            detail=f"{e.name} is not in the current demo drug database. "
-                   f"This prototype only recognizes the demo drug list; a production "
-                   f"deployment would connect to a licensed drug database.",
+            detail=f"'{e.name}' could match more than one medication ({options}). "
+                   f"Use POST /api/drugs/resolve first to disambiguate, then retry with the specific name.",
         )
+    except UnknownDrugError as e:
+        if e.reason == "ai_unavailable":
+            message = (
+                f"'{e.name}' is not in the curated dataset, and AI-assisted retrieval is not "
+                f"configured (set AI_PROVIDER / AI_API_KEY / AI_MODEL) — so it could not be looked up."
+            )
+        elif e.reason == "invalid_response":
+            message = f"'{e.name}' could not be retrieved: the AI service returned data that failed validation."
+        else:
+            message = f"'{e.name}' could not be confidently identified as a real medication."
+        raise HTTPException(status_code=422, detail=message)
     return result
 
 

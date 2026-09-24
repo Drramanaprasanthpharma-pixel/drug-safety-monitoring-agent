@@ -3,4 +3,5 @@
 -r requirements.txt
 uvicorn[standard]==0.30.6
 pytest==8.3.3
-httpx==0.27.2
+# httpx is also in requirements.txt now (used at runtime by agent/ai_client.py);
+# FastAPI's TestClient uses it too, so no separate dev-only pin is needed here.

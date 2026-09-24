@@ -10,27 +10,36 @@ Every "explanation" string here is template-generated from the structured
 facts already computed by the deterministic engines — never freely
 generated pharmacology. This keeps the rules engine authoritative per
 spec section 20.
+
+Step 1 (drug normalization) is the one place this upgrade changes: a name
+the curated dataset and AI cache don't already recognize is no longer an
+immediate failure. It's handed to agent.drug_agent, which normalizes it
+further (aliases, spelling), and — only if AI retrieval is configured —
+attempts to retrieve, validate, and cache a real clinical profile for it
+before this function ever sees it. Everything from step 2 onward is
+completely unchanged: it still only ever deals with a canonical drug_id
+and dl.get_drug(), exactly as before.
 """
 from __future__ import annotations
 from . import data_loader as dl
 from . import interactions_engine, organ_priority_engine, monitoring_engine
 from . import disease_interactions_engine, patient_risk_engine, red_flag_engine
 from . import scoring_engine, pharmacist_actions_engine, audit
+from ..agent.errors import AmbiguousDrugError, UnknownDrugError  # re-exported for existing call sites/tests
 
-
-class UnknownDrugError(Exception):
-    def __init__(self, name: str):
-        self.name = name
-        super().__init__(f"Unrecognized medication: '{name}'")
+__all__ = ["run_analysis", "UnknownDrugError", "AmbiguousDrugError"]
 
 
 def run_analysis(drug_names: list[str], patient: dict | None, demo_mode: bool = False) -> dict:
-    # 1. Drug normalization
+    # 1. Drug normalization — local lookup first (no network), then the
+    #    agent's alias/fuzzy/AI-retrieval fallback for anything unresolved.
+    from ..agent import drug_agent  # local import: avoids a circular import at module load time
+
     drug_ids = []
     for name in drug_names:
         drug_id = dl.resolve_drug_id(name)
         if not drug_id:
-            raise UnknownDrugError(name)
+            drug_id = drug_agent.resolve_and_ensure(name)  # raises UnknownDrugError / AmbiguousDrugError
         if drug_id not in drug_ids:
             drug_ids.append(drug_id)
 

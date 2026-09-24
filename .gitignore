@@ -4,6 +4,7 @@ __pycache__/
 .venv/
 .pytest_cache/
 backend/app/data/audit_log.jsonl
+backend/app/data/ai_drug_cache.json
 .env
 
 # Node / frontend

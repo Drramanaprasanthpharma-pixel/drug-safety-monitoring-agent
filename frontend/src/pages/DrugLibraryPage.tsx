@@ -23,7 +23,7 @@ export function DrugLibraryPage() {
 
   return (
     <div className="stack-lg">
-      <PageHead title="Drug library">Curated reference monographs for every medication the service can review. Open one for its full safety profile.</PageHead>
+      <PageHead title="Drug library">Reference monographs for every medication the service currently knows — curated entries, plus anything already resolved via AI-assisted retrieval. Enter any other drug name on the Review page to look it up and add it here.</PageHead>
 
       {loading && <LoadingState message="Loading the drug library…" rows={2} />}
       {error != null && <div className="panel"><ErrorState title="Unable to load the drug library" message={error instanceof ApiError ? error.message : "The library could not be loaded."} detail={error instanceof ApiError ? error.detail : undefined} onRetry={retry} /></div>}

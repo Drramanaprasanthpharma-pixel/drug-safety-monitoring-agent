@@ -1,82 +1,221 @@
 [
   {
-    "pair": ["warfarin", "amiodarone"],
+    "pair": [
+      "warfarin",
+      "amiodarone"
+    ],
     "severity": "Major",
-    "mechanism": ["CYP inhibition"],
+    "mechanism": [
+      "CYP inhibition"
+    ],
     "mechanism_detail": "Amiodarone inhibits CYP2C9 (and CYP3A4), reducing warfarin clearance and increasing anticoagulant effect. Onset may be delayed given amiodarone's long half-life and can persist for weeks after amiodarone is stopped.",
     "clinical_consequence": "Increased INR and bleeding risk; effect can develop gradually and persist due to amiodarone's long elimination half-life.",
     "recommended_action": "Dose adjustment",
     "action_detail": "Consider empiric warfarin dose reduction (commonly 25-50% has been suggested in literature) when amiodarone is added, with more frequent INR monitoring during initiation and for weeks after amiodarone is stopped or its dose changed.",
-    "evidence": {"source": "FDA prescribing information (Coumadin, Pacerone); established pharmacokinetic interaction", "confidence": "High"}
+    "evidence": {
+      "source": "FDA prescribing information (Coumadin, Pacerone); established pharmacokinetic interaction",
+      "confidence": "High"
+    }
   },
   {
-    "pair": ["digoxin", "amiodarone"],
+    "pair": [
+      "digoxin",
+      "amiodarone"
+    ],
     "severity": "Major",
-    "mechanism": ["Transporter interaction"],
+    "mechanism": [
+      "Transporter interaction"
+    ],
     "mechanism_detail": "Amiodarone inhibits P-glycoprotein, reducing digoxin clearance and increasing serum digoxin concentration, sometimes substantially.",
     "clinical_consequence": "Increased risk of digoxin toxicity (arrhythmia, GI, visual, neurologic symptoms).",
     "recommended_action": "Dose adjustment",
     "action_detail": "Consider empiric digoxin dose reduction (commonly by roughly half has been suggested in literature) when amiodarone is initiated, with digoxin level and clinical toxicity monitoring.",
-    "evidence": {"source": "FDA prescribing information (Lanoxin, Pacerone); established pharmacokinetic interaction", "confidence": "High"}
+    "evidence": {
+      "source": "FDA prescribing information (Lanoxin, Pacerone); established pharmacokinetic interaction",
+      "confidence": "High"
+    }
   },
   {
-    "pair": ["warfarin", "apixaban"],
+    "pair": [
+      "warfarin",
+      "apixaban"
+    ],
     "severity": "Contraindicated",
-    "mechanism": ["Pharmacodynamic interaction", "Additive toxicity"],
+    "mechanism": [
+      "Pharmacodynamic interaction",
+      "Additive toxicity"
+    ],
     "mechanism_detail": "Both are systemic anticoagulants acting on different points of the coagulation cascade; concurrent use produces additive anticoagulant effect without an accepted clinical indication for routine combined use.",
     "clinical_consequence": "Substantially increased bleeding risk, including major and intracranial hemorrhage.",
     "recommended_action": "Avoid combination",
     "action_detail": "Concurrent use of two full-dose systemic anticoagulants is not routinely indicated. If a transition between agents is intended, use an accepted bridging/switching protocol rather than co-administration; involve the prescriber before any changes.",
-    "evidence": {"source": "FDA prescribing information (Coumadin, Eliquis); general anticoagulation prescribing principles", "confidence": "High"}
+    "evidence": {
+      "source": "FDA prescribing information (Coumadin, Eliquis); general anticoagulation prescribing principles",
+      "confidence": "High"
+    }
   },
   {
-    "pair": ["carbamazepine", "warfarin"],
+    "pair": [
+      "carbamazepine",
+      "warfarin"
+    ],
     "severity": "Major",
-    "mechanism": ["CYP induction"],
+    "mechanism": [
+      "CYP induction"
+    ],
     "mechanism_detail": "Carbamazepine is a strong CYP3A4/CYP2C9 pathway inducer, increasing warfarin metabolism and reducing anticoagulant effect.",
     "clinical_consequence": "Reduced INR/anticoagulant effect, risking treatment failure (thrombosis) if warfarin dose is not increased appropriately; risk of rebound over-anticoagulation if carbamazepine is later discontinued without adjusting warfarin down.",
     "recommended_action": "Monitor",
     "action_detail": "Anticipate the need for a warfarin dose increase after carbamazepine initiation (and a decrease after discontinuation), guided by more frequent INR monitoring during both transitions.",
-    "evidence": {"source": "FDA prescribing information (Coumadin, Tegretol); established pharmacokinetic interaction", "confidence": "High"}
+    "evidence": {
+      "source": "FDA prescribing information (Coumadin, Tegretol); established pharmacokinetic interaction",
+      "confidence": "High"
+    }
   },
   {
-    "pair": ["carbamazepine", "phenytoin"],
+    "pair": [
+      "carbamazepine",
+      "phenytoin"
+    ],
     "severity": "Moderate",
-    "mechanism": ["CYP induction", "Pharmacodynamic interaction"],
+    "mechanism": [
+      "CYP induction",
+      "Pharmacodynamic interaction"
+    ],
     "mechanism_detail": "Mutual induction of hepatic metabolism can alter levels of both agents unpredictably; additive CNS/neurotoxic effects (ataxia, sedation) may also occur.",
     "clinical_consequence": "Unpredictable changes in serum levels of one or both drugs; additive CNS toxicity (dizziness, ataxia).",
     "recommended_action": "Monitor",
     "action_detail": "Monitor serum levels of both agents when co-administered or when either is added/removed/dose-changed, and monitor for clinical signs of toxicity.",
-    "evidence": {"source": "FDA prescribing information (Tegretol, Dilantin); established pharmacokinetic interaction", "confidence": "Moderate"}
+    "evidence": {
+      "source": "FDA prescribing information (Tegretol, Dilantin); established pharmacokinetic interaction",
+      "confidence": "Moderate"
+    }
   },
   {
-    "pair": ["metformin", "vancomycin"],
+    "pair": [
+      "metformin",
+      "vancomycin"
+    ],
     "severity": "Minor",
-    "mechanism": ["Renal clearance"],
+    "mechanism": [
+      "Renal clearance"
+    ],
     "mechanism_detail": "Both agents are renally cleared; no direct pharmacokinetic interaction is well established, but concurrent renal stress (e.g., acute illness, dehydration, nephrotoxicity from vancomycin) can indirectly reduce metformin clearance.",
     "clinical_consequence": "Theoretical increased risk of metformin accumulation and lactic acidosis if renal function declines during vancomycin therapy, particularly in acutely ill patients.",
     "recommended_action": "Monitor",
     "action_detail": "Monitor renal function closely if both are used concurrently, especially in acutely ill or hospitalized patients; reassess metformin appropriateness if renal function declines.",
-    "evidence": {"source": "General pharmacokinetic principles (shared renal elimination pathway); not a well-characterized direct interaction", "confidence": "Limited"}
+    "evidence": {
+      "source": "General pharmacokinetic principles (shared renal elimination pathway); not a well-characterized direct interaction",
+      "confidence": "Limited"
+    }
   },
   {
-    "pair": ["lithium", "metformin"],
+    "pair": [
+      "lithium",
+      "metformin"
+    ],
     "severity": "Unknown",
-    "mechanism": ["Pharmacodynamic interaction"],
+    "mechanism": [
+      "Pharmacodynamic interaction"
+    ],
     "mechanism_detail": "No well-established direct pharmacokinetic interaction between lithium and metformin; both can independently affect renal/electrolyte status.",
     "clinical_consequence": "No specific established clinical consequence from this combination beyond each drug's individual renal monitoring needs.",
     "recommended_action": "Continue with caution",
     "action_detail": "No specific action beyond each drug's individual monitoring is established; ensure both renal function and lithium level monitoring schedules are maintained.",
-    "evidence": {"source": "No well-characterized direct interaction identified in general drug interaction references", "confidence": "Unknown"}
+    "evidence": {
+      "source": "No well-characterized direct interaction identified in general drug interaction references",
+      "confidence": "Unknown"
+    }
   },
   {
-    "pair": ["methotrexate", "warfarin"],
+    "pair": [
+      "methotrexate",
+      "warfarin"
+    ],
     "severity": "Moderate",
-    "mechanism": ["Protein binding", "Additive toxicity"],
+    "mechanism": [
+      "Protein binding",
+      "Additive toxicity"
+    ],
     "mechanism_detail": "Methotrexate can displace warfarin from plasma protein binding and both can independently affect hepatic function, which may alter anticoagulant response; methotrexate can also cause thrombocytopenia, compounding bleeding risk.",
     "clinical_consequence": "Potential increase in free warfarin effect and additive bleeding risk if methotrexate causes thrombocytopenia or hepatotoxicity.",
     "recommended_action": "Monitor",
     "action_detail": "Increase INR monitoring frequency and monitor CBC/LFTs when both agents are used together.",
-    "evidence": {"source": "General pharmacologic principles; established individual toxicity profiles", "confidence": "Moderate"}
+    "evidence": {
+      "source": "General pharmacologic principles; established individual toxicity profiles",
+      "confidence": "Moderate"
+    }
+  },
+  {
+    "pair": [
+      "rivaroxaban",
+      "warfarin"
+    ],
+    "severity": "Major",
+    "mechanism": [
+      "Additive anticoagulant effect"
+    ],
+    "mechanism_detail": "Combining two anticoagulants with different mechanisms produces additive antithrombotic effect without a validated way to jointly monitor combined intensity.",
+    "clinical_consequence": "Substantially increased bleeding risk, including major and intracranial hemorrhage.",
+    "recommended_action": "Avoid combination",
+    "action_detail": "Concurrent use of two oral anticoagulants is generally avoided outside of a deliberately supervised, short-duration bridging protocol; confirm with prescriber before continuing both.",
+    "evidence": {
+      "source": "FDA prescribing information (Xarelto, Coumadin); established pharmacodynamic interaction class effect",
+      "confidence": "High"
+    }
+  },
+  {
+    "pair": [
+      "rivaroxaban",
+      "apixaban"
+    ],
+    "severity": "Contraindicated",
+    "mechanism": [
+      "Additive anticoagulant effect"
+    ],
+    "mechanism_detail": "Both are direct factor Xa inhibitors; concurrent use produces additive anticoagulant effect with no established combined-use indication.",
+    "clinical_consequence": "Markedly increased bleeding risk with no established clinical benefit over either agent alone.",
+    "recommended_action": "Avoid combination",
+    "action_detail": "Do not combine two direct oral anticoagulants; this combination is not a recognized regimen. Contact prescriber immediately.",
+    "evidence": {
+      "source": "FDA prescribing information (Xarelto, Eliquis); established pharmacodynamic class effect",
+      "confidence": "High"
+    }
+  },
+  {
+    "pair": [
+      "azithromycin",
+      "digoxin"
+    ],
+    "severity": "Moderate",
+    "mechanism": [
+      "Gut flora alteration increasing digoxin absorption"
+    ],
+    "mechanism_detail": "Macrolides can suppress gut bacteria that metabolize digoxin in some patients, increasing digoxin bioavailability and serum concentration.",
+    "clinical_consequence": "Elevated digoxin levels, increasing risk of digoxin toxicity (arrhythmia, GI and visual symptoms).",
+    "recommended_action": "Monitor",
+    "action_detail": "Monitor for signs of digoxin toxicity during and shortly after the azithromycin course; consider a digoxin level if symptoms suggestive of toxicity develop.",
+    "evidence": {
+      "source": "FDA prescribing information (Zithromax); established pharmacokinetic interaction reported for macrolides with digoxin",
+      "confidence": "Moderate"
+    }
+  },
+  {
+    "pair": [
+      "atorvastatin",
+      "amiodarone"
+    ],
+    "severity": "Moderate",
+    "mechanism": [
+      "CYP3A4 inhibition"
+    ],
+    "mechanism_detail": "Amiodarone inhibits CYP3A4, reducing atorvastatin clearance and increasing statin exposure.",
+    "clinical_consequence": "Increased risk of statin-associated myopathy, including rare rhabdomyolysis.",
+    "recommended_action": "Dose adjustment",
+    "action_detail": "Labeling recommends limiting atorvastatin dose when combined with amiodarone; monitor for muscle symptoms and consider a lower statin dose.",
+    "evidence": {
+      "source": "FDA prescribing information (Lipitor, Pacerone); established pharmacokinetic interaction",
+      "confidence": "High"
+    }
   }
 ]

@@ -3,3 +3,12 @@
 # requirements-dev.txt instead (see "Running it locally" in the README).
 fastapi==0.115.0
 pydantic==2.9.2
+# Used by agent/ai_client.py to call the configured AI provider (Anthropic
+# or OpenAI) for drug retrieval. Only ever invoked if AI_API_KEY is set —
+# the app runs fully offline (curated dataset + safety engine) without it.
+httpx==0.27.2
+# Optional at runtime: only imported (agent/cache.py) if DATABASE_URL is
+# set, to cache AI-retrieved drugs in Postgres instead of the local file
+# cache. Install separately (`pip install "psycopg[binary]"`) if you wire
+# a database — not required for the app to run.
+# psycopg[binary]

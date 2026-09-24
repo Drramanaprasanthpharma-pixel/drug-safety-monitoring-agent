@@ -17,7 +17,7 @@ export function OverviewPage() {
 
   useEffect(() => {
     let alive = true;
-    api.searchDrugs("").then((r) => alive && setLibrary(r)).catch(() => alive && setLibrary([]));
+    api.searchDrugs("", undefined, 100).then((r) => alive && setLibrary(r)).catch(() => alive && setLibrary([]));
     api.audit(6).then((r) => alive && setAudit(r)).catch(() => alive && setAudit("error"));
     return () => { alive = false; };
   }, []);
@@ -62,7 +62,7 @@ export function OverviewPage() {
       </section>
 
       <section className="panel stat-strip" aria-label="At a glance">
-        <div className="stat"><div className="v">{library ? library.length : "—"}</div><div className="l">Medications in the curated library</div></div>
+        <div className="stat"><div className="v">{library ? library.length : "—"}</div><div className="l">Medications in the library</div></div>
         <div className="stat"><div className="v">{Array.isArray(audit) ? audit.length : "—"}</div><div className="l">Recent reviews in the activity log</div></div>
         <div className="stat"><div className="v">{lr ? lr.red_flags.length : "—"}</div><div className="l">{lr ? "Red flags in your last review" : "Run a review to see red flags"}</div></div>
       </section>
@@ -103,7 +103,7 @@ export function OverviewPage() {
               <a className="btn btn-sm" href={href("/review")}>Open review</a>
             </Panel>
           )}
-          <Panel title="Drug library" subtitle="Curated reference monographs." id="lib" flush actions={<a className="btn btn-sm btn-ghost" href={href("/drugs")}>Browse</a>}>
+          <Panel title="Drug library" subtitle="Curated data, plus anything already resolved via AI-assisted retrieval." id="lib" flush actions={<a className="btn btn-sm btn-ghost" href={href("/drugs")}>Browse</a>}>
             {library === null ? <div className="panel-body"><span className="skel" style={{ width: "60%" }} /></div> : (
               <ul className="list-rows">
                 {library.slice(0, 6).map((d) => (

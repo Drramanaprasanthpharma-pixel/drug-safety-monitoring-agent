@@ -1,0 +1,41 @@
+{
+  "_readme": "Name-normalization data ONLY: which brand names map to which generic name, and its therapeutic class. This is NOT a clinical dataset (no dosing, interactions, or monitoring facts) and is not treated as a source of clinical truth the way drugs.json is. Its only job is to let the normalizer recognize a drug by any common name before deciding whether full clinical content already exists locally or needs to go through the AI-retrieval-and-validation path (see agent/drug_agent.py). A 'class' entry (is_class: true) intentionally has no single generic_name — resolving it always returns status=ambiguous with the listed members, matching spec section 11 ('do not silently guess when multiple drugs could match').",
+
+  "atorvastatin": { "generic_name": "Atorvastatin", "brand_names": ["Lipitor"], "drug_class": "HMG-CoA reductase inhibitor (statin)" },
+  "rosuvastatin": { "generic_name": "Rosuvastatin", "brand_names": ["Crestor"], "drug_class": "HMG-CoA reductase inhibitor (statin)" },
+  "pantoprazole": { "generic_name": "Pantoprazole", "brand_names": ["Protonix"], "drug_class": "Proton pump inhibitor" },
+  "ceftriaxone": { "generic_name": "Ceftriaxone", "brand_names": ["Rocephin"], "drug_class": "Third-generation cephalosporin antibiotic" },
+  "azithromycin": { "generic_name": "Azithromycin", "brand_names": ["Zithromax", "Z-Pak", "Zmax"], "drug_class": "Macrolide antibiotic" },
+  "amoxicillin": { "generic_name": "Amoxicillin", "brand_names": ["Amoxil", "Trimox"], "drug_class": "Aminopenicillin antibiotic" },
+  "amoxicillin-clavulanate": { "generic_name": "Amoxicillin/clavulanate", "brand_names": ["Augmentin"], "drug_class": "Beta-lactam/beta-lactamase inhibitor combination antibiotic" },
+  "metformin": { "generic_name": "Metformin", "brand_names": ["Glucophage", "Fortamet", "Glumetza"], "drug_class": "Biguanide (antihyperglycemic)" },
+  "acetaminophen": { "generic_name": "Acetaminophen", "brand_names": ["Tylenol", "Panadol", "Paracetamol"], "drug_class": "Analgesic/antipyretic" },
+  "vancomycin": { "generic_name": "Vancomycin", "brand_names": ["Vancocin"], "drug_class": "Glycopeptide antibiotic" },
+  "meropenem": { "generic_name": "Meropenem", "brand_names": ["Merrem"], "drug_class": "Carbapenem antibiotic" },
+  "piperacillin-tazobactam": { "generic_name": "Piperacillin/tazobactam", "brand_names": ["Zosyn", "Tazocin", "Piptaz"], "drug_class": "Beta-lactam/beta-lactamase inhibitor combination antibiotic" },
+  "amlodipine": { "generic_name": "Amlodipine", "brand_names": ["Norvasc"], "drug_class": "Dihydropyridine calcium channel blocker" },
+  "losartan": { "generic_name": "Losartan", "brand_names": ["Cozaar"], "drug_class": "Angiotensin II receptor blocker" },
+  "enalapril": { "generic_name": "Enalapril", "brand_names": ["Vasotec"], "drug_class": "ACE inhibitor" },
+  "clopidogrel": { "generic_name": "Clopidogrel", "brand_names": ["Plavix"], "drug_class": "P2Y12 platelet inhibitor (antiplatelet)" },
+  "aspirin": { "generic_name": "Aspirin", "brand_names": ["Bayer", "Ecotrin"], "drug_class": "Salicylate (antiplatelet/analgesic/NSAID)" },
+  "rivaroxaban": { "generic_name": "Rivaroxaban", "brand_names": ["Xarelto"], "drug_class": "Factor Xa inhibitor (anticoagulant)" },
+  "insulin-glargine": { "generic_name": "Insulin glargine", "brand_names": ["Lantus", "Basaglar", "Toujeo"], "drug_class": "Long-acting insulin analog" },
+  "insulin-lispro": { "generic_name": "Insulin lispro", "brand_names": ["Humalog"], "drug_class": "Rapid-acting insulin analog" },
+  "insulin-aspart": { "generic_name": "Insulin aspart", "brand_names": ["Novolog", "Fiasp"], "drug_class": "Rapid-acting insulin analog" },
+  "insulin-regular": { "generic_name": "Insulin regular (human)", "brand_names": ["Humulin R", "Novolin R"], "drug_class": "Short-acting insulin" },
+  "hydralazine": { "generic_name": "Hydralazine", "brand_names": ["Apresoline"], "drug_class": "Direct vasodilator (antihypertensive)" },
+  "hydroxyzine": { "generic_name": "Hydroxyzine", "brand_names": ["Vistaril", "Atarax"], "drug_class": "Antihistamine (anxiolytic/antipruritic)" },
+
+  "_classes": {
+    "insulin": {
+      "is_class": true,
+      "note": "Ambiguous on its own — resolves to a specific product only when the person names one.",
+      "members": ["insulin-glargine", "insulin-lispro", "insulin-aspart", "insulin-regular"]
+    },
+    "penicillin": {
+      "is_class": true,
+      "note": "Ambiguous on its own — several distinct penicillin-class drugs exist.",
+      "members": ["amoxicillin", "amoxicillin-clavulanate"]
+    }
+  }
+}

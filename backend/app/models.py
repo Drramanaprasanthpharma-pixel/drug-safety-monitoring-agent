@@ -210,3 +210,31 @@ class DrugSummary(BaseModel):
     generic_name: str
     brand_names: List[str]
     drug_class: str
+    source: Literal["database", "ai_retrieval", "ai_cache"] = "database"
+
+
+# ---------------------------------------------------------------------------
+# Drug resolution (name normalization only — no safety analysis)
+# ---------------------------------------------------------------------------
+
+class DrugResolveRequest(BaseModel):
+    name: str = Field(..., min_length=1)
+
+
+class PossibleMatch(BaseModel):
+    id: Optional[str] = None
+    generic_name: str
+    drug_class: str = ""
+
+
+class DrugResolveResponse(BaseModel):
+    status: Literal["found", "ambiguous", "unknown"]
+    drug_id: Optional[str] = None
+    drug: Optional[dict] = None
+    source: Optional[Literal["database", "ai_retrieval"]] = None
+    possible_matches: List[PossibleMatch] = Field(default_factory=list)
+    message: Optional[str] = None
+
+
+class DrugRefreshRequest(BaseModel):
+    drug_id: str = Field(..., min_length=1)

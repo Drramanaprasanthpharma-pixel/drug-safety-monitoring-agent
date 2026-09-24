@@ -2,303 +2,1876 @@
   "warfarin": {
     "id": "warfarin",
     "generic_name": "Warfarin",
-    "brand_names": ["Coumadin", "Jantoven"],
+    "brand_names": [
+      "Coumadin",
+      "Jantoven"
+    ],
     "drug_class": "Vitamin K antagonist (anticoagulant)",
     "pharmacology": "Inhibits vitamin K epoxide reductase (VKORC1), reducing synthesis of clotting factors II, VII, IX, X. Metabolized primarily by CYP2C9; narrow therapeutic index with high inter-patient variability (VKORC1/CYP2C9 genotype, diet, drug interactions).",
     "boxed_warning": "Bleeding risk, which can be fatal. Regular INR monitoring required for all treated patients.",
-    "contraindications": ["Active pathological bleeding", "Pregnancy (except select mechanical heart valve cases)", "Severe uncontrolled hypertension", "Recent major surgery with bleeding risk", "Hemorrhagic tendencies or blood dyscrasias"],
+    "contraindications": [
+      "Active pathological bleeding",
+      "Pregnancy (except select mechanical heart valve cases)",
+      "Severe uncontrolled hypertension",
+      "Recent major surgery with bleeding risk",
+      "Hemorrhagic tendencies or blood dyscrasias"
+    ],
     "adverse_effects": {
-      "common": ["Bruising", "Minor bleeding (gums, epistaxis)"],
-      "serious": ["Major hemorrhage (GI, intracranial)", "Skin necrosis (early, protein C/S deficiency)", "Purple toe syndrome"],
-      "life_threatening": ["Intracranial hemorrhage", "Massive GI hemorrhage"]
+      "common": [
+        "Bruising",
+        "Minor bleeding (gums, epistaxis)"
+      ],
+      "serious": [
+        "Major hemorrhage (GI, intracranial)",
+        "Skin necrosis (early, protein C/S deficiency)",
+        "Purple toe syndrome"
+      ],
+      "life_threatening": [
+        "Intracranial hemorrhage",
+        "Massive GI hemorrhage"
+      ]
     },
     "organ_toxicity": [
-      {"organ": "Hematologic", "risk_level": "High", "reason": "Anticoagulant mechanism directly increases bleeding risk", "toxicity": "Hemorrhage at any site; risk rises sharply above therapeutic INR", "monitoring_parameters": ["INR", "Hemoglobin/Hematocrit", "Signs of occult bleeding"], "frequency": "Daily during initiation, then per stabilization protocol; at least monthly once stable", "thresholds": "INR >4.5 (or above individualized target range) warrants dose review", "source": "FDA prescribing information; ACCP/CHEST anticoagulation guidance"},
-      {"organ": "Dermatologic", "risk_level": "Low", "reason": "Rare procoagulant paradox early in therapy (protein C/S deficiency)", "toxicity": "Warfarin-induced skin necrosis (rare, early therapy)", "monitoring_parameters": ["Skin examination during initiation"], "frequency": "During initiation, especially first 3-5 days", "thresholds": "New painful skin lesions", "source": "FDA prescribing information"}
+      {
+        "organ": "Hematologic",
+        "risk_level": "High",
+        "reason": "Anticoagulant mechanism directly increases bleeding risk",
+        "toxicity": "Hemorrhage at any site; risk rises sharply above therapeutic INR",
+        "monitoring_parameters": [
+          "INR",
+          "Hemoglobin/Hematocrit",
+          "Signs of occult bleeding"
+        ],
+        "frequency": "Daily during initiation, then per stabilization protocol; at least monthly once stable",
+        "thresholds": "INR >4.5 (or above individualized target range) warrants dose review",
+        "source": "FDA prescribing information; ACCP/CHEST anticoagulation guidance"
+      },
+      {
+        "organ": "Dermatologic",
+        "risk_level": "Low",
+        "reason": "Rare procoagulant paradox early in therapy (protein C/S deficiency)",
+        "toxicity": "Warfarin-induced skin necrosis (rare, early therapy)",
+        "monitoring_parameters": [
+          "Skin examination during initiation"
+        ],
+        "frequency": "During initiation, especially first 3-5 days",
+        "thresholds": "New painful skin lesions",
+        "source": "FDA prescribing information"
+      }
     ],
     "monitoring_parameters": [
-      {"parameter": "INR", "why": "Primary marker of anticoagulation intensity and bleeding risk", "baseline": "Yes", "follow_up": "Per stabilization protocol, then routinely (interval individualized)", "alert_threshold": "Above individualized target range, or any value with active bleeding", "risk": "High"},
-      {"parameter": "CBC (Hemoglobin/Hematocrit)", "why": "Detect occult blood loss", "baseline": "Yes", "follow_up": "Periodic, and with any bleeding symptoms", "alert_threshold": "Unexplained drop", "risk": "Moderate"},
-      {"parameter": "Liver function tests", "why": "Hepatic disease alters clotting factor synthesis and warfarin sensitivity", "baseline": "Consider", "follow_up": "As clinically indicated", "alert_threshold": "Marked elevation", "risk": "Low"}
+      {
+        "parameter": "INR",
+        "why": "Primary marker of anticoagulation intensity and bleeding risk",
+        "baseline": "Yes",
+        "follow_up": "Per stabilization protocol, then routinely (interval individualized)",
+        "alert_threshold": "Above individualized target range, or any value with active bleeding",
+        "risk": "High"
+      },
+      {
+        "parameter": "CBC (Hemoglobin/Hematocrit)",
+        "why": "Detect occult blood loss",
+        "baseline": "Yes",
+        "follow_up": "Periodic, and with any bleeding symptoms",
+        "alert_threshold": "Unexplained drop",
+        "risk": "Moderate"
+      },
+      {
+        "parameter": "Liver function tests",
+        "why": "Hepatic disease alters clotting factor synthesis and warfarin sensitivity",
+        "baseline": "Consider",
+        "follow_up": "As clinically indicated",
+        "alert_threshold": "Marked elevation",
+        "risk": "Low"
+      }
     ],
-    "vital_signs": [{"parameter": "Blood pressure", "why": "Uncontrolled hypertension increases intracranial hemorrhage risk"}],
+    "vital_signs": [
+      {
+        "parameter": "Blood pressure",
+        "why": "Uncontrolled hypertension increases intracranial hemorrhage risk"
+      }
+    ],
     "renal_dosing": "No specific renal dose adjustment required, but uremia can potentiate bleeding risk.",
     "hepatic_dosing": "Hepatic impairment increases sensitivity; lower doses and closer INR monitoring typically needed.",
-    "high_risk_populations": ["Elderly (falls risk + bleeding)", "Concurrent antiplatelet or NSAID use", "Genetic CYP2C9/VKORC1 variants", "Pregnancy"],
-    "therapeutic_drug_monitoring": {"applicable": true, "target_range": "INR target individualized (commonly 2.0–3.0 for most indications)", "notes": "INR is the surrogate pharmacodynamic marker used instead of a drug concentration."},
-    "evidence": [{"source": "FDA-approved prescribing information (Coumadin label)", "reference": "Consult current full prescribing information", "date": "General labeling knowledge", "confidence": "Moderate"}]
+    "high_risk_populations": [
+      "Elderly (falls risk + bleeding)",
+      "Concurrent antiplatelet or NSAID use",
+      "Genetic CYP2C9/VKORC1 variants",
+      "Pregnancy"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": true,
+      "target_range": "INR target individualized (commonly 2.0\u20133.0 for most indications)",
+      "notes": "INR is the surrogate pharmacodynamic marker used instead of a drug concentration."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Coumadin label)",
+        "reference": "Consult current full prescribing information",
+        "date": "General labeling knowledge",
+        "confidence": "Moderate"
+      }
+    ]
   },
   "amiodarone": {
     "id": "amiodarone",
     "generic_name": "Amiodarone",
-    "brand_names": ["Pacerone", "Cordarone"],
+    "brand_names": [
+      "Pacerone",
+      "Cordarone"
+    ],
     "drug_class": "Class III antiarrhythmic",
     "pharmacology": "Multi-channel blocker (K, Na, Ca) with alpha/beta-adrenergic blocking properties. Extremely long half-life (weeks); potent CYP3A4/CYP2C9 and P-glycoprotein inhibitor; accumulates in tissue including thyroid, lung, liver, cornea, skin.",
     "boxed_warning": "Pulmonary toxicity, hepatotoxicity, and proarrhythmia; use restricted to life-threatening arrhythmias for some indications.",
-    "contraindications": ["Severe sinus node dysfunction without pacemaker", "Second/third-degree AV block without pacemaker", "Known iodine hypersensitivity (relative)", "Cardiogenic shock (for some formulations)"],
+    "contraindications": [
+      "Severe sinus node dysfunction without pacemaker",
+      "Second/third-degree AV block without pacemaker",
+      "Known iodine hypersensitivity (relative)",
+      "Cardiogenic shock (for some formulations)"
+    ],
     "adverse_effects": {
-      "common": ["Photosensitivity", "Corneal microdeposits", "GI upset", "Tremor"],
-      "serious": ["Pulmonary fibrosis/pneumonitis", "Hepatotoxicity", "Hypo/hyperthyroidism", "Bradyarrhythmia"],
-      "life_threatening": ["Torsades de pointes", "Acute hepatic failure", "Diffuse pulmonary fibrosis"]
+      "common": [
+        "Photosensitivity",
+        "Corneal microdeposits",
+        "GI upset",
+        "Tremor"
+      ],
+      "serious": [
+        "Pulmonary fibrosis/pneumonitis",
+        "Hepatotoxicity",
+        "Hypo/hyperthyroidism",
+        "Bradyarrhythmia"
+      ],
+      "life_threatening": [
+        "Torsades de pointes",
+        "Acute hepatic failure",
+        "Diffuse pulmonary fibrosis"
+      ]
     },
     "organ_toxicity": [
-      {"organ": "Pulmonary", "risk_level": "High", "reason": "Direct cytotoxic and phospholipidosis-related lung injury, cumulative-dose related", "toxicity": "Interstitial pneumonitis, pulmonary fibrosis", "monitoring_parameters": ["Chest X-ray", "Pulmonary function tests (if symptomatic)", "New dyspnea/cough"], "frequency": "Baseline, then annually and with new respiratory symptoms", "thresholds": "New/worsening dyspnea, hypoxia, infiltrates", "source": "FDA prescribing information"},
-      {"organ": "Hepatic", "risk_level": "High", "reason": "Direct hepatocellular toxicity", "toxicity": "Elevated transaminases, rarely fulminant hepatitis", "monitoring_parameters": ["AST", "ALT"], "frequency": "Baseline, then every 6 months", "thresholds": "AST/ALT >2–3x ULN", "source": "FDA prescribing information"},
-      {"organ": "Endocrine", "risk_level": "Moderate", "reason": "Iodine content and direct thyroid effects", "toxicity": "Amiodarone-induced hypo- or hyperthyroidism", "monitoring_parameters": ["TSH", "Free T4"], "frequency": "Baseline, then every 6 months", "thresholds": "Abnormal TSH", "source": "FDA prescribing information; ATA guidance"},
-      {"organ": "Cardiovascular", "risk_level": "Moderate", "reason": "QT prolongation and bradyarrhythmia risk", "toxicity": "Torsades de pointes (uncommon at therapeutic use), bradycardia", "monitoring_parameters": ["ECG/QTc", "Heart rate"], "frequency": "Baseline, then periodically and with dose changes or interacting drugs", "thresholds": "QTc >500 ms or marked increase from baseline", "source": "FDA prescribing information"},
-      {"organ": "Ophthalmologic", "risk_level": "Low", "reason": "Corneal microdeposits, rare optic neuropathy", "toxicity": "Visual disturbance", "monitoring_parameters": ["Visual symptoms; ophthalmologic exam if symptomatic"], "frequency": "As clinically indicated", "thresholds": "New visual changes", "source": "FDA prescribing information"}
+      {
+        "organ": "Pulmonary",
+        "risk_level": "High",
+        "reason": "Direct cytotoxic and phospholipidosis-related lung injury, cumulative-dose related",
+        "toxicity": "Interstitial pneumonitis, pulmonary fibrosis",
+        "monitoring_parameters": [
+          "Chest X-ray",
+          "Pulmonary function tests (if symptomatic)",
+          "New dyspnea/cough"
+        ],
+        "frequency": "Baseline, then annually and with new respiratory symptoms",
+        "thresholds": "New/worsening dyspnea, hypoxia, infiltrates",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Hepatic",
+        "risk_level": "High",
+        "reason": "Direct hepatocellular toxicity",
+        "toxicity": "Elevated transaminases, rarely fulminant hepatitis",
+        "monitoring_parameters": [
+          "AST",
+          "ALT"
+        ],
+        "frequency": "Baseline, then every 6 months",
+        "thresholds": "AST/ALT >2\u20133x ULN",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Endocrine",
+        "risk_level": "Moderate",
+        "reason": "Iodine content and direct thyroid effects",
+        "toxicity": "Amiodarone-induced hypo- or hyperthyroidism",
+        "monitoring_parameters": [
+          "TSH",
+          "Free T4"
+        ],
+        "frequency": "Baseline, then every 6 months",
+        "thresholds": "Abnormal TSH",
+        "source": "FDA prescribing information; ATA guidance"
+      },
+      {
+        "organ": "Cardiovascular",
+        "risk_level": "Moderate",
+        "reason": "QT prolongation and bradyarrhythmia risk",
+        "toxicity": "Torsades de pointes (uncommon at therapeutic use), bradycardia",
+        "monitoring_parameters": [
+          "ECG/QTc",
+          "Heart rate"
+        ],
+        "frequency": "Baseline, then periodically and with dose changes or interacting drugs",
+        "thresholds": "QTc >500 ms or marked increase from baseline",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Ophthalmologic",
+        "risk_level": "Low",
+        "reason": "Corneal microdeposits, rare optic neuropathy",
+        "toxicity": "Visual disturbance",
+        "monitoring_parameters": [
+          "Visual symptoms; ophthalmologic exam if symptomatic"
+        ],
+        "frequency": "As clinically indicated",
+        "thresholds": "New visual changes",
+        "source": "FDA prescribing information"
+      }
     ],
     "monitoring_parameters": [
-      {"parameter": "AST/ALT", "why": "Detect hepatotoxicity", "baseline": "Yes", "follow_up": "Every 6 months", "alert_threshold": ">2-3x ULN", "risk": "High"},
-      {"parameter": "TSH/Free T4", "why": "Detect thyroid dysfunction", "baseline": "Yes", "follow_up": "Every 6 months", "alert_threshold": "Outside reference range", "risk": "Moderate"},
-      {"parameter": "Chest X-ray / pulmonary symptoms", "why": "Detect pulmonary toxicity", "baseline": "Yes", "follow_up": "Annually / as symptomatic", "alert_threshold": "New infiltrates or dyspnea", "risk": "High"},
-      {"parameter": "ECG (QTc)", "why": "Detect proarrhythmic QT prolongation", "baseline": "Yes", "follow_up": "Periodic and with dose/interacting drug changes", "alert_threshold": "QTc >500 ms", "risk": "Moderate"}
+      {
+        "parameter": "AST/ALT",
+        "why": "Detect hepatotoxicity",
+        "baseline": "Yes",
+        "follow_up": "Every 6 months",
+        "alert_threshold": ">2-3x ULN",
+        "risk": "High"
+      },
+      {
+        "parameter": "TSH/Free T4",
+        "why": "Detect thyroid dysfunction",
+        "baseline": "Yes",
+        "follow_up": "Every 6 months",
+        "alert_threshold": "Outside reference range",
+        "risk": "Moderate"
+      },
+      {
+        "parameter": "Chest X-ray / pulmonary symptoms",
+        "why": "Detect pulmonary toxicity",
+        "baseline": "Yes",
+        "follow_up": "Annually / as symptomatic",
+        "alert_threshold": "New infiltrates or dyspnea",
+        "risk": "High"
+      },
+      {
+        "parameter": "ECG (QTc)",
+        "why": "Detect proarrhythmic QT prolongation",
+        "baseline": "Yes",
+        "follow_up": "Periodic and with dose/interacting drug changes",
+        "alert_threshold": "QTc >500 ms",
+        "risk": "Moderate"
+      }
     ],
-    "vital_signs": [{"parameter": "Heart rate", "why": "Bradycardia risk"}, {"parameter": "Blood pressure", "why": "Can cause hypotension, especially IV"}],
+    "vital_signs": [
+      {
+        "parameter": "Heart rate",
+        "why": "Bradycardia risk"
+      },
+      {
+        "parameter": "Blood pressure",
+        "why": "Can cause hypotension, especially IV"
+      }
+    ],
     "renal_dosing": "No specific renal dose adjustment; not significantly renally cleared.",
     "hepatic_dosing": "Use caution in hepatic impairment; consider dose reduction and closer LFT monitoring.",
-    "high_risk_populations": ["Pre-existing lung disease", "Pre-existing thyroid disease", "Elderly", "Concurrent QT-prolonging or CYP-interacting drugs"],
-    "therapeutic_drug_monitoring": {"applicable": false, "target_range": null, "notes": "Serum levels not routinely used clinically; monitoring is toxicity-organ based."},
-    "evidence": [{"source": "FDA-approved prescribing information (Pacerone/Cordarone label)", "reference": "Consult current full prescribing information", "date": "General labeling knowledge", "confidence": "Moderate"}]
+    "high_risk_populations": [
+      "Pre-existing lung disease",
+      "Pre-existing thyroid disease",
+      "Elderly",
+      "Concurrent QT-prolonging or CYP-interacting drugs"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": false,
+      "target_range": null,
+      "notes": "Serum levels not routinely used clinically; monitoring is toxicity-organ based."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Pacerone/Cordarone label)",
+        "reference": "Consult current full prescribing information",
+        "date": "General labeling knowledge",
+        "confidence": "Moderate"
+      }
+    ]
   },
   "digoxin": {
     "id": "digoxin",
     "generic_name": "Digoxin",
-    "brand_names": ["Lanoxin"],
+    "brand_names": [
+      "Lanoxin"
+    ],
     "drug_class": "Cardiac glycoside",
     "pharmacology": "Inhibits Na+/K+-ATPase, increasing intracellular calcium (positive inotrope) and vagal tone (rate control). Narrow therapeutic index; renally eliminated largely unchanged; also a P-glycoprotein substrate.",
     "boxed_warning": null,
-    "contraindications": ["Ventricular fibrillation", "Digitalis toxicity (current)"],
+    "contraindications": [
+      "Ventricular fibrillation",
+      "Digitalis toxicity (current)"
+    ],
     "adverse_effects": {
-      "common": ["Nausea", "Anorexia", "Visual disturbances (yellow-green halos)"],
-      "serious": ["Cardiac arrhythmias (any type)", "Digoxin toxicity"],
-      "life_threatening": ["Life-threatening ventricular arrhythmia", "Severe bradyarrhythmia/heart block"]
+      "common": [
+        "Nausea",
+        "Anorexia",
+        "Visual disturbances (yellow-green halos)"
+      ],
+      "serious": [
+        "Cardiac arrhythmias (any type)",
+        "Digoxin toxicity"
+      ],
+      "life_threatening": [
+        "Life-threatening ventricular arrhythmia",
+        "Severe bradyarrhythmia/heart block"
+      ]
     },
     "organ_toxicity": [
-      {"organ": "Cardiovascular", "risk_level": "High", "reason": "Narrow therapeutic index; toxicity manifests as arrhythmia, especially with hypokalemia or elevated levels", "toxicity": "Any arrhythmia, classically ectopy, AV block, bidirectional VT", "monitoring_parameters": ["ECG", "Heart rate/rhythm", "Serum digoxin concentration", "Potassium"], "frequency": "Baseline, then with dose changes, renal function change, or new interacting drugs", "thresholds": "Digoxin level above target range, especially with hypokalemia", "source": "FDA prescribing information"},
-      {"organ": "Renal", "risk_level": "Moderate", "reason": "Drug is renally cleared; reduced clearance raises levels and toxicity risk", "toxicity": "Accumulation with declining renal function", "monitoring_parameters": ["Serum creatinine", "eGFR"], "frequency": "Baseline and periodically, more often if renal function unstable", "thresholds": "eGFR decline requiring dose reassessment", "source": "FDA prescribing information"}
+      {
+        "organ": "Cardiovascular",
+        "risk_level": "High",
+        "reason": "Narrow therapeutic index; toxicity manifests as arrhythmia, especially with hypokalemia or elevated levels",
+        "toxicity": "Any arrhythmia, classically ectopy, AV block, bidirectional VT",
+        "monitoring_parameters": [
+          "ECG",
+          "Heart rate/rhythm",
+          "Serum digoxin concentration",
+          "Potassium"
+        ],
+        "frequency": "Baseline, then with dose changes, renal function change, or new interacting drugs",
+        "thresholds": "Digoxin level above target range, especially with hypokalemia",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Renal",
+        "risk_level": "Moderate",
+        "reason": "Drug is renally cleared; reduced clearance raises levels and toxicity risk",
+        "toxicity": "Accumulation with declining renal function",
+        "monitoring_parameters": [
+          "Serum creatinine",
+          "eGFR"
+        ],
+        "frequency": "Baseline and periodically, more often if renal function unstable",
+        "thresholds": "eGFR decline requiring dose reassessment",
+        "source": "FDA prescribing information"
+      }
     ],
     "monitoring_parameters": [
-      {"parameter": "Serum digoxin concentration", "why": "Narrow therapeutic index drug; direct toxicity marker", "baseline": "After steady state (~1-2 weeks)", "follow_up": "With dose change, renal change, or suspected toxicity", "alert_threshold": "Above individualized target (commonly cited reference range ~0.5-2.0 ng/mL, lower targets often preferred in heart failure)", "risk": "High"},
-      {"parameter": "Potassium/Magnesium", "why": "Hypokalemia/hypomagnesemia potentiate digoxin toxicity", "baseline": "Yes", "follow_up": "Periodic, especially with diuretics", "alert_threshold": "Hypokalemia or hypomagnesemia", "risk": "High"},
-      {"parameter": "Serum creatinine/eGFR", "why": "Guides renal dose adjustment", "baseline": "Yes", "follow_up": "Periodic", "alert_threshold": "Significant decline", "risk": "Moderate"}
+      {
+        "parameter": "Serum digoxin concentration",
+        "why": "Narrow therapeutic index drug; direct toxicity marker",
+        "baseline": "After steady state (~1-2 weeks)",
+        "follow_up": "With dose change, renal change, or suspected toxicity",
+        "alert_threshold": "Above individualized target (commonly cited reference range ~0.5-2.0 ng/mL, lower targets often preferred in heart failure)",
+        "risk": "High"
+      },
+      {
+        "parameter": "Potassium/Magnesium",
+        "why": "Hypokalemia/hypomagnesemia potentiate digoxin toxicity",
+        "baseline": "Yes",
+        "follow_up": "Periodic, especially with diuretics",
+        "alert_threshold": "Hypokalemia or hypomagnesemia",
+        "risk": "High"
+      },
+      {
+        "parameter": "Serum creatinine/eGFR",
+        "why": "Guides renal dose adjustment",
+        "baseline": "Yes",
+        "follow_up": "Periodic",
+        "alert_threshold": "Significant decline",
+        "risk": "Moderate"
+      }
     ],
-    "vital_signs": [{"parameter": "Heart rate", "why": "Bradycardia is an early sign of toxicity"}],
+    "vital_signs": [
+      {
+        "parameter": "Heart rate",
+        "why": "Bradycardia is an early sign of toxicity"
+      }
+    ],
     "renal_dosing": "Requires dose reduction in renal impairment; levels should be interpreted alongside current renal function.",
     "hepatic_dosing": "No specific hepatic dose adjustment (minimal hepatic metabolism).",
-    "high_risk_populations": ["Elderly", "Renal impairment", "Hypokalemia/hypomagnesemia", "Concurrent P-glycoprotein or renal-clearance-altering drugs"],
-    "therapeutic_drug_monitoring": {"applicable": true, "target_range": "Commonly cited reference range ~0.5-2.0 ng/mL; lower end often targeted in heart failure", "notes": "Levels should be drawn ≥6-8 hours post-dose and interpreted with clinical context and electrolytes."},
-    "evidence": [{"source": "FDA-approved prescribing information (Lanoxin label)", "reference": "Consult current full prescribing information", "date": "General labeling knowledge", "confidence": "Moderate"}]
+    "high_risk_populations": [
+      "Elderly",
+      "Renal impairment",
+      "Hypokalemia/hypomagnesemia",
+      "Concurrent P-glycoprotein or renal-clearance-altering drugs"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": true,
+      "target_range": "Commonly cited reference range ~0.5-2.0 ng/mL; lower end often targeted in heart failure",
+      "notes": "Levels should be drawn \u22656-8 hours post-dose and interpreted with clinical context and electrolytes."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Lanoxin label)",
+        "reference": "Consult current full prescribing information",
+        "date": "General labeling knowledge",
+        "confidence": "Moderate"
+      }
+    ]
   },
   "metformin": {
     "id": "metformin",
     "generic_name": "Metformin",
-    "brand_names": ["Glucophage"],
+    "brand_names": [
+      "Glucophage"
+    ],
     "drug_class": "Biguanide (antihyperglycemic)",
     "pharmacology": "Decreases hepatic glucose production and improves insulin sensitivity. Not hepatically metabolized; eliminated renally, unchanged.",
-    "boxed_warning": "Lactic acidosis — rare but serious metabolic complication, risk increases with renal impairment, sepsis, dehydration, excess alcohol, or hepatic impairment.",
-    "contraindications": ["eGFR <30 mL/min/1.73m² (do not initiate)", "Acute or unstable heart failure", "Metabolic acidosis", "Severe hepatic impairment"],
+    "boxed_warning": "Lactic acidosis \u2014 rare but serious metabolic complication, risk increases with renal impairment, sepsis, dehydration, excess alcohol, or hepatic impairment.",
+    "contraindications": [
+      "eGFR <30 mL/min/1.73m\u00b2 (do not initiate)",
+      "Acute or unstable heart failure",
+      "Metabolic acidosis",
+      "Severe hepatic impairment"
+    ],
     "adverse_effects": {
-      "common": ["GI upset (diarrhea, nausea)", "Metallic taste"],
-      "serious": ["Vitamin B12 deficiency (long-term use)", "Lactic acidosis (rare)"],
-      "life_threatening": ["Severe lactic acidosis"]
+      "common": [
+        "GI upset (diarrhea, nausea)",
+        "Metallic taste"
+      ],
+      "serious": [
+        "Vitamin B12 deficiency (long-term use)",
+        "Lactic acidosis (rare)"
+      ],
+      "life_threatening": [
+        "Severe lactic acidosis"
+      ]
     },
     "organ_toxicity": [
-      {"organ": "Renal/Metabolic", "risk_level": "Moderate", "reason": "Impaired renal clearance allows drug accumulation, raising lactic acidosis risk", "toxicity": "Lactic acidosis", "monitoring_parameters": ["Serum creatinine/eGFR", "Signs of acidosis (malaise, myalgia, respiratory distress, hypothermia)"], "frequency": "Baseline, then at least annually (more often if renal function borderline)", "thresholds": "eGFR <45 warrants dose reassessment; eGFR <30 contraindicated", "source": "FDA prescribing information"},
-      {"organ": "Hematologic", "risk_level": "Low", "reason": "Interferes with B12 absorption over long-term use", "toxicity": "Vitamin B12 deficiency, potential anemia/neuropathy", "monitoring_parameters": ["Vitamin B12 (periodic, especially long-term therapy)"], "frequency": "Periodic in long-term users", "thresholds": "Low B12 level", "source": "FDA prescribing information"}
+      {
+        "organ": "Renal/Metabolic",
+        "risk_level": "Moderate",
+        "reason": "Impaired renal clearance allows drug accumulation, raising lactic acidosis risk",
+        "toxicity": "Lactic acidosis",
+        "monitoring_parameters": [
+          "Serum creatinine/eGFR",
+          "Signs of acidosis (malaise, myalgia, respiratory distress, hypothermia)"
+        ],
+        "frequency": "Baseline, then at least annually (more often if renal function borderline)",
+        "thresholds": "eGFR <45 warrants dose reassessment; eGFR <30 contraindicated",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Hematologic",
+        "risk_level": "Low",
+        "reason": "Interferes with B12 absorption over long-term use",
+        "toxicity": "Vitamin B12 deficiency, potential anemia/neuropathy",
+        "monitoring_parameters": [
+          "Vitamin B12 (periodic, especially long-term therapy)"
+        ],
+        "frequency": "Periodic in long-term users",
+        "thresholds": "Low B12 level",
+        "source": "FDA prescribing information"
+      }
     ],
     "monitoring_parameters": [
-      {"parameter": "Serum creatinine/eGFR", "why": "Determines eligibility/dose; renal impairment raises lactic acidosis risk", "baseline": "Yes", "follow_up": "At least annually; more often if risk factors present", "alert_threshold": "eGFR <45 mL/min/1.73m²", "risk": "Moderate"},
-      {"parameter": "Vitamin B12", "why": "Long-term use associated with malabsorption", "baseline": "Consider", "follow_up": "Periodic in long-term therapy", "alert_threshold": "Low level", "risk": "Low"}
+      {
+        "parameter": "Serum creatinine/eGFR",
+        "why": "Determines eligibility/dose; renal impairment raises lactic acidosis risk",
+        "baseline": "Yes",
+        "follow_up": "At least annually; more often if risk factors present",
+        "alert_threshold": "eGFR <45 mL/min/1.73m\u00b2",
+        "risk": "Moderate"
+      },
+      {
+        "parameter": "Vitamin B12",
+        "why": "Long-term use associated with malabsorption",
+        "baseline": "Consider",
+        "follow_up": "Periodic in long-term therapy",
+        "alert_threshold": "Low level",
+        "risk": "Low"
+      }
     ],
     "vital_signs": [],
-    "renal_dosing": "Dose reduction required for eGFR 30-45; contraindicated below 30 mL/min/1.73m².",
+    "renal_dosing": "Dose reduction required for eGFR 30-45; contraindicated below 30 mL/min/1.73m\u00b2.",
     "hepatic_dosing": "Avoid in significant hepatic impairment due to lactic acidosis risk.",
-    "high_risk_populations": ["Renal impairment", "Heart failure", "Heavy alcohol use", "Acute illness/dehydration", "Pre/peri-procedure with iodinated contrast"],
-    "therapeutic_drug_monitoring": {"applicable": false, "target_range": null, "notes": "Efficacy monitored via HbA1c/glucose, not drug level."},
-    "evidence": [{"source": "FDA-approved prescribing information (Glucophage label)", "reference": "Consult current full prescribing information", "date": "General labeling knowledge", "confidence": "Moderate"}]
+    "high_risk_populations": [
+      "Renal impairment",
+      "Heart failure",
+      "Heavy alcohol use",
+      "Acute illness/dehydration",
+      "Pre/peri-procedure with iodinated contrast"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": false,
+      "target_range": null,
+      "notes": "Efficacy monitored via HbA1c/glucose, not drug level."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Glucophage label)",
+        "reference": "Consult current full prescribing information",
+        "date": "General labeling knowledge",
+        "confidence": "Moderate"
+      }
+    ]
   },
   "vancomycin": {
     "id": "vancomycin",
     "generic_name": "Vancomycin",
-    "brand_names": ["Vancocin"],
+    "brand_names": [
+      "Vancocin"
+    ],
     "drug_class": "Glycopeptide antibiotic",
     "pharmacology": "Inhibits bacterial cell wall synthesis; used IV for systemic gram-positive infections (oral form for C. difficile only, not systemically absorbed). Renally eliminated; requires individualized dosing.",
     "boxed_warning": null,
-    "contraindications": ["Known hypersensitivity"],
+    "contraindications": [
+      "Known hypersensitivity"
+    ],
     "adverse_effects": {
-      "common": ["Infusion-related \"vancomycin flushing reaction\"", "Phlebitis at infusion site"],
-      "serious": ["Nephrotoxicity", "Ototoxicity", "Neutropenia (prolonged use)"],
-      "life_threatening": ["Severe cutaneous adverse reaction (DRESS)", "Anaphylaxis"]
+      "common": [
+        "Infusion-related \"vancomycin flushing reaction\"",
+        "Phlebitis at infusion site"
+      ],
+      "serious": [
+        "Nephrotoxicity",
+        "Ototoxicity",
+        "Neutropenia (prolonged use)"
+      ],
+      "life_threatening": [
+        "Severe cutaneous adverse reaction (DRESS)",
+        "Anaphylaxis"
+      ]
     },
     "organ_toxicity": [
-      {"organ": "Renal", "risk_level": "High", "reason": "Direct nephrotoxic potential, dose/exposure related, worsened by concurrent nephrotoxins", "toxicity": "Acute kidney injury", "monitoring_parameters": ["Serum creatinine", "Vancomycin trough or AUC24", "Urine output"], "frequency": "Trough/AUC monitoring per institutional protocol (commonly before 4th-5th dose at steady state, then periodically); creatinine at least every 2-3 days during therapy", "thresholds": "Rising creatinine or trough/AUC above target range", "source": "IDSA/ASHP/PIDS/SIDP vancomycin monitoring consensus guidance"},
-      {"organ": "Auditory", "risk_level": "Low", "reason": "Ototoxicity, more likely with prolonged high exposure or concurrent ototoxic drugs", "toxicity": "Hearing loss, tinnitus", "monitoring_parameters": ["Hearing symptoms; audiometry if prolonged high-dose therapy"], "frequency": "As clinically indicated", "thresholds": "New auditory symptoms", "source": "FDA prescribing information"},
-      {"organ": "Hematologic", "risk_level": "Low", "reason": "Rare drug-induced neutropenia with prolonged courses", "toxicity": "Neutropenia", "monitoring_parameters": ["CBC with differential (prolonged courses >7-14 days)"], "frequency": "Weekly for prolonged therapy", "thresholds": "Declining WBC/ANC", "source": "FDA prescribing information"}
+      {
+        "organ": "Renal",
+        "risk_level": "High",
+        "reason": "Direct nephrotoxic potential, dose/exposure related, worsened by concurrent nephrotoxins",
+        "toxicity": "Acute kidney injury",
+        "monitoring_parameters": [
+          "Serum creatinine",
+          "Vancomycin trough or AUC24",
+          "Urine output"
+        ],
+        "frequency": "Trough/AUC monitoring per institutional protocol (commonly before 4th-5th dose at steady state, then periodically); creatinine at least every 2-3 days during therapy",
+        "thresholds": "Rising creatinine or trough/AUC above target range",
+        "source": "IDSA/ASHP/PIDS/SIDP vancomycin monitoring consensus guidance"
+      },
+      {
+        "organ": "Auditory",
+        "risk_level": "Low",
+        "reason": "Ototoxicity, more likely with prolonged high exposure or concurrent ototoxic drugs",
+        "toxicity": "Hearing loss, tinnitus",
+        "monitoring_parameters": [
+          "Hearing symptoms; audiometry if prolonged high-dose therapy"
+        ],
+        "frequency": "As clinically indicated",
+        "thresholds": "New auditory symptoms",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Hematologic",
+        "risk_level": "Low",
+        "reason": "Rare drug-induced neutropenia with prolonged courses",
+        "toxicity": "Neutropenia",
+        "monitoring_parameters": [
+          "CBC with differential (prolonged courses >7-14 days)"
+        ],
+        "frequency": "Weekly for prolonged therapy",
+        "thresholds": "Declining WBC/ANC",
+        "source": "FDA prescribing information"
+      }
     ],
     "monitoring_parameters": [
-      {"parameter": "Vancomycin trough or AUC24/MIC", "why": "Guides dosing for efficacy and nephrotoxicity avoidance", "baseline": "n/a", "follow_up": "At steady state, then per protocol and with renal function changes", "alert_threshold": "Above institutional target range", "risk": "High"},
-      {"parameter": "Serum creatinine", "why": "Detect nephrotoxicity and guide dose adjustment", "baseline": "Yes", "follow_up": "Every 2-3 days during therapy (more often if unstable)", "alert_threshold": "Rising trend", "risk": "High"},
-      {"parameter": "CBC with differential", "why": "Detect neutropenia with prolonged therapy", "baseline": "Consider for expected prolonged courses", "follow_up": "Weekly if >7-14 days of therapy", "alert_threshold": "Declining WBC/ANC", "risk": "Low"}
+      {
+        "parameter": "Vancomycin trough or AUC24/MIC",
+        "why": "Guides dosing for efficacy and nephrotoxicity avoidance",
+        "baseline": "n/a",
+        "follow_up": "At steady state, then per protocol and with renal function changes",
+        "alert_threshold": "Above institutional target range",
+        "risk": "High"
+      },
+      {
+        "parameter": "Serum creatinine",
+        "why": "Detect nephrotoxicity and guide dose adjustment",
+        "baseline": "Yes",
+        "follow_up": "Every 2-3 days during therapy (more often if unstable)",
+        "alert_threshold": "Rising trend",
+        "risk": "High"
+      },
+      {
+        "parameter": "CBC with differential",
+        "why": "Detect neutropenia with prolonged therapy",
+        "baseline": "Consider for expected prolonged courses",
+        "follow_up": "Weekly if >7-14 days of therapy",
+        "alert_threshold": "Declining WBC/ANC",
+        "risk": "Low"
+      }
     ],
-    "vital_signs": [{"parameter": "Blood pressure/flushing", "why": "Rapid infusion can cause \"red man syndrome\"/hypotension"}],
+    "vital_signs": [
+      {
+        "parameter": "Blood pressure/flushing",
+        "why": "Rapid infusion can cause \"red man syndrome\"/hypotension"
+      }
+    ],
     "renal_dosing": "Dosing individualized to renal function; requires trough or AUC-guided dosing.",
     "hepatic_dosing": "No specific hepatic dose adjustment (minimal hepatic metabolism).",
-    "high_risk_populations": ["Pre-existing renal impairment", "Concurrent nephrotoxic drugs (e.g., aminoglycosides, NSAIDs, contrast)", "Prolonged high-dose therapy", "Critically ill/ICU patients"],
-    "therapeutic_drug_monitoring": {"applicable": true, "target_range": "Institution-specific AUC24/MIC or trough targets (individualized by indication and protocol)", "notes": "Exact targets should follow institutional/consensus guideline protocol rather than a single fixed number."},
-    "evidence": [{"source": "IDSA/ASHP/PIDS/SIDP consensus vancomycin monitoring guidance; FDA prescribing information", "reference": "Consult current guideline/labeling", "date": "General guideline knowledge", "confidence": "Moderate"}]
+    "high_risk_populations": [
+      "Pre-existing renal impairment",
+      "Concurrent nephrotoxic drugs (e.g., aminoglycosides, NSAIDs, contrast)",
+      "Prolonged high-dose therapy",
+      "Critically ill/ICU patients"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": true,
+      "target_range": "Institution-specific AUC24/MIC or trough targets (individualized by indication and protocol)",
+      "notes": "Exact targets should follow institutional/consensus guideline protocol rather than a single fixed number."
+    },
+    "evidence": [
+      {
+        "source": "IDSA/ASHP/PIDS/SIDP consensus vancomycin monitoring guidance; FDA prescribing information",
+        "reference": "Consult current guideline/labeling",
+        "date": "General guideline knowledge",
+        "confidence": "Moderate"
+      }
+    ]
   },
   "lithium": {
     "id": "lithium",
     "generic_name": "Lithium",
-    "brand_names": ["Lithobid", "Eskalith"],
+    "brand_names": [
+      "Lithobid",
+      "Eskalith"
+    ],
     "drug_class": "Mood stabilizer",
     "pharmacology": "Exact mechanism not fully defined; affects neurotransmission and intracellular signaling. Narrow therapeutic index; renally eliminated unchanged; handled by the kidney similarly to sodium (reabsorption increases with volume depletion).",
     "boxed_warning": "Lithium toxicity closely related to serum levels; requires regular monitoring.",
-    "contraindications": ["Severe renal impairment (relative, requires great caution)", "Severe cardiovascular disease (relative)", "Severe dehydration/sodium depletion"],
+    "contraindications": [
+      "Severe renal impairment (relative, requires great caution)",
+      "Severe cardiovascular disease (relative)",
+      "Severe dehydration/sodium depletion"
+    ],
     "adverse_effects": {
-      "common": ["Tremor", "Polyuria/polydipsia", "GI upset", "Weight gain"],
-      "serious": ["Nephrogenic diabetes insipidus", "Hypothyroidism", "Chronic kidney disease (long-term use)", "Lithium toxicity"],
-      "life_threatening": ["Severe lithium toxicity (seizures, coma, arrhythmia)"]
+      "common": [
+        "Tremor",
+        "Polyuria/polydipsia",
+        "GI upset",
+        "Weight gain"
+      ],
+      "serious": [
+        "Nephrogenic diabetes insipidus",
+        "Hypothyroidism",
+        "Chronic kidney disease (long-term use)",
+        "Lithium toxicity"
+      ],
+      "life_threatening": [
+        "Severe lithium toxicity (seizures, coma, arrhythmia)"
+      ]
     },
     "organ_toxicity": [
-      {"organ": "Renal", "risk_level": "High", "reason": "Narrow therapeutic index and direct renal tubular effects with long-term use", "toxicity": "Nephrogenic diabetes insipidus, chronic tubulointerstitial changes", "monitoring_parameters": ["Serum lithium level", "Serum creatinine/eGFR", "Urine output/polyuria symptoms"], "frequency": "Level: after each dose change until stable, then every 3-6 months; renal function every 6-12 months", "thresholds": "Level above target range or any symptoms of toxicity", "source": "FDA prescribing information; APA practice guidance"},
-      {"organ": "Endocrine", "risk_level": "Moderate", "reason": "Interferes with thyroid hormone synthesis/release", "toxicity": "Hypothyroidism, goiter", "monitoring_parameters": ["TSH"], "frequency": "Baseline, then every 6-12 months", "thresholds": "Elevated TSH", "source": "FDA prescribing information"},
-      {"organ": "Cardiovascular", "risk_level": "Low", "reason": "Can cause benign T-wave changes; rare arrhythmia at toxic levels", "toxicity": "ECG changes, arrhythmia at toxic levels", "monitoring_parameters": ["ECG (baseline, especially if cardiac risk factors)"], "frequency": "Baseline if risk factors present", "thresholds": "New arrhythmia or toxic level", "source": "FDA prescribing information"}
+      {
+        "organ": "Renal",
+        "risk_level": "High",
+        "reason": "Narrow therapeutic index and direct renal tubular effects with long-term use",
+        "toxicity": "Nephrogenic diabetes insipidus, chronic tubulointerstitial changes",
+        "monitoring_parameters": [
+          "Serum lithium level",
+          "Serum creatinine/eGFR",
+          "Urine output/polyuria symptoms"
+        ],
+        "frequency": "Level: after each dose change until stable, then every 3-6 months; renal function every 6-12 months",
+        "thresholds": "Level above target range or any symptoms of toxicity",
+        "source": "FDA prescribing information; APA practice guidance"
+      },
+      {
+        "organ": "Endocrine",
+        "risk_level": "Moderate",
+        "reason": "Interferes with thyroid hormone synthesis/release",
+        "toxicity": "Hypothyroidism, goiter",
+        "monitoring_parameters": [
+          "TSH"
+        ],
+        "frequency": "Baseline, then every 6-12 months",
+        "thresholds": "Elevated TSH",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Cardiovascular",
+        "risk_level": "Low",
+        "reason": "Can cause benign T-wave changes; rare arrhythmia at toxic levels",
+        "toxicity": "ECG changes, arrhythmia at toxic levels",
+        "monitoring_parameters": [
+          "ECG (baseline, especially if cardiac risk factors)"
+        ],
+        "frequency": "Baseline if risk factors present",
+        "thresholds": "New arrhythmia or toxic level",
+        "source": "FDA prescribing information"
+      }
     ],
     "monitoring_parameters": [
-      {"parameter": "Serum lithium level", "why": "Narrow therapeutic index; direct toxicity correlate", "baseline": "n/a", "follow_up": "After each dose change until stable, then every 3-6 months", "alert_threshold": "Above individualized target range (commonly cited maintenance range ~0.6-1.2 mEq/L; levels >1.5 mEq/L raise toxicity concern)", "risk": "High"},
-      {"parameter": "Serum creatinine/eGFR", "why": "Detect declining renal clearance, which raises lithium levels", "baseline": "Yes", "follow_up": "Every 6-12 months", "alert_threshold": "Declining trend", "risk": "High"},
-      {"parameter": "TSH", "why": "Detect lithium-induced hypothyroidism", "baseline": "Yes", "follow_up": "Every 6-12 months", "alert_threshold": "Elevated TSH", "risk": "Moderate"},
-      {"parameter": "Sodium", "why": "Volume/sodium depletion increases lithium reabsorption and toxicity risk", "baseline": "Yes", "follow_up": "As clinically indicated (e.g., illness, dehydration, diuretic changes)", "alert_threshold": "Hyponatremia or dehydration", "risk": "Moderate"}
+      {
+        "parameter": "Serum lithium level",
+        "why": "Narrow therapeutic index; direct toxicity correlate",
+        "baseline": "n/a",
+        "follow_up": "After each dose change until stable, then every 3-6 months",
+        "alert_threshold": "Above individualized target range (commonly cited maintenance range ~0.6-1.2 mEq/L; levels >1.5 mEq/L raise toxicity concern)",
+        "risk": "High"
+      },
+      {
+        "parameter": "Serum creatinine/eGFR",
+        "why": "Detect declining renal clearance, which raises lithium levels",
+        "baseline": "Yes",
+        "follow_up": "Every 6-12 months",
+        "alert_threshold": "Declining trend",
+        "risk": "High"
+      },
+      {
+        "parameter": "TSH",
+        "why": "Detect lithium-induced hypothyroidism",
+        "baseline": "Yes",
+        "follow_up": "Every 6-12 months",
+        "alert_threshold": "Elevated TSH",
+        "risk": "Moderate"
+      },
+      {
+        "parameter": "Sodium",
+        "why": "Volume/sodium depletion increases lithium reabsorption and toxicity risk",
+        "baseline": "Yes",
+        "follow_up": "As clinically indicated (e.g., illness, dehydration, diuretic changes)",
+        "alert_threshold": "Hyponatremia or dehydration",
+        "risk": "Moderate"
+      }
     ],
-    "vital_signs": [{"parameter": "Hydration status", "why": "Dehydration raises lithium levels and toxicity risk"}],
+    "vital_signs": [
+      {
+        "parameter": "Hydration status",
+        "why": "Dehydration raises lithium levels and toxicity risk"
+      }
+    ],
     "renal_dosing": "Dose reduction and closer level monitoring required in renal impairment; use with caution.",
     "hepatic_dosing": "No specific hepatic dose adjustment (minimal hepatic metabolism).",
-    "high_risk_populations": ["Renal impairment", "Elderly", "Dehydration/low-sodium states", "Concurrent NSAIDs, ACE inhibitors/ARBs, or thiazide diuretics (raise lithium levels)"],
-    "therapeutic_drug_monitoring": {"applicable": true, "target_range": "Commonly cited maintenance range ~0.6-1.2 mEq/L (individualized; drawn ~12 hours post-dose)", "notes": "Levels must be interpreted alongside renal function, sodium status, and concurrent interacting drugs."},
-    "evidence": [{"source": "FDA-approved prescribing information (Lithobid/Eskalith label); APA practice guidance", "reference": "Consult current full prescribing information/guideline", "date": "General labeling/guideline knowledge", "confidence": "Moderate"}]
+    "high_risk_populations": [
+      "Renal impairment",
+      "Elderly",
+      "Dehydration/low-sodium states",
+      "Concurrent NSAIDs, ACE inhibitors/ARBs, or thiazide diuretics (raise lithium levels)"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": true,
+      "target_range": "Commonly cited maintenance range ~0.6-1.2 mEq/L (individualized; drawn ~12 hours post-dose)",
+      "notes": "Levels must be interpreted alongside renal function, sodium status, and concurrent interacting drugs."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Lithobid/Eskalith label); APA practice guidance",
+        "reference": "Consult current full prescribing information/guideline",
+        "date": "General labeling/guideline knowledge",
+        "confidence": "Moderate"
+      }
+    ]
   },
   "methotrexate": {
     "id": "methotrexate",
     "generic_name": "Methotrexate",
-    "brand_names": ["Trexall", "Otrexup"],
+    "brand_names": [
+      "Trexall",
+      "Otrexup"
+    ],
     "drug_class": "Antifolate (antimetabolite / DMARD, dose-dependent use)",
     "pharmacology": "Inhibits dihydrofolate reductase, impairing DNA synthesis. Low-dose weekly use in rheumatologic disease vs. high-dose oncologic use have very different toxicity profiles; renally eliminated primarily.",
     "boxed_warning": "Only for use in appropriate indications; risk of severe toxicity (hepatotoxicity, bone marrow suppression, pulmonary toxicity, severe skin reactions); fatal overdoses have occurred, particularly from inadvertent daily (rather than weekly) dosing in non-oncologic use.",
-    "contraindications": ["Pregnancy", "Severe renal impairment (relative/dose-dependent)", "Significant hepatic impairment", "Pre-existing severe blood dyscrasias", "Active infection (relative, non-oncologic use)"],
+    "contraindications": [
+      "Pregnancy",
+      "Severe renal impairment (relative/dose-dependent)",
+      "Significant hepatic impairment",
+      "Pre-existing severe blood dyscrasias",
+      "Active infection (relative, non-oncologic use)"
+    ],
     "adverse_effects": {
-      "common": ["Nausea", "Fatigue", "Mouth sores/stomatitis"],
-      "serious": ["Hepatotoxicity/fibrosis", "Bone marrow suppression", "Pulmonary toxicity (pneumonitis)", "Renal impairment"],
-      "life_threatening": ["Severe pancytopenia", "Acute pneumonitis", "Severe mucositis with sepsis risk"]
+      "common": [
+        "Nausea",
+        "Fatigue",
+        "Mouth sores/stomatitis"
+      ],
+      "serious": [
+        "Hepatotoxicity/fibrosis",
+        "Bone marrow suppression",
+        "Pulmonary toxicity (pneumonitis)",
+        "Renal impairment"
+      ],
+      "life_threatening": [
+        "Severe pancytopenia",
+        "Acute pneumonitis",
+        "Severe mucositis with sepsis risk"
+      ]
     },
     "organ_toxicity": [
-      {"organ": "Hepatic", "risk_level": "High", "reason": "Direct hepatotoxicity, cumulative-dose related with chronic low-dose use", "toxicity": "Transaminitis, hepatic fibrosis with long-term use", "monitoring_parameters": ["AST/ALT", "Albumin"], "frequency": "Baseline, then periodically per indication/dose (commonly every 1-3 months in chronic low-dose therapy)", "thresholds": "Persistent transaminase elevation", "source": "FDA prescribing information; ACR guidance for DMARD monitoring"},
-      {"organ": "Hematologic", "risk_level": "High", "reason": "Antifolate effect suppresses bone marrow", "toxicity": "Leukopenia, thrombocytopenia, anemia, pancytopenia", "monitoring_parameters": ["CBC with differential"], "frequency": "Baseline, then periodically (commonly every 1-3 months in chronic low-dose therapy; more frequent with dose changes)", "thresholds": "Cytopenia", "source": "FDA prescribing information; ACR guidance"},
-      {"organ": "Renal", "risk_level": "Moderate", "reason": "Renally eliminated; impaired clearance raises systemic exposure and toxicity risk", "toxicity": "Accumulation, precipitation in renal tubules at high doses", "monitoring_parameters": ["Serum creatinine/eGFR"], "frequency": "Baseline, then periodically", "thresholds": "Declining renal function", "source": "FDA prescribing information"},
-      {"organ": "Pulmonary", "risk_level": "Low", "reason": "Idiosyncratic hypersensitivity-type pneumonitis, not clearly dose-related", "toxicity": "Interstitial pneumonitis", "monitoring_parameters": ["New respiratory symptoms"], "frequency": "As clinically indicated", "thresholds": "New dyspnea/cough/fever", "source": "FDA prescribing information"}
+      {
+        "organ": "Hepatic",
+        "risk_level": "High",
+        "reason": "Direct hepatotoxicity, cumulative-dose related with chronic low-dose use",
+        "toxicity": "Transaminitis, hepatic fibrosis with long-term use",
+        "monitoring_parameters": [
+          "AST/ALT",
+          "Albumin"
+        ],
+        "frequency": "Baseline, then periodically per indication/dose (commonly every 1-3 months in chronic low-dose therapy)",
+        "thresholds": "Persistent transaminase elevation",
+        "source": "FDA prescribing information; ACR guidance for DMARD monitoring"
+      },
+      {
+        "organ": "Hematologic",
+        "risk_level": "High",
+        "reason": "Antifolate effect suppresses bone marrow",
+        "toxicity": "Leukopenia, thrombocytopenia, anemia, pancytopenia",
+        "monitoring_parameters": [
+          "CBC with differential"
+        ],
+        "frequency": "Baseline, then periodically (commonly every 1-3 months in chronic low-dose therapy; more frequent with dose changes)",
+        "thresholds": "Cytopenia",
+        "source": "FDA prescribing information; ACR guidance"
+      },
+      {
+        "organ": "Renal",
+        "risk_level": "Moderate",
+        "reason": "Renally eliminated; impaired clearance raises systemic exposure and toxicity risk",
+        "toxicity": "Accumulation, precipitation in renal tubules at high doses",
+        "monitoring_parameters": [
+          "Serum creatinine/eGFR"
+        ],
+        "frequency": "Baseline, then periodically",
+        "thresholds": "Declining renal function",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Pulmonary",
+        "risk_level": "Low",
+        "reason": "Idiosyncratic hypersensitivity-type pneumonitis, not clearly dose-related",
+        "toxicity": "Interstitial pneumonitis",
+        "monitoring_parameters": [
+          "New respiratory symptoms"
+        ],
+        "frequency": "As clinically indicated",
+        "thresholds": "New dyspnea/cough/fever",
+        "source": "FDA prescribing information"
+      }
     ],
     "monitoring_parameters": [
-      {"parameter": "CBC with differential", "why": "Detect bone marrow suppression", "baseline": "Yes", "follow_up": "Periodically (per indication/dose)", "alert_threshold": "Cytopenia", "risk": "High"},
-      {"parameter": "AST/ALT/Albumin", "why": "Detect hepatotoxicity", "baseline": "Yes", "follow_up": "Periodically (per indication/dose)", "alert_threshold": "Persistent elevation / declining albumin", "risk": "High"},
-      {"parameter": "Serum creatinine/eGFR", "why": "Guides dosing; impaired clearance raises toxicity risk", "baseline": "Yes", "follow_up": "Periodically", "alert_threshold": "Declining trend", "risk": "Moderate"}
+      {
+        "parameter": "CBC with differential",
+        "why": "Detect bone marrow suppression",
+        "baseline": "Yes",
+        "follow_up": "Periodically (per indication/dose)",
+        "alert_threshold": "Cytopenia",
+        "risk": "High"
+      },
+      {
+        "parameter": "AST/ALT/Albumin",
+        "why": "Detect hepatotoxicity",
+        "baseline": "Yes",
+        "follow_up": "Periodically (per indication/dose)",
+        "alert_threshold": "Persistent elevation / declining albumin",
+        "risk": "High"
+      },
+      {
+        "parameter": "Serum creatinine/eGFR",
+        "why": "Guides dosing; impaired clearance raises toxicity risk",
+        "baseline": "Yes",
+        "follow_up": "Periodically",
+        "alert_threshold": "Declining trend",
+        "risk": "Moderate"
+      }
     ],
     "vital_signs": [],
     "renal_dosing": "Dose adjustment or avoidance required with reduced renal function; risk of severe toxicity with accumulation.",
     "hepatic_dosing": "Avoid or use with extreme caution in significant hepatic impairment.",
-    "high_risk_populations": ["Renal impairment", "Hepatic impairment", "Concurrent NSAIDs (reduce renal clearance)", "Folate deficiency", "Non-oncologic patients at risk of accidental daily dosing"],
-    "therapeutic_drug_monitoring": {"applicable": false, "target_range": null, "notes": "Routine level monitoring is used mainly in high-dose oncologic regimens with leucovorin rescue, not typical low-dose chronic use."},
-    "evidence": [{"source": "FDA-approved prescribing information; ACR DMARD monitoring guidance", "reference": "Consult current full prescribing information/guideline", "date": "General labeling/guideline knowledge", "confidence": "Moderate"}]
+    "high_risk_populations": [
+      "Renal impairment",
+      "Hepatic impairment",
+      "Concurrent NSAIDs (reduce renal clearance)",
+      "Folate deficiency",
+      "Non-oncologic patients at risk of accidental daily dosing"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": false,
+      "target_range": null,
+      "notes": "Routine level monitoring is used mainly in high-dose oncologic regimens with leucovorin rescue, not typical low-dose chronic use."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information; ACR DMARD monitoring guidance",
+        "reference": "Consult current full prescribing information/guideline",
+        "date": "General labeling/guideline knowledge",
+        "confidence": "Moderate"
+      }
+    ]
   },
   "carbamazepine": {
     "id": "carbamazepine",
     "generic_name": "Carbamazepine",
-    "brand_names": ["Tegretol"],
+    "brand_names": [
+      "Tegretol"
+    ],
     "drug_class": "Anticonvulsant (sodium channel blocker)",
     "pharmacology": "Blocks voltage-gated sodium channels. Strong CYP3A4 inducer (and auto-inducer); hepatically metabolized.",
     "boxed_warning": "Serious dermatologic reactions (SJS/TEN), especially in patients with HLA-B*1502 allele; aplastic anemia and agranulocytosis.",
-    "contraindications": ["Bone marrow suppression history", "Concurrent or recent MAOI use", "Known HLA-B*1502 allele (in at-risk populations, relative)"],
+    "contraindications": [
+      "Bone marrow suppression history",
+      "Concurrent or recent MAOI use",
+      "Known HLA-B*1502 allele (in at-risk populations, relative)"
+    ],
     "adverse_effects": {
-      "common": ["Dizziness", "Diplopia", "Ataxia", "Nausea"],
-      "serious": ["Hyponatremia (SIADH-like)", "Leukopenia", "Hepatotoxicity"],
-      "life_threatening": ["Stevens-Johnson syndrome/TEN", "Aplastic anemia", "Agranulocytosis"]
+      "common": [
+        "Dizziness",
+        "Diplopia",
+        "Ataxia",
+        "Nausea"
+      ],
+      "serious": [
+        "Hyponatremia (SIADH-like)",
+        "Leukopenia",
+        "Hepatotoxicity"
+      ],
+      "life_threatening": [
+        "Stevens-Johnson syndrome/TEN",
+        "Aplastic anemia",
+        "Agranulocytosis"
+      ]
     },
     "organ_toxicity": [
-      {"organ": "Hematologic", "risk_level": "High", "reason": "Bone marrow suppression risk, can be severe/idiosyncratic", "toxicity": "Leukopenia, aplastic anemia, agranulocytosis", "monitoring_parameters": ["CBC with differential"], "frequency": "Baseline, then periodically (commonly every 3-6 months once stable)", "thresholds": "Significant cytopenia", "source": "FDA prescribing information"},
-      {"organ": "Dermatologic", "risk_level": "High", "reason": "Risk of severe cutaneous adverse reaction, strongly associated with HLA-B*1502 in at-risk populations", "toxicity": "SJS/TEN", "monitoring_parameters": ["HLA-B*1502 testing in at-risk populations before starting", "New rash (evaluate urgently)"], "frequency": "Genetic test once before starting (at-risk populations); monitor skin throughout therapy", "thresholds": "Any new rash, especially with mucosal involvement/fever", "source": "FDA prescribing information (boxed warning)"},
-      {"organ": "Hepatic", "risk_level": "Moderate", "reason": "Direct hepatotoxic potential", "toxicity": "Transaminitis, rare hepatic failure", "monitoring_parameters": ["AST/ALT"], "frequency": "Baseline, then periodically", "thresholds": "Marked elevation", "source": "FDA prescribing information"},
-      {"organ": "Electrolytes", "risk_level": "Moderate", "reason": "SIADH-like effect on water handling", "toxicity": "Hyponatremia", "monitoring_parameters": ["Sodium"], "frequency": "Baseline, then periodically, especially early in therapy", "thresholds": "Sodium below normal range", "source": "FDA prescribing information"}
+      {
+        "organ": "Hematologic",
+        "risk_level": "High",
+        "reason": "Bone marrow suppression risk, can be severe/idiosyncratic",
+        "toxicity": "Leukopenia, aplastic anemia, agranulocytosis",
+        "monitoring_parameters": [
+          "CBC with differential"
+        ],
+        "frequency": "Baseline, then periodically (commonly every 3-6 months once stable)",
+        "thresholds": "Significant cytopenia",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Dermatologic",
+        "risk_level": "High",
+        "reason": "Risk of severe cutaneous adverse reaction, strongly associated with HLA-B*1502 in at-risk populations",
+        "toxicity": "SJS/TEN",
+        "monitoring_parameters": [
+          "HLA-B*1502 testing in at-risk populations before starting",
+          "New rash (evaluate urgently)"
+        ],
+        "frequency": "Genetic test once before starting (at-risk populations); monitor skin throughout therapy",
+        "thresholds": "Any new rash, especially with mucosal involvement/fever",
+        "source": "FDA prescribing information (boxed warning)"
+      },
+      {
+        "organ": "Hepatic",
+        "risk_level": "Moderate",
+        "reason": "Direct hepatotoxic potential",
+        "toxicity": "Transaminitis, rare hepatic failure",
+        "monitoring_parameters": [
+          "AST/ALT"
+        ],
+        "frequency": "Baseline, then periodically",
+        "thresholds": "Marked elevation",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Electrolytes",
+        "risk_level": "Moderate",
+        "reason": "SIADH-like effect on water handling",
+        "toxicity": "Hyponatremia",
+        "monitoring_parameters": [
+          "Sodium"
+        ],
+        "frequency": "Baseline, then periodically, especially early in therapy",
+        "thresholds": "Sodium below normal range",
+        "source": "FDA prescribing information"
+      }
     ],
     "monitoring_parameters": [
-      {"parameter": "CBC with differential", "why": "Detect bone marrow suppression", "baseline": "Yes", "follow_up": "Periodic (commonly every 3-6 months once stable)", "alert_threshold": "Significant cytopenia", "risk": "High"},
-      {"parameter": "Sodium", "why": "SIADH-like hyponatremia risk", "baseline": "Yes", "follow_up": "Periodic, especially early in therapy", "alert_threshold": "Below normal range", "risk": "Moderate"},
-      {"parameter": "AST/ALT", "why": "Hepatotoxicity", "baseline": "Yes", "follow_up": "Periodic", "alert_threshold": "Marked elevation", "risk": "Moderate"},
-      {"parameter": "Carbamazepine serum level", "why": "Narrow-ish therapeutic window; auto-induction changes levels over time", "baseline": "After steady state", "follow_up": "With dose change or breakthrough symptoms/toxicity", "alert_threshold": "Above individualized target range", "risk": "Moderate"}
+      {
+        "parameter": "CBC with differential",
+        "why": "Detect bone marrow suppression",
+        "baseline": "Yes",
+        "follow_up": "Periodic (commonly every 3-6 months once stable)",
+        "alert_threshold": "Significant cytopenia",
+        "risk": "High"
+      },
+      {
+        "parameter": "Sodium",
+        "why": "SIADH-like hyponatremia risk",
+        "baseline": "Yes",
+        "follow_up": "Periodic, especially early in therapy",
+        "alert_threshold": "Below normal range",
+        "risk": "Moderate"
+      },
+      {
+        "parameter": "AST/ALT",
+        "why": "Hepatotoxicity",
+        "baseline": "Yes",
+        "follow_up": "Periodic",
+        "alert_threshold": "Marked elevation",
+        "risk": "Moderate"
+      },
+      {
+        "parameter": "Carbamazepine serum level",
+        "why": "Narrow-ish therapeutic window; auto-induction changes levels over time",
+        "baseline": "After steady state",
+        "follow_up": "With dose change or breakthrough symptoms/toxicity",
+        "alert_threshold": "Above individualized target range",
+        "risk": "Moderate"
+      }
     ],
     "vital_signs": [],
     "renal_dosing": "No major renal dose adjustment typically required.",
     "hepatic_dosing": "Use with caution in hepatic impairment; may require dose reduction.",
-    "high_risk_populations": ["Patients of ancestries with higher HLA-B*1502 prevalence (test before starting)", "Elderly (hyponatremia risk)", "History of blood dyscrasia"],
-    "therapeutic_drug_monitoring": {"applicable": true, "target_range": "Individualized; auto-induction over first weeks can lower levels, requiring reassessment", "notes": "Levels help interpret breakthrough seizures or suspected toxicity."},
-    "evidence": [{"source": "FDA-approved prescribing information (Tegretol label, boxed warning)", "reference": "Consult current full prescribing information", "date": "General labeling knowledge", "confidence": "Moderate"}]
+    "high_risk_populations": [
+      "Patients of ancestries with higher HLA-B*1502 prevalence (test before starting)",
+      "Elderly (hyponatremia risk)",
+      "History of blood dyscrasia"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": true,
+      "target_range": "Individualized; auto-induction over first weeks can lower levels, requiring reassessment",
+      "notes": "Levels help interpret breakthrough seizures or suspected toxicity."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Tegretol label, boxed warning)",
+        "reference": "Consult current full prescribing information",
+        "date": "General labeling knowledge",
+        "confidence": "Moderate"
+      }
+    ]
   },
   "phenytoin": {
     "id": "phenytoin",
     "generic_name": "Phenytoin",
-    "brand_names": ["Dilantin"],
+    "brand_names": [
+      "Dilantin"
+    ],
     "drug_class": "Anticonvulsant (sodium channel blocker)",
     "pharmacology": "Blocks voltage-gated sodium channels; exhibits nonlinear (saturable) hepatic metabolism, meaning small dose changes near saturation can cause disproportionate level changes.",
     "boxed_warning": "Rapid IV administration associated with cardiovascular collapse; not a boxed warning for oral use but nonlinear kinetics require careful monitoring.",
-    "contraindications": ["Sinus bradycardia/heart block (for IV use)", "Known hypersensitivity to hydantoins"],
+    "contraindications": [
+      "Sinus bradycardia/heart block (for IV use)",
+      "Known hypersensitivity to hydantoins"
+    ],
     "adverse_effects": {
-      "common": ["Gingival hyperplasia", "Nystagmus", "Ataxia (dose-related)", "Hirsutism"],
-      "serious": ["Hepatotoxicity", "Blood dyscrasias", "Peripheral neuropathy (long-term)"],
-      "life_threatening": ["Stevens-Johnson syndrome/TEN", "Cardiovascular collapse (rapid IV)"]
+      "common": [
+        "Gingival hyperplasia",
+        "Nystagmus",
+        "Ataxia (dose-related)",
+        "Hirsutism"
+      ],
+      "serious": [
+        "Hepatotoxicity",
+        "Blood dyscrasias",
+        "Peripheral neuropathy (long-term)"
+      ],
+      "life_threatening": [
+        "Stevens-Johnson syndrome/TEN",
+        "Cardiovascular collapse (rapid IV)"
+      ]
     },
     "organ_toxicity": [
-      {"organ": "Neurologic", "risk_level": "High", "reason": "Dose/level-related CNS toxicity due to nonlinear kinetics", "toxicity": "Nystagmus, ataxia, sedation, confusion at high levels", "monitoring_parameters": ["Phenytoin serum level (total and/or free)", "Clinical signs of toxicity"], "frequency": "After steady state, then with dose changes or breakthrough/toxicity symptoms", "thresholds": "Above individualized target range, especially with clinical toxicity signs", "source": "FDA prescribing information"},
-      {"organ": "Hepatic", "risk_level": "Moderate", "reason": "Direct hepatotoxic potential", "toxicity": "Transaminitis, rare hepatic failure", "monitoring_parameters": ["AST/ALT"], "frequency": "Baseline, then periodically", "thresholds": "Marked elevation", "source": "FDA prescribing information"},
-      {"organ": "Dermatologic", "risk_level": "Moderate", "reason": "Risk of severe cutaneous reactions", "toxicity": "SJS/TEN", "monitoring_parameters": ["New rash (evaluate urgently)"], "frequency": "Throughout therapy", "thresholds": "Any new rash with systemic features", "source": "FDA prescribing information"},
-      {"organ": "Hematologic", "risk_level": "Low", "reason": "Rare blood dyscrasias", "toxicity": "Cytopenias", "monitoring_parameters": ["CBC (periodic or if symptomatic)"], "frequency": "As clinically indicated", "thresholds": "Significant cytopenia", "source": "FDA prescribing information"}
+      {
+        "organ": "Neurologic",
+        "risk_level": "High",
+        "reason": "Dose/level-related CNS toxicity due to nonlinear kinetics",
+        "toxicity": "Nystagmus, ataxia, sedation, confusion at high levels",
+        "monitoring_parameters": [
+          "Phenytoin serum level (total and/or free)",
+          "Clinical signs of toxicity"
+        ],
+        "frequency": "After steady state, then with dose changes or breakthrough/toxicity symptoms",
+        "thresholds": "Above individualized target range, especially with clinical toxicity signs",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Hepatic",
+        "risk_level": "Moderate",
+        "reason": "Direct hepatotoxic potential",
+        "toxicity": "Transaminitis, rare hepatic failure",
+        "monitoring_parameters": [
+          "AST/ALT"
+        ],
+        "frequency": "Baseline, then periodically",
+        "thresholds": "Marked elevation",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Dermatologic",
+        "risk_level": "Moderate",
+        "reason": "Risk of severe cutaneous reactions",
+        "toxicity": "SJS/TEN",
+        "monitoring_parameters": [
+          "New rash (evaluate urgently)"
+        ],
+        "frequency": "Throughout therapy",
+        "thresholds": "Any new rash with systemic features",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Hematologic",
+        "risk_level": "Low",
+        "reason": "Rare blood dyscrasias",
+        "toxicity": "Cytopenias",
+        "monitoring_parameters": [
+          "CBC (periodic or if symptomatic)"
+        ],
+        "frequency": "As clinically indicated",
+        "thresholds": "Significant cytopenia",
+        "source": "FDA prescribing information"
+      }
     ],
     "monitoring_parameters": [
-      {"parameter": "Phenytoin serum level (total/free)", "why": "Nonlinear kinetics make level monitoring essential to avoid toxicity", "baseline": "After steady state", "follow_up": "With dose change or breakthrough/toxicity symptoms", "alert_threshold": "Above individualized target range (adjust for albumin if using total level)", "risk": "High"},
-      {"parameter": "Albumin", "why": "Needed to correct total phenytoin level in hypoalbuminemia", "baseline": "Consider", "follow_up": "As clinically indicated", "alert_threshold": "Low albumin (affects level interpretation)", "risk": "Low"},
-      {"parameter": "AST/ALT", "why": "Hepatotoxicity", "baseline": "Yes", "follow_up": "Periodic", "alert_threshold": "Marked elevation", "risk": "Moderate"}
+      {
+        "parameter": "Phenytoin serum level (total/free)",
+        "why": "Nonlinear kinetics make level monitoring essential to avoid toxicity",
+        "baseline": "After steady state",
+        "follow_up": "With dose change or breakthrough/toxicity symptoms",
+        "alert_threshold": "Above individualized target range (adjust for albumin if using total level)",
+        "risk": "High"
+      },
+      {
+        "parameter": "Albumin",
+        "why": "Needed to correct total phenytoin level in hypoalbuminemia",
+        "baseline": "Consider",
+        "follow_up": "As clinically indicated",
+        "alert_threshold": "Low albumin (affects level interpretation)",
+        "risk": "Low"
+      },
+      {
+        "parameter": "AST/ALT",
+        "why": "Hepatotoxicity",
+        "baseline": "Yes",
+        "follow_up": "Periodic",
+        "alert_threshold": "Marked elevation",
+        "risk": "Moderate"
+      }
     ],
-    "vital_signs": [{"parameter": "Blood pressure/ECG (IV administration only)", "why": "Rapid IV infusion risk of hypotension/arrhythmia"}],
+    "vital_signs": [
+      {
+        "parameter": "Blood pressure/ECG (IV administration only)",
+        "why": "Rapid IV infusion risk of hypotension/arrhythmia"
+      }
+    ],
     "renal_dosing": "Not primarily renally cleared; but hypoalbuminemia in renal disease affects free fraction/level interpretation.",
     "hepatic_dosing": "Use with caution in hepatic impairment; metabolism may be impaired, raising levels.",
-    "high_risk_populations": ["Hypoalbuminemia (level interpretation)", "Hepatic impairment", "Elderly", "Concurrent CYP-interacting drugs"],
-    "therapeutic_drug_monitoring": {"applicable": true, "target_range": "Individualized; nonlinear kinetics mean small dose changes near saturation can cause large level changes", "notes": "Free (unbound) level preferred when albumin is abnormal or in specific populations."},
-    "evidence": [{"source": "FDA-approved prescribing information (Dilantin label)", "reference": "Consult current full prescribing information", "date": "General labeling knowledge", "confidence": "Moderate"}]
+    "high_risk_populations": [
+      "Hypoalbuminemia (level interpretation)",
+      "Hepatic impairment",
+      "Elderly",
+      "Concurrent CYP-interacting drugs"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": true,
+      "target_range": "Individualized; nonlinear kinetics mean small dose changes near saturation can cause large level changes",
+      "notes": "Free (unbound) level preferred when albumin is abnormal or in specific populations."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Dilantin label)",
+        "reference": "Consult current full prescribing information",
+        "date": "General labeling knowledge",
+        "confidence": "Moderate"
+      }
+    ]
   },
   "apixaban": {
     "id": "apixaban",
     "generic_name": "Apixaban",
-    "brand_names": ["Eliquis"],
+    "brand_names": [
+      "Eliquis"
+    ],
     "drug_class": "Direct factor Xa inhibitor (DOAC)",
     "pharmacology": "Directly inhibits factor Xa, reducing thrombin generation. Partially renally eliminated (~25%); substrate of CYP3A4 and P-glycoprotein.",
     "boxed_warning": "Premature discontinuation increases thrombotic risk; epidural/spinal hematoma risk with neuraxial procedures.",
-    "contraindications": ["Active pathological bleeding", "Severe hepatic impairment", "Concurrent use with other anticoagulants (except during bridging, per protocol)"],
+    "contraindications": [
+      "Active pathological bleeding",
+      "Severe hepatic impairment",
+      "Concurrent use with other anticoagulants (except during bridging, per protocol)"
+    ],
     "adverse_effects": {
-      "common": ["Bruising", "Minor bleeding"],
-      "serious": ["Major hemorrhage (GI, other)", "Hepatic injury (rare)"],
-      "life_threatening": ["Intracranial hemorrhage", "Spinal/epidural hematoma with neuraxial anesthesia"]
+      "common": [
+        "Bruising",
+        "Minor bleeding"
+      ],
+      "serious": [
+        "Major hemorrhage (GI, other)",
+        "Hepatic injury (rare)"
+      ],
+      "life_threatening": [
+        "Intracranial hemorrhage",
+        "Spinal/epidural hematoma with neuraxial anesthesia"
+      ]
     },
     "organ_toxicity": [
-      {"organ": "Hematologic", "risk_level": "High", "reason": "Anticoagulant mechanism directly increases bleeding risk, potentiated by interacting drugs or renal impairment", "toxicity": "Hemorrhage at any site", "monitoring_parameters": ["Hemoglobin/Hematocrit", "Signs of bleeding", "Renal function (affects clearance)"], "frequency": "No routine coagulation monitoring required; periodic renal function and clinical bleeding assessment", "thresholds": "Unexplained hemoglobin drop or overt bleeding", "source": "FDA prescribing information"},
-      {"organ": "Renal", "risk_level": "Low", "reason": "Partial renal elimination; severe impairment raises exposure", "toxicity": "Drug accumulation in severe renal impairment", "monitoring_parameters": ["Serum creatinine/eGFR"], "frequency": "Baseline, then periodically (more often if renal function borderline or declining)", "thresholds": "Significant decline in renal function", "source": "FDA prescribing information"}
+      {
+        "organ": "Hematologic",
+        "risk_level": "High",
+        "reason": "Anticoagulant mechanism directly increases bleeding risk, potentiated by interacting drugs or renal impairment",
+        "toxicity": "Hemorrhage at any site",
+        "monitoring_parameters": [
+          "Hemoglobin/Hematocrit",
+          "Signs of bleeding",
+          "Renal function (affects clearance)"
+        ],
+        "frequency": "No routine coagulation monitoring required; periodic renal function and clinical bleeding assessment",
+        "thresholds": "Unexplained hemoglobin drop or overt bleeding",
+        "source": "FDA prescribing information"
+      },
+      {
+        "organ": "Renal",
+        "risk_level": "Low",
+        "reason": "Partial renal elimination; severe impairment raises exposure",
+        "toxicity": "Drug accumulation in severe renal impairment",
+        "monitoring_parameters": [
+          "Serum creatinine/eGFR"
+        ],
+        "frequency": "Baseline, then periodically (more often if renal function borderline or declining)",
+        "thresholds": "Significant decline in renal function",
+        "source": "FDA prescribing information"
+      }
     ],
     "monitoring_parameters": [
-      {"parameter": "Hemoglobin/Hematocrit", "why": "Detect occult bleeding", "baseline": "Consider", "follow_up": "Periodic and with bleeding symptoms", "alert_threshold": "Unexplained drop", "risk": "Moderate"},
-      {"parameter": "Serum creatinine/eGFR", "why": "Guides dosing; partial renal elimination", "baseline": "Yes", "follow_up": "Periodic", "alert_threshold": "Significant decline", "risk": "Moderate"}
+      {
+        "parameter": "Hemoglobin/Hematocrit",
+        "why": "Detect occult bleeding",
+        "baseline": "Consider",
+        "follow_up": "Periodic and with bleeding symptoms",
+        "alert_threshold": "Unexplained drop",
+        "risk": "Moderate"
+      },
+      {
+        "parameter": "Serum creatinine/eGFR",
+        "why": "Guides dosing; partial renal elimination",
+        "baseline": "Yes",
+        "follow_up": "Periodic",
+        "alert_threshold": "Significant decline",
+        "risk": "Moderate"
+      }
     ],
-    "vital_signs": [{"parameter": "Blood pressure/signs of bleeding", "why": "Monitor for occult or overt hemorrhage"}],
+    "vital_signs": [
+      {
+        "parameter": "Blood pressure/signs of bleeding",
+        "why": "Monitor for occult or overt hemorrhage"
+      }
+    ],
     "renal_dosing": "Dose reduction criteria based on age, weight, and serum creatinine (per labeling); avoid in severe renal impairment on dialysis per product-specific guidance.",
     "hepatic_dosing": "Avoid in severe hepatic impairment.",
-    "high_risk_populations": ["Renal impairment", "Elderly", "Concurrent antiplatelet/anticoagulant/NSAID use", "Low body weight"],
-    "therapeutic_drug_monitoring": {"applicable": false, "target_range": null, "notes": "No routine coagulation monitoring required; specialized anti-Xa assays exist for specific clinical scenarios (e.g., bleeding, urgent surgery) but are not routine."},
-    "evidence": [{"source": "FDA-approved prescribing information (Eliquis label)", "reference": "Consult current full prescribing information", "date": "General labeling knowledge", "confidence": "Moderate"}]
+    "high_risk_populations": [
+      "Renal impairment",
+      "Elderly",
+      "Concurrent antiplatelet/anticoagulant/NSAID use",
+      "Low body weight"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": false,
+      "target_range": null,
+      "notes": "No routine coagulation monitoring required; specialized anti-Xa assays exist for specific clinical scenarios (e.g., bleeding, urgent surgery) but are not routine."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Eliquis label)",
+        "reference": "Consult current full prescribing information",
+        "date": "General labeling knowledge",
+        "confidence": "Moderate"
+      }
+    ]
+  },
+  "atorvastatin": {
+    "id": "atorvastatin",
+    "generic_name": "Atorvastatin",
+    "brand_names": [
+      "Lipitor"
+    ],
+    "drug_class": "HMG-CoA reductase inhibitor (statin)",
+    "pharmacology": "Inhibits HMG-CoA reductase, the rate-limiting enzyme in hepatic cholesterol synthesis, upregulating LDL receptor expression and lowering LDL-C. Metabolized by CYP3A4; active metabolites contribute to effect.",
+    "boxed_warning": null,
+    "contraindications": [
+      "Active liver disease or unexplained persistent transaminase elevations",
+      "Pregnancy",
+      "Concurrent use with strong CYP3A4 inhibitors at high statin doses (per labeling)"
+    ],
+    "adverse_effects": {
+      "common": [
+        "Myalgia",
+        "Diarrhea",
+        "Nasopharyngitis",
+        "Arthralgia"
+      ],
+      "serious": [
+        "Transaminase elevation",
+        "Myopathy"
+      ],
+      "life_threatening": [
+        "Rhabdomyolysis with acute kidney injury"
+      ]
+    },
+    "organ_toxicity": [
+      {
+        "organ": "Musculoskeletal",
+        "risk_level": "Moderate",
+        "reason": "Statins can cause dose-related myopathy; risk rises with CYP3A4-inhibiting interacting drugs, hypothyroidism, or renal/hepatic impairment",
+        "toxicity": "Myalgia, myositis, rarely rhabdomyolysis",
+        "monitoring_parameters": [
+          "Creatine kinase (if symptomatic)",
+          "Muscle symptoms"
+        ],
+        "frequency": "No routine CK monitoring unless symptomatic; assess muscle symptoms at follow-up visits",
+        "thresholds": "Unexplained muscle pain, tenderness, or weakness, especially with fever/malaise",
+        "source": "FDA prescribing information (Lipitor label)"
+      },
+      {
+        "organ": "Hepatic",
+        "risk_level": "Low",
+        "reason": "Dose-related transaminase elevations are a known class effect",
+        "toxicity": "Asymptomatic ALT/AST elevation; rare clinically significant liver injury",
+        "monitoring_parameters": [
+          "Liver function tests (ALT/AST)"
+        ],
+        "frequency": "Baseline before initiation; as clinically indicated thereafter (routine periodic monitoring not required per current labeling)",
+        "thresholds": "Persistent ALT/AST >3x upper limit of normal",
+        "source": "FDA prescribing information (Lipitor label)"
+      }
+    ],
+    "monitoring_parameters": [
+      {
+        "parameter": "Lipid panel",
+        "why": "Assess therapeutic response and guide dose titration",
+        "baseline": "Yes",
+        "follow_up": "4-12 weeks after initiation or dose change, then periodically",
+        "alert_threshold": "LDL-C not at goal per applicable guideline",
+        "risk": "Low"
+      },
+      {
+        "parameter": "Liver function tests",
+        "why": "Baseline hepatic status before starting a statin",
+        "baseline": "Yes",
+        "follow_up": "As clinically indicated (e.g., new symptoms)",
+        "alert_threshold": "Persistent ALT/AST >3x ULN",
+        "risk": "Low"
+      },
+      {
+        "parameter": "Creatine kinase",
+        "why": "Only indicated if the patient reports muscle symptoms",
+        "baseline": "Consider",
+        "follow_up": "If muscle symptoms develop",
+        "alert_threshold": "Marked elevation with symptoms",
+        "risk": "Moderate"
+      }
+    ],
+    "vital_signs": [],
+    "renal_dosing": "No specific dose adjustment required for renal impairment.",
+    "hepatic_dosing": "Contraindicated in active liver disease or unexplained persistent transaminase elevation.",
+    "high_risk_populations": [
+      "Concurrent strong CYP3A4 inhibitors (e.g., certain macrolides, azole antifungals)",
+      "Hypothyroidism (untreated)",
+      "Heavy alcohol use",
+      "Elderly",
+      "Pregnancy"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": false,
+      "target_range": null,
+      "notes": "Efficacy is monitored via lipid panel, not a drug level."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Lipitor label)",
+        "reference": "Consult current full prescribing information",
+        "date": "General labeling knowledge",
+        "confidence": "Moderate"
+      }
+    ]
+  },
+  "azithromycin": {
+    "id": "azithromycin",
+    "generic_name": "Azithromycin",
+    "brand_names": [
+      "Zithromax",
+      "Z-Pak"
+    ],
+    "drug_class": "Macrolide antibiotic",
+    "pharmacology": "Binds the 50S ribosomal subunit, inhibiting bacterial protein synthesis. Broad tissue distribution with a long tissue half-life allowing short-course dosing.",
+    "boxed_warning": null,
+    "contraindications": [
+      "Known hypersensitivity to azithromycin or any macrolide",
+      "History of cholestatic jaundice/hepatic dysfunction with prior azithromycin use",
+      "Congenital or documented QT prolongation (relative, per labeling warning)"
+    ],
+    "adverse_effects": {
+      "common": [
+        "Diarrhea",
+        "Nausea",
+        "Abdominal pain"
+      ],
+      "serious": [
+        "QT prolongation",
+        "Hepatotoxicity",
+        "Clostridioides difficile-associated diarrhea"
+      ],
+      "life_threatening": [
+        "Torsades de pointes (rare)",
+        "Severe hypersensitivity reaction/anaphylaxis"
+      ]
+    },
+    "organ_toxicity": [
+      {
+        "organ": "Cardiovascular",
+        "risk_level": "Moderate",
+        "reason": "Macrolides can prolong the QT interval, especially with other QT-prolonging drugs, hypokalemia, or bradycardia",
+        "toxicity": "QT prolongation, risk of ventricular arrhythmia",
+        "monitoring_parameters": [
+          "ECG/QTc (if risk factors present)",
+          "Electrolytes (potassium, magnesium)"
+        ],
+        "frequency": "Consider baseline ECG in patients with cardiac risk factors or other QT-prolonging medications",
+        "thresholds": "QTc prolongation or new palpitations/syncope",
+        "source": "FDA prescribing information (Zithromax label)"
+      },
+      {
+        "organ": "Hepatic",
+        "risk_level": "Low",
+        "reason": "Rare but recognized hepatotoxicity, including cholestatic jaundice",
+        "toxicity": "Transaminase elevation, cholestatic hepatitis (rare)",
+        "monitoring_parameters": [
+          "Liver function if symptomatic"
+        ],
+        "frequency": "As clinically indicated",
+        "thresholds": "Jaundice, dark urine, or marked transaminase elevation",
+        "source": "FDA prescribing information (Zithromax label)"
+      }
+    ],
+    "monitoring_parameters": [
+      {
+        "parameter": "Clinical response/symptom resolution",
+        "why": "Confirm treatment efficacy for the treated infection",
+        "baseline": "Yes",
+        "follow_up": "During and after the treatment course",
+        "alert_threshold": "Symptoms worsening or not improving",
+        "risk": "Low"
+      },
+      {
+        "parameter": "ECG/QTc (if risk factors present)",
+        "why": "Detect QT prolongation in patients with cardiac risk factors or concurrent QT-prolonging drugs",
+        "baseline": "Consider",
+        "follow_up": "As clinically indicated",
+        "alert_threshold": "Prolonged QTc",
+        "risk": "Moderate"
+      }
+    ],
+    "vital_signs": [
+      {
+        "parameter": "Heart rate/rhythm",
+        "why": "Screen for arrhythmia in at-risk patients"
+      }
+    ],
+    "renal_dosing": "No dose adjustment typically required for renal impairment.",
+    "hepatic_dosing": "Use with caution in hepatic impairment; avoid if prior azithromycin-associated hepatic dysfunction.",
+    "high_risk_populations": [
+      "Concurrent QT-prolonging medications",
+      "Known cardiac arrhythmia or QT prolongation",
+      "Electrolyte abnormalities (hypokalemia, hypomagnesemia)",
+      "Myasthenia gravis (can worsen weakness)"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": false,
+      "target_range": null,
+      "notes": "Not routinely level-monitored; efficacy judged clinically."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Zithromax label)",
+        "reference": "Consult current full prescribing information",
+        "date": "General labeling knowledge",
+        "confidence": "Moderate"
+      }
+    ]
+  },
+  "amoxicillin": {
+    "id": "amoxicillin",
+    "generic_name": "Amoxicillin",
+    "brand_names": [
+      "Amoxil"
+    ],
+    "drug_class": "Aminopenicillin (beta-lactam antibiotic)",
+    "pharmacology": "Inhibits bacterial cell wall synthesis by binding penicillin-binding proteins, causing cell lysis. Renally eliminated largely unchanged.",
+    "boxed_warning": null,
+    "contraindications": [
+      "Known hypersensitivity to penicillins",
+      "History of amoxicillin/penicillin-associated cholestatic jaundice or hepatic dysfunction"
+    ],
+    "adverse_effects": {
+      "common": [
+        "Diarrhea",
+        "Nausea",
+        "Rash (non-allergic, especially with concurrent viral infection)"
+      ],
+      "serious": [
+        "Clostridioides difficile-associated diarrhea",
+        "Serum sickness-like reaction"
+      ],
+      "life_threatening": [
+        "Anaphylaxis",
+        "Stevens-Johnson syndrome/toxic epidermal necrolysis (rare)"
+      ]
+    },
+    "organ_toxicity": [
+      {
+        "organ": "Immunologic",
+        "risk_level": "Moderate",
+        "reason": "Beta-lactams are among the most common causes of drug allergy, ranging from rash to anaphylaxis",
+        "toxicity": "Hypersensitivity reactions of varying severity",
+        "monitoring_parameters": [
+          "Allergy history review",
+          "Signs of hypersensitivity during treatment"
+        ],
+        "frequency": "Before first dose and throughout treatment course",
+        "thresholds": "Any hives, angioedema, wheezing, or hypotension",
+        "source": "FDA prescribing information (Amoxil label)"
+      },
+      {
+        "organ": "Gastrointestinal",
+        "risk_level": "Low",
+        "reason": "Alters gut flora, predisposing to C. difficile infection, particularly with prolonged courses",
+        "toxicity": "Antibiotic-associated diarrhea, C. difficile colitis",
+        "monitoring_parameters": [
+          "Stool frequency/character if diarrhea occurs"
+        ],
+        "frequency": "During and after treatment if symptomatic",
+        "thresholds": "Severe or persistent diarrhea, especially with fever",
+        "source": "FDA prescribing information (Amoxil label)"
+      }
+    ],
+    "monitoring_parameters": [
+      {
+        "parameter": "Clinical response/symptom resolution",
+        "why": "Confirm treatment efficacy for the treated infection",
+        "baseline": "Yes",
+        "follow_up": "During and after the treatment course",
+        "alert_threshold": "Symptoms worsening or not improving",
+        "risk": "Low"
+      },
+      {
+        "parameter": "Renal function (in significant renal impairment)",
+        "why": "Guides dose/interval adjustment since the drug is renally cleared",
+        "baseline": "Consider",
+        "follow_up": "As clinically indicated",
+        "alert_threshold": "Significant decline in renal function",
+        "risk": "Low"
+      }
+    ],
+    "vital_signs": [
+      {
+        "parameter": "Signs of allergic reaction (rash, swelling, breathing difficulty)",
+        "why": "Early detection of hypersensitivity"
+      }
+    ],
+    "renal_dosing": "Dose/interval adjustment recommended in significant renal impairment (per labeling).",
+    "hepatic_dosing": "No specific adjustment typically required; use caution with history of amoxicillin-associated hepatic dysfunction.",
+    "high_risk_populations": [
+      "Documented penicillin or beta-lactam allergy",
+      "Infectious mononucleosis (higher rash incidence)",
+      "Significant renal impairment"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": false,
+      "target_range": null,
+      "notes": "Not routinely level-monitored; efficacy judged clinically."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Amoxil label)",
+        "reference": "Consult current full prescribing information",
+        "date": "General labeling knowledge",
+        "confidence": "Moderate"
+      }
+    ]
+  },
+  "ceftriaxone": {
+    "id": "ceftriaxone",
+    "generic_name": "Ceftriaxone",
+    "brand_names": [
+      "Rocephin"
+    ],
+    "drug_class": "Third-generation cephalosporin (beta-lactam antibiotic)",
+    "pharmacology": "Inhibits bacterial cell wall synthesis via penicillin-binding protein binding; broad gram-negative coverage. Eliminated via both biliary and renal routes, notable among cephalosporins.",
+    "boxed_warning": null,
+    "contraindications": [
+      "Known hypersensitivity to cephalosporins",
+      "Hyperbilirubinemic neonates, or neonates receiving calcium-containing IV products (per labeling; precipitation risk)"
+    ],
+    "adverse_effects": {
+      "common": [
+        "Diarrhea",
+        "Injection site reaction",
+        "Eosinophilia (lab finding)"
+      ],
+      "serious": [
+        "Biliary sludging/pseudolithiasis",
+        "Clostridioides difficile-associated diarrhea",
+        "Immune hemolytic anemia (rare)"
+      ],
+      "life_threatening": [
+        "Anaphylaxis",
+        "Severe hemolysis"
+      ]
+    },
+    "organ_toxicity": [
+      {
+        "organ": "Hepatobiliary",
+        "risk_level": "Moderate",
+        "reason": "Ceftriaxone undergoes significant biliary excretion and can form reversible calcium-ceftriaxone precipitates in bile",
+        "toxicity": "Biliary sludging, pseudolithiasis, rarely symptomatic cholelithiasis",
+        "monitoring_parameters": [
+          "Right upper quadrant symptoms",
+          "Liver function if symptomatic"
+        ],
+        "frequency": "During prolonged courses or in patients with biliary risk factors",
+        "thresholds": "New right upper quadrant pain or jaundice",
+        "source": "FDA prescribing information (Rocephin label)"
+      },
+      {
+        "organ": "Immunologic",
+        "risk_level": "Moderate",
+        "reason": "Cross-reactivity with penicillin allergy is possible; cephalosporins can independently cause hypersensitivity",
+        "toxicity": "Hypersensitivity reactions of varying severity",
+        "monitoring_parameters": [
+          "Allergy history review",
+          "Signs of hypersensitivity during treatment"
+        ],
+        "frequency": "Before first dose and throughout treatment course",
+        "thresholds": "Any hives, angioedema, wheezing, or hypotension",
+        "source": "FDA prescribing information (Rocephin label)"
+      }
+    ],
+    "monitoring_parameters": [
+      {
+        "parameter": "Clinical response/symptom resolution",
+        "why": "Confirm treatment efficacy for the treated infection",
+        "baseline": "Yes",
+        "follow_up": "During and after the treatment course",
+        "alert_threshold": "Symptoms worsening or not improving",
+        "risk": "Low"
+      },
+      {
+        "parameter": "CBC (with prolonged courses)",
+        "why": "Detect rare immune-mediated hemolytic anemia or cytopenias",
+        "baseline": "Consider for prolonged courses",
+        "follow_up": "Periodic during extended therapy",
+        "alert_threshold": "Unexplained drop in hemoglobin",
+        "risk": "Moderate"
+      }
+    ],
+    "vital_signs": [
+      {
+        "parameter": "Signs of allergic reaction (rash, swelling, breathing difficulty)",
+        "why": "Early detection of hypersensitivity"
+      }
+    ],
+    "renal_dosing": "Generally no dose adjustment for renal impairment alone due to dual biliary/renal elimination; consider adjustment with combined severe hepatic and renal impairment.",
+    "hepatic_dosing": "Consider dose adjustment in combined severe hepatic and renal impairment; monitor closely otherwise.",
+    "high_risk_populations": [
+      "Documented severe penicillin/cephalosporin allergy",
+      "Neonates (calcium co-administration precaution)",
+      "Biliary disease",
+      "Combined hepatic and renal impairment"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": false,
+      "target_range": null,
+      "notes": "Not routinely level-monitored; efficacy judged clinically."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Rocephin label)",
+        "reference": "Consult current full prescribing information",
+        "date": "General labeling knowledge",
+        "confidence": "Moderate"
+      }
+    ]
+  },
+  "amlodipine": {
+    "id": "amlodipine",
+    "generic_name": "Amlodipine",
+    "brand_names": [
+      "Norvasc"
+    ],
+    "drug_class": "Dihydropyridine calcium channel blocker",
+    "pharmacology": "Blocks L-type calcium channels in vascular smooth muscle, causing vasodilation and reducing blood pressure. Long half-life allows once-daily dosing; hepatically metabolized via CYP3A4.",
+    "boxed_warning": null,
+    "contraindications": [
+      "Known hypersensitivity to amlodipine or other dihydropyridines",
+      "Severe symptomatic hypotension (relative)"
+    ],
+    "adverse_effects": {
+      "common": [
+        "Peripheral edema",
+        "Headache",
+        "Flushing",
+        "Dizziness"
+      ],
+      "serious": [
+        "Symptomatic hypotension",
+        "Worsening angina or acute MI on initiation in severe obstructive CAD (rare)"
+      ],
+      "life_threatening": [
+        "Severe hypotension with end-organ hypoperfusion (rare)"
+      ]
+    },
+    "organ_toxicity": [
+      {
+        "organ": "Cardiovascular",
+        "risk_level": "Low",
+        "reason": "Vasodilation can cause dose-related peripheral edema and, less commonly, symptomatic hypotension",
+        "toxicity": "Peripheral edema; hypotension",
+        "monitoring_parameters": [
+          "Blood pressure",
+          "Peripheral edema exam"
+        ],
+        "frequency": "At initiation, after dose changes, then periodically",
+        "thresholds": "Symptomatic hypotension or significant new edema",
+        "source": "FDA prescribing information (Norvasc label)"
+      },
+      {
+        "organ": "Hepatic",
+        "risk_level": "Low",
+        "reason": "Hepatically metabolized; impaired clearance in hepatic dysfunction can increase exposure",
+        "toxicity": "Increased drug exposure/effect in hepatic impairment",
+        "monitoring_parameters": [
+          "Blood pressure response"
+        ],
+        "frequency": "Closer monitoring in known hepatic impairment",
+        "thresholds": "Exaggerated hypotensive response",
+        "source": "FDA prescribing information (Norvasc label)"
+      }
+    ],
+    "monitoring_parameters": [
+      {
+        "parameter": "Blood pressure",
+        "why": "Primary marker of therapeutic effect and of excessive hypotension",
+        "baseline": "Yes",
+        "follow_up": "At initiation, after dose titration, then routinely",
+        "alert_threshold": "Symptomatic hypotension or inadequate control",
+        "risk": "Low"
+      },
+      {
+        "parameter": "Peripheral edema exam",
+        "why": "Dose-related and common reason for discontinuation",
+        "baseline": "Consider",
+        "follow_up": "Periodic",
+        "alert_threshold": "New or worsening significant edema",
+        "risk": "Low"
+      }
+    ],
+    "vital_signs": [
+      {
+        "parameter": "Blood pressure and heart rate",
+        "why": "Monitor for hypotension; reflex tachycardia is uncommon but possible"
+      }
+    ],
+    "renal_dosing": "No specific dose adjustment required for renal impairment.",
+    "hepatic_dosing": "Start at the lower end of dosing and titrate slowly in hepatic impairment due to reduced clearance.",
+    "high_risk_populations": [
+      "Severe aortic stenosis (relative caution)",
+      "Hepatic impairment",
+      "Elderly (start low, titrate slowly)",
+      "Concurrent strong CYP3A4 inhibitors"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": false,
+      "target_range": null,
+      "notes": "Efficacy is monitored via blood pressure, not a drug level."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Norvasc label)",
+        "reference": "Consult current full prescribing information",
+        "date": "General labeling knowledge",
+        "confidence": "Moderate"
+      }
+    ]
+  },
+  "rivaroxaban": {
+    "id": "rivaroxaban",
+    "generic_name": "Rivaroxaban",
+    "brand_names": [
+      "Xarelto"
+    ],
+    "drug_class": "Direct factor Xa inhibitor (DOAC)",
+    "pharmacology": "Directly inhibits factor Xa, reducing thrombin generation. Substantial renal elimination (~one-third as active drug); substrate of CYP3A4 and P-glycoprotein.",
+    "boxed_warning": "Premature discontinuation increases thrombotic risk; epidural/spinal hematoma risk with neuraxial procedures.",
+    "contraindications": [
+      "Active pathological bleeding",
+      "Severe hepatic impairment / hepatic disease associated with coagulopathy",
+      "Concurrent use with other anticoagulants (except during bridging, per protocol)"
+    ],
+    "adverse_effects": {
+      "common": [
+        "Bruising",
+        "Minor bleeding",
+        "Back pain (trial-reported)"
+      ],
+      "serious": [
+        "Major hemorrhage (GI, other)",
+        "Hepatic injury (rare)"
+      ],
+      "life_threatening": [
+        "Intracranial hemorrhage",
+        "Spinal/epidural hematoma with neuraxial anesthesia"
+      ]
+    },
+    "organ_toxicity": [
+      {
+        "organ": "Hematologic",
+        "risk_level": "High",
+        "reason": "Anticoagulant mechanism directly increases bleeding risk, potentiated by interacting drugs or renal impairment",
+        "toxicity": "Hemorrhage at any site",
+        "monitoring_parameters": [
+          "Hemoglobin/Hematocrit",
+          "Signs of bleeding",
+          "Renal function (affects clearance)"
+        ],
+        "frequency": "No routine coagulation monitoring required; periodic renal function and clinical bleeding assessment",
+        "thresholds": "Unexplained hemoglobin drop or overt bleeding",
+        "source": "FDA prescribing information (Xarelto label)"
+      },
+      {
+        "organ": "Renal",
+        "risk_level": "Moderate",
+        "reason": "Substantial renal elimination; impairment raises exposure more than with some other DOACs",
+        "toxicity": "Drug accumulation in renal impairment",
+        "monitoring_parameters": [
+          "Serum creatinine/eGFR"
+        ],
+        "frequency": "Baseline, then periodically (more often if renal function borderline or declining)",
+        "thresholds": "Significant decline in renal function",
+        "source": "FDA prescribing information (Xarelto label)"
+      }
+    ],
+    "monitoring_parameters": [
+      {
+        "parameter": "Hemoglobin/Hematocrit",
+        "why": "Detect occult bleeding",
+        "baseline": "Consider",
+        "follow_up": "Periodic and with bleeding symptoms",
+        "alert_threshold": "Unexplained drop",
+        "risk": "Moderate"
+      },
+      {
+        "parameter": "Serum creatinine/eGFR",
+        "why": "Guides dosing given substantial renal elimination",
+        "baseline": "Yes",
+        "follow_up": "Periodic, more frequently if renal function is reduced or declining",
+        "alert_threshold": "Significant decline",
+        "risk": "Moderate"
+      }
+    ],
+    "vital_signs": [
+      {
+        "parameter": "Blood pressure/signs of bleeding",
+        "why": "Monitor for occult or overt hemorrhage"
+      }
+    ],
+    "renal_dosing": "Dose adjustment or avoidance required at defined eGFR/CrCl thresholds per labeling; avoid in severe renal impairment per product-specific guidance.",
+    "hepatic_dosing": "Avoid in moderate-to-severe hepatic impairment or any hepatic disease associated with coagulopathy.",
+    "high_risk_populations": [
+      "Renal impairment",
+      "Elderly",
+      "Concurrent antiplatelet/anticoagulant/NSAID use",
+      "Concurrent combined P-glycoprotein and strong CYP3A4 inhibitors or inducers"
+    ],
+    "therapeutic_drug_monitoring": {
+      "applicable": false,
+      "target_range": null,
+      "notes": "No routine coagulation monitoring required; specialized anti-Xa assays exist for specific clinical scenarios but are not routine."
+    },
+    "evidence": [
+      {
+        "source": "FDA-approved prescribing information (Xarelto label)",
+        "reference": "Consult current full prescribing information",
+        "date": "General labeling knowledge",
+        "confidence": "Moderate"
+      }
+    ]
   }
 }
